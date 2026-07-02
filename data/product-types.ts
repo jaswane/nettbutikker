@@ -33,7 +33,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "sko",
     name: "Sko",
-    aliases: ["sko", "joggesko", "sneakers", "støvler"],
+    aliases: ["sko", "joggesko", "sneakers", "støvler", "vintersko", "sandaler", "barnesko"],
+    categories: ["klaer-sko-mote"],
+  },
+  {
+    slug: "jakker",
+    name: "Jakker",
+    aliases: ["jakker", "vinterjakke", "regnjakke", "dunjakke", "allværsjakke", "skalljakke"],
     categories: ["klaer-sko-mote"],
   },
 
@@ -49,13 +55,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "sykkel",
     name: "Sykkel",
-    aliases: ["sykkel", "el-sykkel", "sykkeldeler"],
+    aliases: ["sykkel", "el-sykkel", "sykkeldeler", "sykkelhjelm"],
     categories: ["sport-friluft-trening"],
   },
   {
     slug: "friluft",
     name: "Friluftsutstyr",
-    aliases: ["friluft", "telt", "sovepose", "tursekk"],
+    aliases: ["friluft", "telt", "sovepose", "tursekk", "fjellsko"],
     categories: ["sport-friluft-trening"],
     brandSlugs: ["norrona", "patagonia"],
   },
@@ -64,13 +70,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "mobler",
     name: "Møbler",
-    aliases: ["møbler", "sofa", "stol", "bord"],
+    aliases: ["møbler", "sofa", "stol", "bord", "spisebord"],
     categories: ["hjem-interior-hage"],
   },
   {
     slug: "kjokken",
     name: "Kjøkkenutstyr",
-    aliases: ["kjøkken", "kjøkkenutstyr", "gryter"],
+    aliases: ["kjøkken", "kjøkkenutstyr", "gryter", "servise", "bestikk"],
     categories: ["hjem-interior-hage"],
   },
   {
@@ -79,12 +85,36 @@ export const productTypes: ProductType[] = [
     aliases: ["hage", "hagemøbler", "planter"],
     categories: ["hjem-interior-hage"],
   },
+  {
+    slug: "senger",
+    name: "Senger og madrasser",
+    aliases: ["seng", "senger", "madrass", "sengetøy", "dyne", "pute"],
+    categories: ["hjem-interior-hage"],
+  },
+  {
+    slug: "grill",
+    name: "Grill",
+    aliases: ["grill", "gassgrill", "kullgrill", "grilltilbehør"],
+    categories: ["hjem-interior-hage"],
+  },
+  {
+    slug: "hagemaskiner",
+    name: "Hagemaskiner",
+    aliases: ["hagemaskiner", "gressklipper", "robotgressklipper", "robotklipper", "snøfreser"],
+    categories: ["hjem-interior-hage"],
+  },
+  {
+    slug: "verktoy",
+    name: "Verktøy",
+    aliases: ["verktøy", "drill", "verktøysett", "skrutrekker", "elektroverktøy"],
+    categories: ["hjem-interior-hage", "bil-bat-motor"],
+  },
 
   // --- Elektronikk, data og gaming -------------------------------------------------
   {
     slug: "pc-data",
     name: "PC og datautstyr",
-    aliases: ["pc", "gaming-pc", "laptop", "komponenter"],
+    aliases: ["pc", "gaming-pc", "laptop", "komponenter", "skjermkort", "tastatur", "gamingstol", "datamus"],
     categories: ["elektronikk-data-gaming"],
   },
   {
@@ -97,33 +127,69 @@ export const productTypes: ProductType[] = [
   {
     slug: "lyd-bilde",
     name: "TV, lyd og bilde",
-    aliases: ["tv", "lyd", "hodetelefoner", "høyttaler"],
+    aliases: ["tv", "lyd", "hodetelefoner", "høyttaler", "soundbar"],
     categories: ["elektronikk-data-gaming"],
     brandSlugs: ["sony", "samsung"],
+  },
+  {
+    slug: "mobiltilbehor",
+    name: "Mobiltilbehør",
+    aliases: ["mobiltilbehør", "mobildeksel", "lader", "mobillader", "powerbank"],
+    categories: ["elektronikk-data-gaming"],
+  },
+  {
+    slug: "stovsuger",
+    name: "Støvsuger",
+    aliases: ["støvsuger", "robotstøvsuger", "håndstøvsuger"],
+    categories: ["elektronikk-data-gaming", "hjem-interior-hage"],
+  },
+  {
+    slug: "hvitevarer",
+    name: "Hvitevarer",
+    aliases: ["hvitevarer", "kjøleskap", "vaskemaskin", "oppvaskmaskin", "tørketrommel", "komfyr"],
+    categories: ["elektronikk-data-gaming", "hjem-interior-hage"],
+  },
+  {
+    slug: "kjokkenapparater",
+    name: "Kjøkkenapparater",
+    aliases: ["kjøkkenapparater", "kjøkkenmaskin", "kaffetrakter", "espressomaskin", "airfryer", "blender"],
+    categories: ["elektronikk-data-gaming", "hjem-interior-hage"],
   },
 
   // --- Baby, barn og leker ----------------------------------------------------------
   {
     slug: "leker",
     name: "Leker",
-    aliases: ["leker", "leketøy", "lego", "brettspill"],
+    aliases: ["leker", "leketøy", "lego", "brettspill", "byggeklosser", "dukker", "dukkehus"],
     categories: ["baby-barn-leker"],
     brandSlugs: ["lego"],
   },
   {
     slug: "babyutstyr",
     name: "Babyutstyr",
-    aliases: ["babyutstyr", "barnevogn", "bæresele"],
+    aliases: ["babyutstyr", "barnevogn", "bæresele", "smokk", "tåteflaske", "stellebord"],
     categories: ["baby-barn-leker"],
+  },
+  {
+    slug: "bilbarnesete",
+    name: "Bilbarnesete",
+    aliases: ["bilbarnesete", "bilstol til barn", "barnesete til bil", "bilseter til barn"],
+    categories: ["baby-barn-leker", "bil-bat-motor"],
   },
 
   // --- Helse, skjønnhet og apotek -----------------------------------------------------
   {
     slug: "hudpleie",
     name: "Hudpleie",
-    aliases: ["hudpleie", "ansiktskrem", "serum"],
+    aliases: ["hudpleie", "ansiktskrem", "serum", "solkrem", "fuktighetskrem"],
     categories: ["helse-skjonnhet-apotek"],
     brandSlugs: ["the-ordinary", "cerave"],
+  },
+  {
+    slug: "harpleie",
+    name: "Hårpleie",
+    aliases: ["sjampo", "shampo", "balsam", "hårprodukter"],
+    categories: ["helse-skjonnhet-apotek"],
   },
   {
     slug: "apotek",
@@ -142,14 +208,14 @@ export const productTypes: ProductType[] = [
   {
     slug: "hund",
     name: "Hundeutstyr og fôr",
-    aliases: ["hund", "hundefor", "hundeutstyr"],
+    aliases: ["hund", "hundefor", "hundeutstyr", "hundemat", "hundebur", "hundeseng"],
     categories: ["dyr-kjaeledyr"],
     brandSlugs: ["royal-canin"],
   },
   {
     slug: "katt",
     name: "Katteutstyr og fôr",
-    aliases: ["katt", "kattefor", "kattesand"],
+    aliases: ["katt", "kattefor", "kattesand", "kattemat"],
     categories: ["dyr-kjaeledyr"],
   },
 
@@ -163,7 +229,7 @@ export const productTypes: ProductType[] = [
   {
     slug: "dekk",
     name: "Dekk og felg",
-    aliases: ["dekk", "felger", "vinterdekk"],
+    aliases: ["dekk", "felger", "vinterdekk", "sommerdekk", "helårsdekk"],
     categories: ["bil-bat-motor"],
   },
 
@@ -177,7 +243,7 @@ export const productTypes: ProductType[] = [
   {
     slug: "kaffe-te",
     name: "Kaffe og te",
-    aliases: ["kaffe", "te"],
+    aliases: ["kaffe", "te", "kaffebønner"],
     categories: ["mat-drikke-dagligvarer"],
   },
 
@@ -185,13 +251,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "kreativt",
     name: "Kreativt og håndarbeid",
-    aliases: ["garn", "maling", "håndarbeid"],
+    aliases: ["garn", "maling", "håndarbeid", "symaskin", "strikkepinner"],
     categories: ["hobby-gaver-moro"],
   },
   {
     slug: "gaver",
     name: "Gaver",
-    aliases: ["gave", "gaver", "gaveideer"],
+    aliases: ["gave", "gaver", "gaveideer", "julegave", "julegaver", "bursdagsgave"],
     categories: ["hobby-gaver-moro"],
   },
 
@@ -199,7 +265,7 @@ export const productTypes: ProductType[] = [
   {
     slug: "briller",
     name: "Briller",
-    aliases: ["briller", "solbriller"],
+    aliases: ["briller", "solbriller", "lesebriller"],
     categories: ["syn-briller-linser"],
     brandSlugs: ["ray-ban"],
   },

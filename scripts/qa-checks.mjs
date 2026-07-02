@@ -637,7 +637,8 @@ try {
   const cases = JSON.parse(await readText("scripts/eval-queries.json"));
   const s = runEval(searchStores, cases);
 
-  const FORSTAAELSE_GULV = 45;
+  // Hevet fra baseline 45 etter vokabular-utvidelsen (docs/sokekvalitet.md §4).
+  const FORSTAAELSE_GULV = 95;
   const AERLIGHET_GULV = 100;
 
   if (s.forstaelse >= FORSTAAELSE_GULV) {

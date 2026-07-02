@@ -27,6 +27,8 @@ npm run dev        # utvikling på http://localhost:3000
 | `npm run lint`      | ESLint (next/core-web-vitals)                            |
 | `npm run typecheck` | `tsc --noEmit`                                           |
 | `npm run qa`        | Prosjektspesifikke QA-kontroller (se under)              |
+| `npm run eval`      | Søkekvalitetsrapport mot spørringspanelet ([docs/sokekvalitet.md](docs/sokekvalitet.md)) |
+| `npm run golden`    | Regenerer golden-baseline etter bevisste søkeendringer   |
 | `npm run check`     | lint + typecheck + qa + build                            |
 
 ## Ruter
