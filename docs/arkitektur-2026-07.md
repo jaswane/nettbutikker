@@ -233,11 +233,13 @@ Nøkkelbeslutninger:
   merkeregisteret via katalogen.
 - Kilde (`Source`) som egen liten entitet; `sourceUrl` på claims peker dit.
 
-**Fase 2 – ProductType (før 500 butikker):**
-- Løft underkategori-aliasene ut til en `data/product-types.ts` med
-  `maps_to`-kanter. Leksikonet plukker dem opp automatisk (ny entitetstype).
-- Søk på produkttype gir presisere svar («løpesko» ≠ «sport generelt»).
-- QA: hver produkttype må ha minst én butikk-vei, ellers feiler bygget.
+**Fase 2 – ProductType (GJORT 2026-07-02, se
+[produkttype-modell.md](produkttype-modell.md)):**
+- `data/product-types.ts` – underkategoriene løftet til et eget
+  etterspørselsvokabular med kategorihjem, broader-pekere og merkekanter.
+- Søk navngir produkttypen i svaret; profil- og kategorisider lenker
+  grafen internt. QA: velformet vokabular + minst én butikk-vei per type.
+- Gjenstår til fase 3: `sells`-kanten som egne rader med claim-metadata.
 
 **Fase 3 – Datavekst (500+ butikker):**
 - TS → JSON-datafiler med skjemavalidering (zod) bak katalogen.

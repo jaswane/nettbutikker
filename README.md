@@ -43,6 +43,9 @@ npm run dev        # utvikling på http://localhost:3000
 ## Datamodell (`data/` + `lib/types.ts`)
 - `data/stores.ts` – 30 testbutikker (`Store`, `StoreAttributes`, `FieldConfidence` …)
 - `data/categories.ts` – 13 hovedkategorier + `CategoryMapping`
+- `data/product-types.ts` – produkttype-vokabularet («løpesko», «hundefôr» …):
+  det brukeren vil kjøpe, adskilt fra navigasjonskategoriene
+  (se [docs/produkttype-modell.md](docs/produkttype-modell.md))
 - `data/brands.ts` – merkevarer for søk/ranking
 - `data/attribute-definitions.ts` – attributt-REGISTERET: én oppføring per
   attributt driver Advanced Mode-filtre, badges og søkefraser
