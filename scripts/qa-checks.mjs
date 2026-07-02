@@ -378,6 +378,9 @@ try {
     ["intent=category_recommendation", (r) => r.parsed.intent === "category_recommendation"],
     ["best er sportsbutikk", (r) =>
       r.best?.store.categories.some((c) => c.main === "sport-friluft-trening")],
+    // The answer must name the product type, not just the category – that is
+    // the point of the vocabulary (docs/produkttype-modell.md §4).
+    ["overskrift nevner løpesko", (r) => /løpesko/i.test(r.answer.headline)],
     [
       "ingen dyrebutikker i topp 3 (stoppord-regresjon)",
       (r) =>
@@ -385,6 +388,12 @@ try {
           .filter(Boolean)
           .every((x) => !x.store.categories.some((c) => c.main === "dyr-kjaeledyr")),
     ],
+  ]);
+
+  expectSearch("Hvor kan jeg kjøpe hundefôr?", {}, [
+    ["intent=where_to_buy", (r) => r.parsed.intent === "where_to_buy"],
+    ["produkttype gjenkjent", (r) => r.parsed.productTypeSlugs.includes("hund")],
+    ["overskrift bruker produkttypenavnet", (r) => /hundeutstyr og fôr/i.test(r.answer.headline)],
   ]);
 
   expectSearch("Hvor kjøper jeg gaming-PC?", {}, [

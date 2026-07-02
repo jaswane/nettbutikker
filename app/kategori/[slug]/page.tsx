@@ -8,8 +8,10 @@ import { SearchForm } from "@/components/SearchForm";
 import {
   allCategories as categories,
   getCategory,
+  productTypesInCategory,
   storesInCategorySorted,
 } from "@/lib/catalog";
+import { buildSearchUrl } from "@/lib/search/url";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -46,6 +48,7 @@ export default async function CategoryPage({
   if (!cat) notFound();
 
   const list = storesInCategorySorted(cat.slug);
+  const popular = productTypesInCategory(cat.slug);
 
   const itemList = {
     "@context": "https://schema.org",
@@ -79,6 +82,21 @@ export default async function CategoryPage({
         <div className="mt-6">
           <SearchForm variant="bar" initialQuery={cat.shortName} />
         </div>
+
+        {popular.length > 0 && (
+          <div className="mt-5">
+            <h2 className="mb-2 text-xs font-medium uppercase tracking-wide text-ink-muted">
+              Populære søk
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {popular.map((pt) => (
+                <Link key={pt.slug} href={buildSearchUrl(pt.name)} className="chip">
+                  {pt.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {list.length > 0 ? (

@@ -2,6 +2,7 @@ import {
   allStores as stores,
   getBrand,
   getCategory,
+  getProductType,
   getStore,
   storesInCategory,
   storesMatchingFilter,
@@ -76,6 +77,19 @@ function attributePhrase(active: FilterKey[]): { noun: string; suffix: string } 
     noun: isNorwegian ? "norske butikker" : "butikker",
     suffix: labels.length ? ` registrert med ${joinNo(labels)}` : "",
   };
+}
+
+/**
+ * What the user is shopping for, for use in answer copy. The product type is
+ * preferred over the category – «vårt beste valg for løpesko» shows we
+ * understood; the category name only shows we matched coarsely.
+ */
+function searchTopic(parsed: ParsedQuery): string | undefined {
+  const productType = parsed.productTypeSlugs
+    .map((s) => getProductType(s)?.name)
+    .filter(Boolean)[0];
+  const category = parsed.categorySlugs.map((s) => getCategory(s)?.name).filter(Boolean)[0];
+  return (productType ?? category)?.toLowerCase();
 }
 
 function buildAnswer(
@@ -154,10 +168,10 @@ function buildAnswer(
     }
 
     case "where_to_buy": {
-      const cat = parsed.categorySlugs.map((s) => getCategory(s)?.name).filter(Boolean)[0];
+      const topic = searchTopic(parsed);
       return {
-        headline: cat
-          ? `${name} er et godt sted å kjøpe ${cat.toLowerCase()}.`
+        headline: topic
+          ? `${name} er et godt sted å kjøpe ${topic}.`
           : `${name} er et godt sted å handle for dette.`,
         subline: "Under finner du flere butikker som også dekker det du leter etter.",
         bestLabel: "Vår anbefaling",
@@ -166,10 +180,10 @@ function buildAnswer(
     }
 
     case "category_recommendation": {
-      const cat = parsed.categorySlugs.map((s) => getCategory(s)?.name).filter(Boolean)[0];
+      const topic = searchTopic(parsed);
       return {
-        headline: cat
-          ? `${name} er vårt beste valg innen ${cat.toLowerCase()}.`
+        headline: topic
+          ? `${name} er vårt beste valg for ${topic}.`
           : `${name} er vårt beste valg for søket ditt.`,
         bestLabel: "Beste valg",
         tone: "recommend",

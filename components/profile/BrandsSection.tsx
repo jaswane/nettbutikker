@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCategory, getProductType } from "@/lib/catalog";
+import { buildSearchUrl } from "@/lib/search/url";
 import { RELEVANCE } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 
@@ -18,12 +19,23 @@ export function BrandsSection({ store }: { store: Store }) {
                 key={`${c.main}-${c.productType ?? ""}`}
                 className="flex items-baseline justify-between gap-6 border-t border-line py-2.5 text-sm first:border-t-0"
               >
-                <Link href={`/kategori/${c.main}`} className="text-ink hover:text-accent">
-                  {cat?.name ?? c.main}
+                <span className="min-w-0">
+                  <Link href={`/kategori/${c.main}`} className="text-ink hover:text-accent">
+                    {cat?.name ?? c.main}
+                  </Link>
                   {productType && (
-                    <span className="text-ink-muted"> · {productType.name}</span>
+                    <>
+                      <span className="text-ink-muted"> · </span>
+                      {/* Internal link into the search projection of the same edge */}
+                      <Link
+                        href={buildSearchUrl(productType.name)}
+                        className="text-ink-muted underline-offset-2 hover:text-accent hover:underline"
+                      >
+                        {productType.name}
+                      </Link>
+                    </>
                   )}
-                </Link>
+                </span>
                 <span className="text-xs text-ink-faint">{RELEVANCE[c.relevance]}</span>
               </li>
             );
