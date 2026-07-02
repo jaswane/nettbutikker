@@ -521,6 +521,72 @@ try {
   }
 }
 
+// --- 11f. Confidence policy (docs/claims-modell.md §8) -----------------------
+// high/medium = fakta · low = match men merket «?», halv ranking-uttelling,
+// «Trolig ja» · unknown/manglende claim = aldri match. Testet syntetisk for
+// alle fire nivåene så policyen ikke kan skli i én konsument uten at bygget
+// feiler.
+{
+  const { attributeByKey, attributeMatches, priorityBadges } = await importTs(
+    "data/attribute-definitions.ts",
+  );
+  const { jaFc } = await importTs("lib/storeFormat.ts");
+  const { scoreStore } = await importTs("lib/search/ranking.ts");
+
+  const mkStore = (vippsFc) => ({
+    id: "t", name: "T", slug: "t", websiteUrl: "https://t.no",
+    shortDescription: "", bestFor: [], categories: [],
+    country: "NO", isNorwegian: true, shipsToNorway: true,
+    attributes: {
+      payments: vippsFc ? { vipps: vippsFc } : {},
+      shipping: {}, geography: {}, commercial: {}, trust: {},
+    },
+    trustLevel: "medium", dataQuality: "B", editorialScore: 50,
+    lastChecked: "2026-06-24",
+  });
+  const fc = (confidence, value = true) => ({ value, confidence, lastChecked: "2026-06-24" });
+  const vippsDef = attributeByKey.get("vipps");
+  const problems = [];
+  const expect = (label, cond) => { if (!cond) problems.push(label); };
+
+  // Filter-match per nivå
+  expect("high matcher", attributeMatches(mkStore(fc("high")), vippsDef) === true);
+  expect("medium matcher", attributeMatches(mkStore(fc("medium")), vippsDef) === true);
+  expect("low matcher", attributeMatches(mkStore(fc("low")), vippsDef) === true);
+  expect("unknown matcher IKKE", attributeMatches(mkStore(fc("unknown")), vippsDef) === false);
+  expect("manglende claim matcher IKKE", attributeMatches(mkStore(undefined), vippsDef) === false);
+
+  // Badge-merking
+  const badgeLabels = (s) => priorityBadges(s, ["vipps"], 6).map((b) => b.label);
+  expect("high-badge uten «?»", badgeLabels(mkStore(fc("high"))).includes("Vipps"));
+  const lowBadges = priorityBadges(mkStore(fc("low")), ["vipps"], 6);
+  expect("low-badge har «?» og uncertain", lowBadges.some((b) => b.label === "Vipps?" && b.uncertain));
+  expect("unknown gir ingen vipps-badge", !badgeLabels(mkStore(fc("unknown"))).some((l) => l.startsWith("Vipps")));
+
+  // Profiltekst
+  expect("jaFc high → Ja", jaFc(fc("high")) === "Ja");
+  expect("jaFc low true → Trolig ja", jaFc(fc("low")) === "Trolig ja");
+  expect("jaFc low false → Trolig nei", jaFc(fc("low", false)) === "Trolig nei");
+  expect("jaFc unknown → Ukjent", jaFc(fc("unknown")) === "Ukjent");
+  expect("jaFc mangler → Ukjent", jaFc(undefined) === "Ukjent");
+
+  // Ranking: verifisert > uverifisert ved ellers likt
+  const q = {
+    raw: "vipps", normalized: "vipps", tokens: ["vipps"],
+    intent: "store_with_attribute", categorySlugs: [], productTypeSlugs: [],
+    brandSlugs: [], attributeFilters: ["vipps"],
+    wantsNorwegian: false, wantsBest: false,
+  };
+  const high = scoreStore(mkStore(fc("high")), q);
+  const low = scoreStore(mkStore(fc("low")), q);
+  expect("low får halv uttelling", high.matchScore === 14 && low.matchScore === 7);
+  expect("low er merket unverified", low.unverifiedFilters.includes("vipps"));
+  expect("low-reason sier ikke bekreftet", low.reasons.some((r) => r.includes("ikke bekreftet")));
+
+  if (problems.length) fail(`Confidence-policy: ${problems.join("; ")}`);
+  else ok("Confidence-policyen håndheves for high/medium/low/unknown");
+}
+
 // --- 12. Golden search regression (frozen baseline) --------------------------
 // scripts/golden-queries.json freezes intent/understood/count/top-3 for a
 // query battery. Any drift fails the build; intentional engine changes must

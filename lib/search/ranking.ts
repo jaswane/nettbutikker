@@ -1,4 +1,9 @@
-import { filterByKey, type FilterKey } from "@/data/attribute-definitions";
+import {
+  attributeByKey,
+  attributeConfidence,
+  attributeMatches,
+  type FilterKey,
+} from "@/data/attribute-definitions";
 import type { Store } from "@/lib/types";
 import type { ParsedQuery } from "@/lib/search/intent";
 
@@ -25,6 +30,8 @@ export type ScoredStore = {
   matchScore: number;
   reasons: string[];
   matchedFilters: FilterKey[];
+  /** Matched filters resting on low-confidence claims (subset of matchedFilters). */
+  unverifiedFilters: FilterKey[];
 };
 
 const TRUST_SCORE: Record<Store["trustLevel"], number> = {
@@ -104,16 +111,29 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     }
   }
 
-  // Requested attributes.
+  // Requested attributes. Confidence policy (docs/claims-modell.md §8):
+  // unknown never matches; low counts half so verified stores outrank
+  // unverified ones when the match is otherwise equal.
+  const unverifiedFilters: FilterKey[] = [];
   for (const key of q.attributeFilters) {
-    const def = filterByKey.get(key);
-    if (def?.predicate(store)) {
-      matchScore += key === "norwegian" ? 16 : 14;
-      matchedFilters.push(key);
+    const def = attributeByKey.get(key);
+    if (!def || !attributeMatches(store, def)) continue;
+    const base = key === "norwegian" ? 16 : 14;
+    if (attributeConfidence(store, def) === "low") {
+      matchScore += Math.round(base / 2);
+      unverifiedFilters.push(key);
+    } else {
+      matchScore += base;
     }
+    matchedFilters.push(key);
   }
-  if (matchedFilters.length) {
-    reasons.push(`Matcher ${matchedFilters.length} av filtrene dine`);
+  const verifiedCount = matchedFilters.length - unverifiedFilters.length;
+  if (verifiedCount > 0) {
+    reasons.push(`Matcher ${verifiedCount} av filtrene dine`);
+  }
+  if (unverifiedFilters.length) {
+    const labels = unverifiedFilters.map((k) => attributeByKey.get(k)?.label ?? k);
+    reasons.push(`Kan ha ${labels.join(" og ")} – ikke bekreftet`);
   }
 
   // Quality baseline: trust, data quality, editorial. Kept OUT of matchScore –
@@ -141,7 +161,14 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     reasons.push("Vær ekstra forsiktig – lav tillit");
   }
 
-  return { store, score: matchScore + baseline, matchScore, reasons, matchedFilters };
+  return {
+    store,
+    score: matchScore + baseline,
+    matchScore,
+    reasons,
+    matchedFilters,
+    unverifiedFilters,
+  };
 }
 
 /** Stable comparator with affiliate as the very last tiebreaker only. */

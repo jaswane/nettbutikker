@@ -7,8 +7,23 @@ const toneClass: Record<BadgeTone, string> = {
   warn: "badge-warn",
 };
 
-export function Badge({ label, tone = "neutral" }: { label: string; tone?: BadgeTone }) {
-  return <span className={toneClass[tone]}>{label}</span>;
+export function Badge({
+  label,
+  tone = "neutral",
+  uncertain = false,
+}: {
+  label: string;
+  tone?: BadgeTone;
+  uncertain?: boolean;
+}) {
+  return (
+    <span
+      className={toneClass[tone]}
+      title={uncertain ? "Ikke bekreftet – sjekk hos butikken" : undefined}
+    >
+      {label}
+    </span>
+  );
 }
 
 export function BadgeRow({ badges }: { badges: AttributeBadge[] }) {
@@ -16,7 +31,7 @@ export function BadgeRow({ badges }: { badges: AttributeBadge[] }) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {badges.map((b) => (
-        <Badge key={b.label} label={b.label} tone={b.tone} />
+        <Badge key={b.label} label={b.label} tone={b.tone} uncertain={b.uncertain} />
       ))}
     </div>
   );

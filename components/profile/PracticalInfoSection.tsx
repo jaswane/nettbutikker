@@ -1,11 +1,12 @@
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
 import { COUNTRY, ja, jaFc, shipText } from "@/lib/storeFormat";
-import type { Store } from "@/lib/types";
+import type { Confidence, Store } from "@/lib/types";
 
 type Row = { label: string; value: string };
 
-function flag(fc?: { value: boolean }): boolean {
-  return fc?.value === true;
+/** True claims only – and unknown-confidence never asserts (claims-modell §8). */
+function flag(fc?: { value: boolean; confidence: Confidence }): boolean {
+  return fc?.value === true && fc.confidence !== "unknown";
 }
 
 /** A flat label/value group – thin separators, no box around it. */
@@ -69,13 +70,13 @@ export function PracticalInfoSection({ store }: { store: Store }) {
   // Other terms: only surface the ones that actually apply, to avoid a wall of "Nei".
   const c = a.commercial;
   const andreVilkar: Row[] = [
-    flag(c.subscription) && { label: "Abonnement", value: "Ja" },
-    flag(c.bindingPeriod) && { label: "Bindingstid", value: "Ja" },
-    flag(c.freeTrial) && { label: "Gratis prøve", value: "Ja" },
-    flag(c.introOffer) && { label: "Introtilbud", value: "Ja" },
-    flag(c.giftCard) && { label: "Gavekort", value: "Ja" },
-    flag(c.outlet) && { label: "Outlet", value: "Ja" },
-    flag(c.priceMatch) && { label: "Prismatch", value: "Ja" },
+    flag(c.subscription) && { label: "Abonnement", value: jaFc(c.subscription) },
+    flag(c.bindingPeriod) && { label: "Bindingstid", value: jaFc(c.bindingPeriod) },
+    flag(c.freeTrial) && { label: "Gratis prøve", value: jaFc(c.freeTrial) },
+    flag(c.introOffer) && { label: "Introtilbud", value: jaFc(c.introOffer) },
+    flag(c.giftCard) && { label: "Gavekort", value: jaFc(c.giftCard) },
+    flag(c.outlet) && { label: "Outlet", value: jaFc(c.outlet) },
+    flag(c.priceMatch) && { label: "Prismatch", value: jaFc(c.priceMatch) },
   ].filter(Boolean) as Row[];
 
   return (

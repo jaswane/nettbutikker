@@ -39,22 +39,34 @@ export function ja(value: boolean | undefined): string {
   return value === undefined ? "Ukjent" : value ? "Ja" : "Nei";
 }
 
-/** Ja / Nei / Ukjent from a confidence-wrapped boolean (confidence not shown). */
+/**
+ * Ja / Nei / Ukjent from a confidence-wrapped boolean, per the confidence
+ * policy (docs/claims-modell.md §8): low-confidence claims must not read as
+ * certain («Trolig ja»), unknown reads as absent («Ukjent»).
+ */
 export function jaFc(fc?: FieldConfidence<boolean>): string {
-  return fc === undefined ? "Ukjent" : fc.value ? "Ja" : "Nei";
+  if (fc === undefined || fc.confidence === "unknown") return "Ukjent";
+  const base = fc.value ? "Ja" : "Nei";
+  return fc.confidence === "low" ? `Trolig ${base.toLowerCase()}` : base;
 }
 
 export function shipText(fc?: FieldConfidence<ShippingType>): string {
-  switch (fc?.value) {
+  if (fc === undefined || fc.confidence === "unknown") return "Ukjent";
+  let base: string;
+  switch (fc.value) {
     case "free":
-      return "Fri frakt";
+      base = "Fri frakt";
+      break;
     case "free_over_amount":
-      return "Fri frakt over beløp";
+      base = "Fri frakt over beløp";
+      break;
     case "paid":
-      return "Betalt frakt";
+      base = "Betalt frakt";
+      break;
     default:
       return "Ukjent";
   }
+  return fc.confidence === "low" ? `${base} (ikke bekreftet)` : base;
 }
 
 /** Short one-line geography label for the header. */

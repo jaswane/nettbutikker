@@ -97,12 +97,8 @@ får definert semantikk (gjelder fra nå):
 I loggen (fase 3) beregnes confidence av resolusjonen (kilde-type × alder ×
 enighet mellom kilder); i dag settes den manuelt etter samme skala.
 
-**Kjent, akseptert hull:** filtre og badges behandler i dag `low`-claims som
-fakta («har Vipps»). Akseptabelt mens dataene er illustrative prototypdata
-med global disclaimer; skal fikses når ekte data kommer – da skal
-`low`-claims enten re-verifiseres eller vises med forbehold. Beslutningen om
-*når* er knyttet til fase 3-triggeren (§6), og QA-ferskhetssjekken (§7)
-sørger for at `low` ikke i tillegg blir *gammel* uten at bygget sier fra.
+Hvordan nivåene skal påvirke produktet er vedtatt som confidence-policyen i
+§8 (implementert 2026-07-02).
 
 ## 4. «Sist kontrollert» og ferskhet
 
@@ -206,5 +202,52 @@ resolusjonslogikk uten data å resolvere, og QA som tester tomme baner.
    (dagens verdier er allerede konsistente med skalaen).
 
 Bevisst IKKE bygget: claim-logg, Source-entitet, resolusjonsmotor, review-kø,
-confidence i rangering/filtre, per-fakta «sist kontrollert» i UI. Alt er
-spesifisert over og venter på T1-triggeren.
+per-fakta «sist kontrollert» i UI. Alt er spesifisert over og venter på
+T1-triggeren.
+
+## 8. Confidence-policyen (MVP) – vedtatt 2026-07-02
+
+**Produktproblemet:** filtre, badges og profiler presenterte `low`-claims som
+sikre fakta («har Vipps»). Det bryter kjerneløftet: Nettbutikker.no skal aldri
+framstå mer sikker enn datagrunnlaget. Dette er ikke et kantttilfelle –
+109 claims i dagens datasett er eksplisitt `low`.
+
+**Prinsippet:** usikkerhet skal aldri redusere *gjenfinning* (vi gjemmer ikke
+butikker brukeren kan ha nytte av), bare redusere *skråsikkerhet* (merking)
+og *prioritet* (verifisert rangeres foran uverifisert ved ellers likt).
+Å ekskludere `low` fra treff ville straffet ærlig datamerking og gjort
+resultatene tommere uten å gjøre dem sannere.
+
+| Nivå | Filtre/attributtsøk | Badge | Profil (Ja/Nei-rader) | Ranking (attributt-match) |
+| --- | --- | --- | --- | --- |
+| `high` | match | vises | «Ja» / «Nei» | full uttelling |
+| `medium` | match | vises | «Ja» / «Nei» | full uttelling |
+| `low` | match, men merket | vises med **«?»** + forklarende tittel | «Trolig ja» / «Trolig nei» | **halv** uttelling |
+| `unknown` / claim mangler | **ikke** match | vises ikke | «Ukjent» | ingen |
+
+Utfyllende beslutninger:
+
+- **Forklaringstekster:** «Derfor»-listen skiller bekreftet fra ubekreftet:
+  «Matcher N av filtrene dine» gjelder bekreftede; ubekreftede får egen linje
+  «Kan ha X – ikke bekreftet».
+- **Svaret:** attributtsøk der viste treff hviler på `low`-claims får
+  forbeholdet «Opplysninger merket «?» er ikke bekreftet – sjekk hos
+  butikken.» i undertittelen, slik at «?»-merkene på kortene er forklart.
+- **`medium` merkes ikke.** Det er redaksjonens standardnivå; å merke det
+  ville druknet UI-et i forbehold og utvannet «?». Den globale disclaimeren
+  dekker det generelle forbeholdet (uendret, PRD §20).
+- **Tomme resultater:** semantikken er uendret – `low` matcher fortsatt, så
+  ingen søk blir tommere av policyen. Skulle et søk en dag kun ha
+  `unknown`-kandidater, er «ingen treff» det ærlige svaret.
+- **`derived`-attributter** uten claim bak (f.eks. «Kun høy datakvalitet»,
+  som er redaksjonens egen dom) regnes som sikre.
+- **Ranking-effekten er bevisst liten** (halv uttelling, ikke ekskludering):
+  den skiller verifisert fra uverifisert ved ellers likt match, uten å la
+  usikkerhet overstyre relevans. Golden-baselinen ble regenerert med
+  dokumentert diff.
+
+Håndhevet i `attributeMatches`/`attributeConfidence`
+(data/attribute-definitions.ts) – filtre, badges, ranking og
+katalog-postings går alle gjennom samme to funksjoner, så nivåene behandles
+konsekvent per konstruksjon. Regresjonsvern i QA dekker alle fire nivåene
+for filter-match, badge-merking, profiltekst og ranking-uttelling.

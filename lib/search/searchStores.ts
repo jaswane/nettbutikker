@@ -296,10 +296,22 @@ export function searchStores(query: string, options: SearchOptions = {}): Search
   const best = ranked[0];
   const alternatives = ranked.slice(1, 1 + maxAlt);
 
+  // Confidence policy (docs/claims-modell.md §8): when shown results rest on
+  // unverified claims for the requested attributes, the answer must say so –
+  // the «?» badges on the cards need their explanation.
+  const answer = buildAnswer(parsed, activeFilters, best, ranked.length);
+  const shownUnverified = [best, ...alternatives].some(
+    (x) => x && x.unverifiedFilters.length > 0,
+  );
+  if (shownUnverified && parsed.intent === "store_with_attribute") {
+    const caveat = "Opplysninger merket «?» er ikke bekreftet – sjekk hos butikken.";
+    answer.subline = answer.subline ? `${answer.subline} ${caveat}` : caveat;
+  }
+
   return {
     query,
     parsed,
-    answer: buildAnswer(parsed, activeFilters, best, ranked.length),
+    answer,
     best,
     alternatives,
     results: ranked,

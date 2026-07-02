@@ -1,4 +1,4 @@
-import type { DataQuality, Store } from "@/lib/types";
+import type { Confidence, DataQuality, FieldConfidence, Store } from "@/lib/types";
 
 /** Plain-language meaning of the A–D data quality scale (PRD transparency). */
 export const DATA_QUALITY_TEXT: Record<DataQuality, string> = {
@@ -36,6 +36,8 @@ export type BadgeTone = "accent" | "neutral" | "ok" | "warn";
 export type AttributeBadge = {
   label: string;
   tone: BadgeTone;
+  /** True when the underlying claim is low-confidence (shown as «?»). */
+  uncertain?: boolean;
 };
 
 /** Keys for Advanced Mode filters (PRD §13). */
@@ -77,6 +79,12 @@ export type AttributeDefinition = {
   /** When this attribute is detected in a query, drop these broader ones. */
   subsumes?: AttributeKey[];
   predicate: (store: Store) => boolean;
+  /**
+   * The stored claim behind the attribute, when claim-backed. Drives the
+   * confidence policy (docs/claims-modell.md §8). Absent = derived fact
+   * (e.g. data quality), treated as certain.
+   */
+  claim?: (store: Store) => FieldConfidence<unknown> | undefined;
   /** Badge on cards/search results. Absent → no badge. */
   badge?: {
     tone: BadgeTone;
@@ -99,6 +107,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Land og avgift",
     aliases: ["norsk", "norske", "norsk butikk"],
     predicate: (s) => s.isNorwegian,
+    claim: (s) => s.attributes.geography.isNorwegian,
     badge: { tone: "ok", rank: 1 },
   },
   {
@@ -107,6 +116,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Land og avgift",
     aliases: ["sender til norge", "leverer til norge"],
     predicate: (s) => s.shipsToNorway,
+    claim: (s) => s.attributes.geography.shipsToNorway,
     // Only shown for foreign stores – "Norsk butikk" already implies it.
     badge: { tone: "neutral", rank: 1.1, show: (s) => !s.isNorwegian && s.shipsToNorway },
   },
@@ -116,6 +126,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Land og avgift",
     aliases: ["voec"],
     predicate: (s) => flag(s.attributes.geography.voec),
+    claim: (s) => s.attributes.geography.voec,
     badge: { tone: "neutral", rank: 3, show: (s) => !s.isNorwegian && flag(s.attributes.geography.voec) },
   },
 
@@ -126,6 +137,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Betaling",
     aliases: ["vipps"],
     predicate: (s) => flag(s.attributes.payments.vipps),
+    claim: (s) => s.attributes.payments.vipps,
     badge: { tone: "neutral", rank: 2, boostedRank: 0.5 },
   },
   {
@@ -134,6 +146,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Betaling",
     aliases: ["klarna", "delbetaling", "faktura"],
     predicate: (s) => flag(s.attributes.payments.klarna),
+    claim: (s) => s.attributes.payments.klarna,
     badge: { tone: "neutral", rank: 2.1, boostedRank: 0.5 },
   },
   {
@@ -142,6 +155,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Betaling",
     aliases: ["paypal"],
     predicate: (s) => flag(s.attributes.payments.paypal),
+    claim: (s) => s.attributes.payments.paypal,
     badge: { tone: "neutral", rank: 3.4, boostedRank: 0.5 },
   },
   {
@@ -150,6 +164,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Betaling",
     aliases: ["apple pay", "applepay"],
     predicate: (s) => flag(s.attributes.payments.applePay),
+    claim: (s) => s.attributes.payments.applePay,
     badge: { tone: "neutral", rank: 3.5, boostedRank: 0.5 },
   },
 
@@ -160,6 +175,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Frakt og levering",
     aliases: ["fri frakt", "gratis frakt", "fri levering"],
     predicate: (s) => s.attributes.shipping.shippingType?.value === "free",
+    claim: (s) => s.attributes.shipping.shippingType,
     badge: { tone: "ok", rank: 4, boostedRank: 0.6 },
   },
   {
@@ -169,6 +185,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["fri frakt over"],
     subsumes: ["freeShipping"],
     predicate: (s) => s.attributes.shipping.shippingType?.value === "free_over_amount",
+    claim: (s) => s.attributes.shipping.shippingType,
     badge: {
       tone: "neutral",
       rank: 4.2,
@@ -185,6 +202,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Frakt og levering",
     aliases: ["klikk og hent", "hente i butikk", "hent i butikk"],
     predicate: (s) => flag(s.attributes.shipping.clickAndCollect),
+    claim: (s) => s.attributes.shipping.clickAndCollect,
     badge: { tone: "neutral", rank: 4.6, boostedRank: 0.62 },
   },
   {
@@ -193,6 +211,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Frakt og levering",
     aliases: ["hjemlevering", "levert hjem", "hjem til døra"],
     predicate: (s) => flag(s.attributes.shipping.homeDelivery),
+    claim: (s) => s.attributes.shipping.homeDelivery,
     badge: { tone: "neutral", rank: 4.5, boostedRank: 0.61 },
   },
 
@@ -203,6 +222,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Kommersielt",
     aliases: ["abonnement"],
     predicate: (s) => flag(s.attributes.commercial.subscription),
+    claim: (s) => s.attributes.commercial.subscription,
   },
   {
     key: "freeTrial",
@@ -210,6 +230,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Kommersielt",
     aliases: ["gratis prøve", "prøveperiode"],
     predicate: (s) => flag(s.attributes.commercial.freeTrial),
+    claim: (s) => s.attributes.commercial.freeTrial,
   },
   {
     key: "introOffer",
@@ -217,6 +238,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Kommersielt",
     aliases: ["introtilbud", "velkomsttilbud"],
     predicate: (s) => flag(s.attributes.commercial.introOffer),
+    claim: (s) => s.attributes.commercial.introOffer,
   },
   {
     key: "outlet",
@@ -224,6 +246,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     group: "Kommersielt",
     aliases: ["outlet", "restsalg"],
     predicate: (s) => flag(s.attributes.commercial.outlet),
+    claim: (s) => s.attributes.commercial.outlet,
   },
 
   // --- Datakvalitet --------------------------------------------------------------
@@ -241,6 +264,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     label: "Trygg E-handel",
     aliases: [],
     predicate: (s) => flag(s.attributes.trust.tryggEhandel),
+    claim: (s) => s.attributes.trust.tryggEhandel,
     badge: { tone: "ok", rank: 5 },
   },
 ];
@@ -248,6 +272,22 @@ export const ATTRIBUTES: AttributeDefinition[] = [
 export const attributeByKey = new Map<AttributeKey, AttributeDefinition>(
   ATTRIBUTES.map((a) => [a.key, a]),
 );
+
+// --- Confidence policy (docs/claims-modell.md §8) ------------------------------
+// high/medium = fact · low = counts but is marked «?» and ranks half ·
+// unknown/missing claim = never a match. Filters, badges, ranking and catalog
+// postings all go through these two functions.
+
+/** Confidence of the claim behind an attribute. Derived facts are certain. */
+export function attributeConfidence(store: Store, def: AttributeDefinition): Confidence {
+  if (!def.claim) return "high";
+  return def.claim(store)?.confidence ?? "unknown";
+}
+
+/** Whether the attribute holds for the store, per the confidence policy. */
+export function attributeMatches(store: Store, def: AttributeDefinition): boolean {
+  return def.predicate(store) && attributeConfidence(store, def) !== "unknown";
+}
 
 // --- Derived: Advanced Mode filters (PRD §13) ---------------------------------
 
@@ -260,7 +300,13 @@ export type FilterDefinition = {
 
 export const FILTERS: FilterDefinition[] = ATTRIBUTES.filter(
   (a): a is AttributeDefinition & { group: FilterGroup } => a.group !== undefined,
-).map((a) => ({ key: a.key as FilterKey, label: a.label, group: a.group, predicate: a.predicate }));
+).map((a) => ({
+  key: a.key as FilterKey,
+  label: a.label,
+  group: a.group,
+  // Confidence policy applies to filtering: unknown never satisfies a filter.
+  predicate: (s) => attributeMatches(s, a),
+}));
 
 export const FILTER_GROUPS = [
   "Land og avgift",
@@ -298,14 +344,19 @@ export function priorityBadges(
 
   for (const attr of ATTRIBUTES) {
     if (!attr.badge) continue;
+    const confidence = attributeConfidence(store, attr);
+    // unknown claims never assert a badge (docs/claims-modell.md §8).
+    if (confidence === "unknown") continue;
     const visible = attr.badge.show ? attr.badge.show(store) : attr.predicate(store);
     if (!visible) continue;
     const rank =
       want.has(attr.key) && attr.badge.boostedRank !== undefined
         ? attr.badge.boostedRank
         : attr.badge.rank;
-    const label = attr.badge.text ? attr.badge.text(store) : attr.label;
-    items.push({ badge: { label, tone: attr.badge.tone }, rank });
+    const uncertain = confidence === "low";
+    const base = attr.badge.text ? attr.badge.text(store) : attr.label;
+    const label = uncertain ? `${base}?` : base;
+    items.push({ badge: { label, tone: attr.badge.tone, uncertain }, rank });
   }
 
   return items
