@@ -1,5 +1,5 @@
 import { allBrands as brands, allCategories as categories, allStores as stores } from "@/lib/catalog";
-import type { FilterKey } from "@/data/attribute-definitions";
+import { ATTRIBUTES, attributeByKey, type FilterKey } from "@/data/attribute-definitions";
 import type { MainCategorySlug, SearchIntent } from "@/lib/types";
 
 /**
@@ -65,32 +65,23 @@ const BEST_WORDS = ["beste", "best", "anbefal", "anbefalt", "topp"];
 
 const WHERE_WORDS = ["hvor", "hvor kan", "hvor kjøper", "hvor får"];
 
-/** Map attribute phrases → filter keys. */
-const ATTRIBUTE_PHRASES: { key: FilterKey; phrases: string[] }[] = [
-  { key: "norwegian", phrases: ["norsk", "norske", "norsk butikk"] },
-  { key: "shipsToNorway", phrases: ["sender til norge", "leverer til norge"] },
-  { key: "voec", phrases: ["voec"] },
-  { key: "vipps", phrases: ["vipps"] },
-  { key: "klarna", phrases: ["klarna", "delbetaling", "faktura"] },
-  { key: "paypal", phrases: ["paypal"] },
-  { key: "applePay", phrases: ["apple pay", "applepay"] },
-  { key: "freeShipping", phrases: ["fri frakt", "gratis frakt", "fri levering"] },
-  { key: "freeShippingOver", phrases: ["fri frakt over"] },
-  { key: "clickAndCollect", phrases: ["klikk og hent", "hente i butikk", "hent i butikk"] },
-  { key: "homeDelivery", phrases: ["hjemlevering", "levert hjem", "hjem til døra"] },
-  { key: "subscription", phrases: ["abonnement"] },
-  { key: "freeTrial", phrases: ["gratis prøve", "prøveperiode"] },
-  { key: "introOffer", phrases: ["introtilbud", "velkomsttilbud"] },
-  { key: "outlet", phrases: ["outlet", "restsalg"] },
-];
-
+/**
+ * Detect attribute filters from the query using the attribute registry
+ * (data/attribute-definitions.ts) – phrases live with the attribute they
+ * belong to, not here.
+ */
 function detectAttributeFilters(norm: string): FilterKey[] {
   const found = new Set<FilterKey>();
-  for (const { key, phrases } of ATTRIBUTE_PHRASES) {
-    if (phrases.some((p) => includesPhrase(norm, p))) found.add(key);
+  for (const attr of ATTRIBUTES) {
+    if (attr.group === undefined) continue; // only filterable attributes
+    if (attr.aliases.some((p) => includesPhrase(norm, p))) found.add(attr.key as FilterKey);
   }
-  // "fri frakt over" implies the over-amount variant, drop the broad one.
-  if (found.has("freeShippingOver")) found.delete("freeShipping");
+  // Specific attributes subsume broader ones (e.g. "fri frakt over" → drop "fri frakt").
+  for (const key of [...found]) {
+    for (const broader of attributeByKey.get(key)?.subsumes ?? []) {
+      found.delete(broader as FilterKey);
+    }
+  }
   return [...found];
 }
 
