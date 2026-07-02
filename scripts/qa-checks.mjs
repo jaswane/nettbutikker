@@ -326,6 +326,71 @@ try {
   ]);
 }
 
+// --- 11b. Duplicated fields must agree (until fase 1 removes the duplication) –
+// Store has country/isNorwegian/shipsToNorway both top-level and inside
+// attributes.geography. Two sources of truth WILL drift; this makes drift a
+// build failure. See docs/arkitektur-2026-07.md §2.3.
+{
+  let bad = 0;
+  for (const s of stores) {
+    const g = s.attributes.geography;
+    const checks = [
+      ["isNorwegian", s.isNorwegian, g.isNorwegian?.value],
+      ["shipsToNorway", s.shipsToNorway, g.shipsToNorway?.value],
+      ["country", s.country, g.country?.value],
+    ];
+    for (const [field, top, attr] of checks) {
+      if (attr !== undefined && top !== attr) {
+        fail(`Butikk "${s.slug}": ${field} avviker (topp=${top}, attributes=${attr})`);
+        bad++;
+      }
+    }
+  }
+  if (!bad) ok("Topp-felter og attributes.geography er konsistente");
+}
+
+// --- 11c. Brand names embedded in stores must match the brand registry ------
+{
+  const { brands } = await importTs("data/brands.ts");
+  const nameBySlug = new Map(brands.map((b) => [b.slug, b.name]));
+  let bad = 0;
+  for (const s of stores) {
+    for (const b of s.brands ?? []) {
+      const canonical = nameBySlug.get(b.slug);
+      if (canonical && b.name !== canonical) {
+        fail(`Butikk "${s.slug}": merkenavn "${b.name}" ≠ register "${canonical}"`);
+        bad++;
+      }
+    }
+  }
+  if (!bad) ok("Innbakte merkenavn matcher merkeregisteret");
+}
+
+// --- 11d. Import boundary: only lib/catalog.ts reads data entities ----------
+// Pages, components and search must go through the catalog so the storage
+// backend can be swapped without touching them.
+{
+  const { execSync } = await import("node:child_process");
+  let out = "";
+  try {
+    out = execSync(
+      'git grep -n \'from "@/data/\\(stores\\|categories\\|brands\\)"\' -- app components lib',
+      { cwd: root, encoding: "utf8" },
+    );
+  } catch {
+    // git grep exits 1 on no matches – that is the good case.
+  }
+  const offenders = out
+    .split("\n")
+    .filter(Boolean)
+    .filter((line) => !line.startsWith("lib/catalog.ts"));
+  if (offenders.length) {
+    for (const line of offenders) fail(`Direkte data-import utenom catalog: ${line}`);
+  } else {
+    ok("Kun lib/catalog.ts leser data-entiteter direkte");
+  }
+}
+
 // --- 12. Golden search regression (frozen baseline) --------------------------
 // scripts/golden-queries.json freezes intent/understood/count/top-3 for a
 // query battery. Any drift fails the build; intentional engine changes must

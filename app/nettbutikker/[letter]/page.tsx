@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LetterNav } from "@/components/LetterNav";
 import { StoreCard } from "@/components/StoreCard";
 import { JsonLd } from "@/components/JsonLd";
-import { stores } from "@/data/stores";
+import { allStores as stores } from "@/lib/catalog";
 import {
   groupByLetter,
   isValidLetter,

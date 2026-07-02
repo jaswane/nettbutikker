@@ -23,5 +23,3 @@ export const brands: Brand[] = [
   { name: "IKEA", slug: "ikea", aliases: ["ikea"], categories: ["hjem-interior-hage"] },
   { name: "Levi's", slug: "levis", aliases: ["levis", "levi's"], categories: ["klaer-sko-mote"] },
 ];
-
-export const brandBySlug = new Map<string, Brand>(brands.map((b) => [b.slug, b]));

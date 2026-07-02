@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { stores } from "@/data/stores";
-import { categories } from "@/data/categories";
+import { allCategories as categories, allStores as stores } from "@/lib/catalog";
 import { nonEmptyLetters } from "@/lib/letters";
 import { site } from "@/lib/site";
 

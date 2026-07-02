@@ -29,7 +29,7 @@ export function letterLabel(bucket: string): string {
 }
 
 /** Group stores by their first-letter bucket, sorted by Norwegian collation. */
-export function groupByLetter(stores: Store[]): Map<LetterBucket, Store[]> {
+export function groupByLetter(stores: readonly Store[]): Map<LetterBucket, Store[]> {
   const map = new Map<LetterBucket, Store[]>();
   for (const letter of LETTERS) map.set(letter, []);
   for (const store of stores) {
@@ -42,7 +42,7 @@ export function groupByLetter(stores: Store[]): Map<LetterBucket, Store[]> {
 }
 
 /** Buckets that actually contain at least one store. */
-export function nonEmptyLetters(stores: Store[]): LetterBucket[] {
+export function nonEmptyLetters(stores: readonly Store[]): LetterBucket[] {
   const grouped = groupByLetter(stores);
   return LETTERS.filter((l) => (grouped.get(l)?.length ?? 0) > 0);
 }

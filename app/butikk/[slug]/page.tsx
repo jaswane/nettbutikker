@@ -3,13 +3,11 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { StoreProfile } from "@/components/StoreProfile";
-import { stores, getStore } from "@/data/stores";
-import { getCategory } from "@/data/categories";
+import { allStores, getCategory, getStore, relatedStores } from "@/lib/catalog";
 import { site } from "@/lib/site";
-import type { Store } from "@/lib/types";
 
 export function generateStaticParams() {
-  return stores.map((s) => ({ slug: s.slug }));
+  return allStores.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -30,14 +28,6 @@ export async function generateMetadata({
       url: `${site.url}/butikk/${store.slug}`,
     },
   };
-}
-
-function relatedStores(store: Store): Store[] {
-  const mains = new Set(store.categories.map((c) => c.main));
-  return stores
-    .filter((s) => s.slug !== store.slug && s.categories.some((c) => mains.has(c.main)))
-    .sort((a, b) => b.editorialScore - a.editorialScore)
-    .slice(0, 3);
 }
 
 export default async function StorePage({

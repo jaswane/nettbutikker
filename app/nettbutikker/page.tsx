@@ -3,8 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LetterNav } from "@/components/LetterNav";
 import { JsonLd } from "@/components/JsonLd";
-import { categories } from "@/data/categories";
-import { stores } from "@/data/stores";
+import { allCategories as categories, allStores as stores } from "@/lib/catalog";
 import { groupByLetter, letterLabel, nonEmptyLetters } from "@/lib/letters";
 import { site } from "@/lib/site";
 

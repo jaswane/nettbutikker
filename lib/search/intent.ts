@@ -1,6 +1,4 @@
-import { categories } from "@/data/categories";
-import { brands } from "@/data/brands";
-import { stores } from "@/data/stores";
+import { allBrands as brands, allCategories as categories, allStores as stores } from "@/lib/catalog";
 import type { FilterKey } from "@/data/attribute-definitions";
 import type { MainCategorySlug, SearchIntent } from "@/lib/types";
 

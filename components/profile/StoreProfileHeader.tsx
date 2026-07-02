@@ -1,5 +1,5 @@
 import { StoreLogo } from "@/components/StoreLogo";
-import { getCategory } from "@/data/categories";
+import { getCategory } from "@/lib/catalog";
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
 import { goHref, isAffiliate, OUTBOUND_REL } from "@/lib/affiliate";
 import { geoLabel, TRUST } from "@/lib/storeFormat";

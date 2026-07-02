@@ -1,6 +1,4 @@
-import { stores } from "@/data/stores";
-import { getCategory } from "@/data/categories";
-import { brandBySlug } from "@/data/brands";
+import { allStores as stores, getBrand, getCategory } from "@/lib/catalog";
 import { applyFilters, filterByKey, type FilterKey } from "@/data/attribute-definitions";
 import { site } from "@/lib/site";
 import { parseQuery, type ParsedQuery } from "@/lib/search/intent";
@@ -132,7 +130,7 @@ function buildAnswer(
     }
 
     case "brand_query": {
-      const brand = parsed.brandSlugs.map((s) => brandBySlug.get(s)?.name).filter(Boolean)[0];
+      const brand = parsed.brandSlugs.map((s) => getBrand(s)?.name).filter(Boolean)[0];
       return brand
         ? {
             headline: `Beste treff for ${brand}.`,

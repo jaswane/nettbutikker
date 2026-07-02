@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LETTERS, letterLabel, nonEmptyLetters } from "@/lib/letters";
-import { stores } from "@/data/stores";
+import { allStores as stores } from "@/lib/catalog";
 
 /** A–Z / Æ Ø Å / 0-9 navigation strip (PRD §15). */
 export function LetterNav({ active }: { active?: string }) {

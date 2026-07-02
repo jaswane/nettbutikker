@@ -342,14 +342,6 @@ export const categories: Category[] = [
   },
 ];
 
-export const categoryBySlug = new Map<MainCategorySlug, Category>(
-  categories.map((c) => [c.slug, c]),
-);
-
-export function getCategory(slug: string): Category | undefined {
-  return categoryBySlug.get(slug as MainCategorySlug);
-}
-
 /**
  * Example category mapping (PRD §11). Lets old eButikker slugs be reconciled
  * with the new structure later. Not exhaustive – illustrative for the MVP.

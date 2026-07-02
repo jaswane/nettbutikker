@@ -797,7 +797,7 @@ export const stores: Store[] = [
       { main: "hjem-interior-hage", relevance: "secondary" },
       { main: "hobby-gaver-moro", relevance: "secondary" },
     ],
-    country: "NO",
+    country: "SE",
     isNorwegian: false,
     shipsToNorway: true,
     attributes: {
@@ -855,7 +855,7 @@ export const stores: Store[] = [
     brands: [
       { name: "Ray-Ban", slug: "ray-ban", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
     ],
-    country: "NO",
+    country: "SE",
     isNorwegian: false,
     shipsToNorway: true,
     attributes: {
@@ -977,9 +977,3 @@ export const stores: Store[] = [
     lastChecked: "2026-05-20",
   },
 ];
-
-export const storeBySlug = new Map<string, Store>(stores.map((s) => [s.slug, s]));
-
-export function getStore(slug: string): Store | undefined {
-  return storeBySlug.get(slug);
-}

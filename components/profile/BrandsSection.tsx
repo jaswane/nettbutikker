@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCategory } from "@/data/categories";
+import { getCategory } from "@/lib/catalog";
 import { RELEVANCE } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 

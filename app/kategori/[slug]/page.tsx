@@ -5,10 +5,12 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { StoreCard } from "@/components/StoreCard";
 import { JsonLd } from "@/components/JsonLd";
 import { SearchForm } from "@/components/SearchForm";
-import { categories, getCategory } from "@/data/categories";
-import { stores } from "@/data/stores";
+import {
+  allCategories as categories,
+  getCategory,
+  storesInCategorySorted,
+} from "@/lib/catalog";
 import { site } from "@/lib/site";
-import type { MainCategorySlug, Store } from "@/lib/types";
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
@@ -34,18 +36,6 @@ export async function generateMetadata({
   };
 }
 
-function storesIn(main: MainCategorySlug): Store[] {
-  return stores
-    .filter((s) => s.categories.some((c) => c.main === main))
-    .sort((a, b) => {
-      // Primary-category stores first, then by editorial score.
-      const ap = a.categories.find((c) => c.main === main)?.relevance === "primary" ? 1 : 0;
-      const bp = b.categories.find((c) => c.main === main)?.relevance === "primary" ? 1 : 0;
-      if (ap !== bp) return bp - ap;
-      return b.editorialScore - a.editorialScore;
-    });
-}
-
 export default async function CategoryPage({
   params,
 }: {
@@ -55,7 +45,7 @@ export default async function CategoryPage({
   const cat = getCategory(slug);
   if (!cat) notFound();
 
-  const list = storesIn(cat.slug);
+  const list = storesInCategorySorted(cat.slug);
 
   const itemList = {
     "@context": "https://schema.org",

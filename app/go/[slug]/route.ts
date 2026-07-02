@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getStore } from "@/data/stores";
+import { getStore } from "@/lib/catalog";
 import { resolveOutboundUrl } from "@/lib/affiliate";
 
 /**
