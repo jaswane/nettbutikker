@@ -1,8 +1,9 @@
 import { stores } from "@/data/stores";
 import { categories } from "@/data/categories";
 import { brands } from "@/data/brands";
+import { productTypes } from "@/data/product-types";
 import { FILTERS, type FilterKey } from "@/data/attribute-definitions";
-import type { Brand, Category, MainCategorySlug, Store } from "@/lib/types";
+import type { Brand, Category, MainCategorySlug, ProductType, Store } from "@/lib/types";
 
 /**
  * Catalog – the single read-side entry point to the entity graph:
@@ -21,10 +22,12 @@ import type { Brand, Category, MainCategorySlug, Store } from "@/lib/types";
 export const allStores: readonly Store[] = stores;
 export const allCategories: readonly Category[] = categories;
 export const allBrands: readonly Brand[] = brands;
+export const allProductTypes: readonly ProductType[] = productTypes;
 
 const storeBySlug = new Map<string, Store>(stores.map((s) => [s.slug, s]));
 const categoryBySlug = new Map<string, Category>(categories.map((c) => [c.slug, c]));
 const brandBySlugMap = new Map<string, Brand>(brands.map((b) => [b.slug, b]));
+const productTypeBySlug = new Map<string, ProductType>(productTypes.map((p) => [p.slug, p]));
 
 export function getStore(slug: string): Store | undefined {
   return storeBySlug.get(slug);
@@ -36,6 +39,10 @@ export function getCategory(slug: string): Category | undefined {
 
 export function getBrand(slug: string): Brand | undefined {
   return brandBySlugMap.get(slug);
+}
+
+export function getProductType(slug: string): ProductType | undefined {
+  return productTypeBySlug.get(slug);
 }
 
 // --- Edge indexes (postings) -------------------------------------------------
@@ -64,6 +71,35 @@ export function storesInCategory(main: MainCategorySlug): readonly Store[] {
 /** Stores carrying a brand edge, unordered (retrieval candidates). */
 export function storesWithBrand(brandSlug: string): readonly Store[] {
   return storesByBrand.get(brandSlug) ?? [];
+}
+
+const storesByProductType = new Map<string, Store[]>();
+const productTypesByCategory = new Map<MainCategorySlug, ProductType[]>();
+
+for (const store of stores) {
+  for (const ref of store.categories) {
+    if (!ref.productType) continue;
+    let list = storesByProductType.get(ref.productType);
+    if (!list) storesByProductType.set(ref.productType, (list = []));
+    list.push(store);
+  }
+}
+for (const pt of productTypes) {
+  for (const main of pt.categories) {
+    let list = productTypesByCategory.get(main);
+    if (!list) productTypesByCategory.set(main, (list = []));
+    list.push(pt);
+  }
+}
+
+/** Stores with an explicit edge to the product type (retrieval/links). */
+export function storesWithProductType(slug: string): readonly Store[] {
+  return storesByProductType.get(slug) ?? [];
+}
+
+/** Product types homed in a category, in vocabulary order (internal links). */
+export function productTypesInCategory(main: MainCategorySlug): readonly ProductType[] {
+  return productTypesByCategory.get(main) ?? [];
 }
 
 const storesByFilter = new Map<FilterKey, Store[]>(

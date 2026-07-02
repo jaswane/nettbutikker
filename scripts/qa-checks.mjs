@@ -226,8 +226,10 @@ try {
     "voec", // attributt + alias for utenlandske-kategorien
     "abonnement", // attributt + alias for tjenester-kategorien
   ]);
+  // Categories and product types form one "vocabulary" family – a phrase
+  // hitting both (e.g. «sminke») routes to compatible search behaviour.
   const family = (ref) =>
-    ref.type === "category" || ref.type === "subcategory" ? "kategori" : ref.type;
+    ref.type === "category" || ref.type === "productType" ? "vokabular" : ref.type;
   let unknown = 0;
   for (const { phrase, refs } of lexiconPhrases()) {
     const families = new Set(refs.map(family));
@@ -244,12 +246,13 @@ try {
     ok(`Alle kryss-familie-kollisjoner i leksikonet er godkjente (${ALLOWED_COLLISIONS.size} kjente)`);
 }
 
-// --- 10. Referential integrity: store brands + subcategory refs -------------
+// --- 10. Referential integrity: store brands + product-type refs -------------
 {
   let bad = 0;
   const { brands } = await importTs("data/brands.ts");
+  const { productTypes } = await importTs("data/product-types.ts");
   const brandSlugs = new Set(brands.map((b) => b.slug));
-  const catBySlug = new Map(categories.map((c) => [c.slug, c]));
+  const ptBySlug = new Map(productTypes.map((p) => [p.slug, p]));
   for (const s of stores) {
     for (const b of s.brands ?? []) {
       if (!brandSlugs.has(b.slug)) {
@@ -258,15 +261,69 @@ try {
       }
     }
     for (const ref of s.categories) {
-      if (!ref.sub) continue;
-      const cat = catBySlug.get(ref.main);
-      if (!cat?.subcategories?.some((sub) => sub.slug === ref.sub)) {
-        fail(`Butikk "${s.slug}" refererer ukjent underkategori "${ref.main}/${ref.sub}"`);
+      if (!ref.productType) continue;
+      const pt = ptBySlug.get(ref.productType);
+      if (!pt) {
+        fail(`Butikk "${s.slug}" refererer ukjent produkttype "${ref.productType}"`);
+        bad++;
+      } else if (!pt.categories.includes(ref.main)) {
+        fail(
+          `Butikk "${s.slug}": produkttype "${ref.productType}" hører ikke hjemme i "${ref.main}"`,
+        );
         bad++;
       }
     }
   }
-  if (!bad) ok("Alle merkevare- og underkategorireferanser er gyldige");
+  if (!bad) ok("Alle merkevare- og produkttypereferanser er gyldige");
+}
+
+// --- 10b. Product-type vocabulary integrity ----------------------------------
+// Every product type must be well-formed and reachable: valid categories,
+// valid broader/brand pointers, unique slugs, and at least one store path
+// (docs/produkttype-modell.md §8 – dead vocabulary fails the build).
+{
+  const { brands } = await importTs("data/brands.ts");
+  const { productTypes } = await importTs("data/product-types.ts");
+  const brandSlugs = new Set(brands.map((b) => b.slug));
+  const catSlugs = new Set(categories.map((c) => c.slug));
+  const ptSlugs = new Set(productTypes.map((p) => p.slug));
+  let bad = 0;
+
+  if (ptSlugs.size !== productTypes.length) {
+    fail("Duplikate produkttype-slugs");
+    bad++;
+  }
+  const storesByMain = new Map();
+  for (const s of stores) {
+    for (const ref of s.categories) {
+      storesByMain.set(ref.main, (storesByMain.get(ref.main) ?? 0) + 1);
+    }
+  }
+  for (const pt of productTypes) {
+    if (!pt.aliases.length) {
+      fail(`Produkttype "${pt.slug}" mangler aliaser`);
+      bad++;
+    }
+    if (!pt.categories.length || pt.categories.some((c) => !catSlugs.has(c))) {
+      fail(`Produkttype "${pt.slug}" har ugyldig kategoriliste`);
+      bad++;
+    }
+    if (pt.broader && !ptSlugs.has(pt.broader)) {
+      fail(`Produkttype "${pt.slug}" peker på ukjent broader "${pt.broader}"`);
+      bad++;
+    }
+    for (const b of pt.brandSlugs ?? []) {
+      if (!brandSlugs.has(b)) {
+        fail(`Produkttype "${pt.slug}" peker på ukjent merkevare "${b}"`);
+        bad++;
+      }
+    }
+    if (!pt.categories.some((c) => (storesByMain.get(c) ?? 0) > 0)) {
+      fail(`Produkttype "${pt.slug}" har ingen butikk-vei (tom primærkategori)`);
+      bad++;
+    }
+  }
+  if (!bad) ok(`Produkttype-vokabularet er velformet (${productTypes.length} typer)`);
 }
 
 // --- 11. Search-engine regression tests (the core product) ------------------

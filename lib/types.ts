@@ -47,7 +47,13 @@ export type FieldConfidence<T> = {
 
 export type StoreCategoryRef = {
   main: MainCategorySlug;
-  sub?: string;
+  /**
+   * ProductType the store is notably strong in within this category
+   * (edge store→produkttype; see docs/produkttype-modell.md §2). Until
+   * storage becomes generic (arkitektur fase 3) the edge rides on the
+   * category ref and inherits its relevance.
+   */
+  productType?: string;
   relevance: Relevance;
 };
 
@@ -157,15 +163,34 @@ export type Category = {
   description: string;
   /** Search aliases / synonyms used by the intent parser. */
   aliases: string[];
-  /** Representative subcategory slugs (for matching, not exhaustive). */
-  subcategories?: { slug: string; name: string; aliases: string[] }[];
+};
+
+/**
+ * A class of purchasable things, named the way users search («løpesko»,
+ * «hundefôr»). The demand-side vocabulary of the entity graph – distinct from
+ * Category (navigation) and Brand (maker). See docs/produkttype-modell.md.
+ */
+export type ProductType = {
+  slug: string;
+  /** Display name; must read naturally after «… et godt sted å kjøpe». */
+  name: string;
+  /** Search phrases; the lexicon adds diacritic-folded variants itself. */
+  aliases: string[];
+  /** Navigation home(s); the first entry is primary. */
+  categories: MainCategorySlug[];
+  /** Optional broader product type (slug) – light hierarchy, never a forced tree. */
+  broader?: string;
+  /** Brands typically associated – query refinement and internal links. */
+  brandSlugs?: string[];
+  /** Short user-facing description; required before any future answer page. */
+  description?: string;
 };
 
 /** Old eButikker slug → new structure mapping, per PRD §11. */
 export type CategoryMapping = {
   oldSlug: string;
   newMainCategory: MainCategorySlug;
-  newSubcategory?: string;
+  newProductType?: string;
   aliases: string[];
   riskLevel: "normal" | "sensitive" | "restricted";
 };

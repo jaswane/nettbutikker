@@ -1,12 +1,12 @@
 import { ATTRIBUTES, type AttributeKey } from "@/data/attribute-definitions";
-import { allBrands, allCategories, allStores } from "@/lib/catalog";
+import { allBrands, allCategories, allProductTypes, allStores } from "@/lib/catalog";
 import { STOPWORDS } from "@/lib/search/stopwords";
 import type { MainCategorySlug } from "@/lib/types";
 
 /**
  * The lexicon – the single bridge from Norwegian language to the entity graph.
  *
- * Every searchable entity (category, subcategory, brand, store, attribute)
+ * Every searchable entity (category, product type, brand, store, attribute)
  * registers its names and aliases here, compiled ONCE at module init. Entity
  * linking then answers "which entities does this query mention?" – the intent
  * parser interprets that, it does not own vocabulary.
@@ -23,7 +23,7 @@ import type { MainCategorySlug } from "@/lib/types";
 
 export type LexiconRef =
   | { type: "category"; slug: MainCategorySlug }
-  | { type: "subcategory"; slug: string; parent: MainCategorySlug }
+  | { type: "productType"; slug: string; categories: readonly MainCategorySlug[] }
   | { type: "brand"; slug: string }
   | { type: "store"; slug: string }
   | { type: "attribute"; key: AttributeKey };
@@ -85,11 +85,12 @@ for (const cat of allCategories) {
   addPhrase(cat.name, ref);
   addPhrase(cat.shortName, ref);
   for (const alias of cat.aliases) addPhrase(alias, ref);
-  for (const sub of cat.subcategories ?? []) {
-    const subRef: LexiconRef = { type: "subcategory", slug: sub.slug, parent: cat.slug };
-    addPhrase(sub.name, subRef);
-    for (const alias of sub.aliases) addPhrase(alias, subRef);
-  }
+}
+
+for (const pt of allProductTypes) {
+  const ref: LexiconRef = { type: "productType", slug: pt.slug, categories: pt.categories };
+  addPhrase(pt.name, ref);
+  for (const alias of pt.aliases) addPhrase(alias, ref);
 }
 
 for (const brand of allBrands) {

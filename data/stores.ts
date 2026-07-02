@@ -1,4 +1,4 @@
-import type { Confidence, FieldConfidence, Store } from "@/lib/types";
+﻿import type { Confidence, FieldConfidence, Store } from "@/lib/types";
 
 /**
  * 30 demo stores for the MVP prototype (PRD §7).
@@ -35,7 +35,7 @@ export const stores: Store[] = [
     bestFor: ["Hvitevarer og storelektronikk", "Klikk og hent samme dag", "Trygg norsk kjede"],
     notBestFor: ["Smale nisjeprodukter", "Lavest mulig pris på tilbehør"],
     categories: [
-      { main: "elektronikk-data-gaming", sub: "lyd-bilde", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "lyd-bilde", relevance: "primary" },
       { main: "hjem-interior-hage", relevance: "secondary" },
     ],
     brands: [
@@ -110,7 +110,7 @@ export const stores: Store[] = [
     bestFor: ["Gaming-PC og komponenter", "Bredt PC-utvalg", "Bygg din egen maskin"],
     notBestFor: ["Fysisk butikkopplevelse"],
     categories: [
-      { main: "elektronikk-data-gaming", sub: "pc-data", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "pc-data", relevance: "primary" },
     ],
     brands: [
       { name: "Apple", slug: "apple", relevance: "secondary", confidence: "medium", lastChecked: CHECKED },
@@ -140,7 +140,7 @@ export const stores: Store[] = [
       "Norsk spesialist på gaming-PC, bærbare maskiner og datakomponenter med fokus på ytelse.",
     bestFor: ["Gaming-PC", "Bærbare gaming-maskiner", "Komponenter til egenbygg"],
     notBestFor: ["Hvitevarer og generell elektronikk"],
-    categories: [{ main: "elektronikk-data-gaming", sub: "pc-data", relevance: "primary" }],
+    categories: [{ main: "elektronikk-data-gaming", productType: "pc-data", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -208,7 +208,7 @@ export const stores: Store[] = [
     notBestFor: ["Smal teknisk friluftsnisje"],
     categories: [
       { main: "sport-friluft-trening", relevance: "primary" },
-      { main: "klaer-sko-mote", sub: "sko", relevance: "secondary" },
+      { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
       { name: "Nike", slug: "nike", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
@@ -303,8 +303,8 @@ export const stores: Store[] = [
     bestFor: ["Norsk sportsbutikk med kjent utvalg", "Løpesko og treningssko", "Lokal kundeservice"],
     notBestFor: ["Lavest mulig pris"],
     categories: [
-      { main: "sport-friluft-trening", sub: "lopesko", relevance: "primary" },
-      { main: "klaer-sko-mote", sub: "sko", relevance: "secondary" },
+      { main: "sport-friluft-trening", productType: "lopesko", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
       { name: "Nike", slug: "nike", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
@@ -336,7 +336,7 @@ export const stores: Store[] = [
       "Norsk nettbutikk for friluft, jakt, militært og turutstyr med bredt utvalg til tur og uteliv.",
     bestFor: ["Turutstyr og friluft", "Robuste produkter", "Jakt og uteliv"],
     notBestFor: ["Mote og bylivsklær"],
-    categories: [{ main: "sport-friluft-trening", sub: "friluft", relevance: "primary" }],
+    categories: [{ main: "sport-friluft-trening", productType: "friluft", relevance: "primary" }],
     brands: [
       { name: "Patagonia", slug: "patagonia", relevance: "limited", confidence: "low", lastChecked: CHECKED },
     ],
@@ -371,7 +371,7 @@ export const stores: Store[] = [
     editorialCons: ["Høyere prisnivå"],
     bestFor: ["Teknisk friluftsutstyr", "Kvalitetsmerker", "Ski og fjell"],
     notBestFor: ["Budsjettkjøp"],
-    categories: [{ main: "sport-friluft-trening", sub: "friluft", relevance: "primary" }],
+    categories: [{ main: "sport-friluft-trening", productType: "friluft", relevance: "primary" }],
     brands: [
       { name: "Norrøna", slug: "norrona", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
       { name: "Patagonia", slug: "patagonia", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
@@ -403,7 +403,7 @@ export const stores: Store[] = [
       "Norsk skjønnhetskjede med sminke, hudpleie og parfyme fra kjente merker.",
     bestFor: ["Sminke og hudpleie", "Kjente skjønnhetsmerker", "Klikk og hent"],
     notBestFor: ["Apotekvarer og resept"],
-    categories: [{ main: "helse-skjonnhet-apotek", sub: "sminke", relevance: "primary" }],
+    categories: [{ main: "helse-skjonnhet-apotek", productType: "sminke", relevance: "primary" }],
     brands: [
       { name: "The Ordinary", slug: "the-ordinary", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
       { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
@@ -439,7 +439,7 @@ export const stores: Store[] = [
     editorialCons: ["Begrenset sminkeutvalg"],
     bestFor: ["Apotekvarer på nett", "Reseptfrie legemidler", "Trygg helsehandel"],
     notBestFor: ["Bredt sminkeutvalg"],
-    categories: [{ main: "helse-skjonnhet-apotek", sub: "apotek", relevance: "primary" }],
+    categories: [{ main: "helse-skjonnhet-apotek", productType: "apotek", relevance: "primary" }],
     brands: [
       { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
     ],
@@ -468,7 +468,7 @@ export const stores: Store[] = [
       "Norsk nettbutikk med stort utvalg sminke, hudpleie og hårpleie til konkurransedyktige priser.",
     bestFor: ["Bredt skjønnhetsutvalg", "Gode priser", "Norsk lager"],
     notBestFor: ["Fysisk butikk"],
-    categories: [{ main: "helse-skjonnhet-apotek", sub: "hudpleie", relevance: "primary" }],
+    categories: [{ main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "primary" }],
     brands: [
       { name: "The Ordinary", slug: "the-ordinary", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
       { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
@@ -533,7 +533,7 @@ export const stores: Store[] = [
     bestFor: ["Babyutstyr og barnevogn", "Bredt sortiment", "Alt på ett sted"],
     notBestFor: ["Rask levering fra norsk lager"],
     categories: [
-      { main: "baby-barn-leker", sub: "babyutstyr", relevance: "primary" },
+      { main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" },
       { main: "utenlandske-nettbutikker", relevance: "limited" },
     ],
     brands: [
@@ -564,7 +564,7 @@ export const stores: Store[] = [
       "Norsk kjede for baby- og barneutstyr med butikker og nettbutikk, og personlig rådgivning.",
     bestFor: ["Trygg norsk barnehandel", "Bilstoler og vogner", "Rådgivning"],
     notBestFor: ["Lavest pris"],
-    categories: [{ main: "baby-barn-leker", sub: "babyutstyr", relevance: "primary" }],
+    categories: [{ main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -591,8 +591,8 @@ export const stores: Store[] = [
     bestFor: ["Leker og brettspill", "LEGO og byggesett", "Gaveideer til barn"],
     notBestFor: ["Babyutstyr som vogner og bilstoler"],
     categories: [
-      { main: "baby-barn-leker", sub: "leker", relevance: "primary" },
-      { main: "hobby-gaver-moro", sub: "gaver", relevance: "secondary" },
+      { main: "baby-barn-leker", productType: "leker", relevance: "primary" },
+      { main: "hobby-gaver-moro", productType: "gaver", relevance: "secondary" },
     ],
     brands: [
       { name: "LEGO", slug: "lego", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
@@ -624,7 +624,7 @@ export const stores: Store[] = [
       "Nordisk dyrebutikk med fôr, utstyr og tilbehør til hund, katt og smådyr. Butikker og nettbutikk.",
     bestFor: ["Hunde- og kattefôr", "Bredt dyreutvalg", "Klikk og hent"],
     notBestFor: ["Eksotiske dyr"],
-    categories: [{ main: "dyr-kjaeledyr", sub: "hund", relevance: "primary" }],
+    categories: [{ main: "dyr-kjaeledyr", productType: "hund", relevance: "primary" }],
     brands: [
       { name: "Royal Canin", slug: "royal-canin", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
     ],
@@ -686,7 +686,7 @@ export const stores: Store[] = [
       "Norsk produsent og nettbutikk for ferskt hundefôr basert på norske råvarer, levert hjem.",
     bestFor: ["Ferskt norsk hundefôr", "Abonnement på fôr", "Hjemlevering"],
     notBestFor: ["Kattefôr og smådyr"],
-    categories: [{ main: "dyr-kjaeledyr", sub: "hund", relevance: "primary" }],
+    categories: [{ main: "dyr-kjaeledyr", productType: "hund", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -715,7 +715,7 @@ export const stores: Store[] = [
       "Skandinavisk kjede for senger, møbler og interiør til lav pris. Butikker og nettbutikk i Norge.",
     bestFor: ["Senger og madrasser", "Rimelig interiør", "Klikk og hent"],
     notBestFor: ["Designmøbler i premiumsegmentet"],
-    categories: [{ main: "hjem-interior-hage", sub: "mobler", relevance: "primary" }],
+    categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
     country: "DK",
     isNorwegian: false,
     shipsToNorway: true,
@@ -741,7 +741,7 @@ export const stores: Store[] = [
       "Norsk møbelkjede med stort utvalg sofaer, møbler og interiør, og butikker over hele landet.",
     bestFor: ["Sofaer og møbler", "Norsk møbelkjede", "Hjemlevering og montering"],
     notBestFor: ["Lavprisinteriør"],
-    categories: [{ main: "hjem-interior-hage", sub: "mobler", relevance: "primary" }],
+    categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -767,7 +767,7 @@ export const stores: Store[] = [
     bestFor: ["Rimelige hjem- og hagevarer", "Sesongvarer", "Klikk og hent"],
     notBestFor: ["Kvalitetsmøbler"],
     categories: [
-      { main: "hjem-interior-hage", sub: "hage", relevance: "primary" },
+      { main: "hjem-interior-hage", productType: "hage", relevance: "primary" },
     ],
     country: "SE",
     isNorwegian: false,
@@ -797,7 +797,7 @@ export const stores: Store[] = [
     bestFor: ["Bil og verktøy", "Rimelig bredde", "Hobby og fritid"],
     notBestFor: ["Spesialiserte merkevarer"],
     categories: [
-      { main: "bil-bat-motor", sub: "bildeler", relevance: "primary" },
+      { main: "bil-bat-motor", productType: "bildeler", relevance: "primary" },
       { main: "hjem-interior-hage", relevance: "secondary" },
       { main: "hobby-gaver-moro", relevance: "secondary" },
     ],
@@ -827,7 +827,7 @@ export const stores: Store[] = [
       "Norsk dekk- og felgkjede med montering på verksted over hele landet, og bestilling på nett.",
     bestFor: ["Dekk og felg", "Montering på verksted", "Sesongskifte"],
     notBestFor: ["Generelle bildeler"],
-    categories: [{ main: "bil-bat-motor", sub: "dekk", relevance: "primary" }],
+    categories: [{ main: "bil-bat-motor", productType: "dekk", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -855,7 +855,7 @@ export const stores: Store[] = [
       "Optikerkjede for briller, solbriller og kontaktlinser med abonnement og synsundersøkelser.",
     bestFor: ["Briller og solbriller", "Linseabonnement", "Synsundersøkelse"],
     notBestFor: ["Lavpris engangskjøp"],
-    categories: [{ main: "syn-briller-linser", sub: "briller", relevance: "primary" }],
+    categories: [{ main: "syn-briller-linser", productType: "briller", relevance: "primary" }],
     brands: [
       { name: "Ray-Ban", slug: "ray-ban", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
     ],
@@ -887,7 +887,7 @@ export const stores: Store[] = [
     bestFor: ["Dagligvarer hjem", "Middagskasser", "Fast handlemønster"],
     notBestFor: ["Rask henting i butikk", "Hele landet (begrenset område)"],
     categories: [
-      { main: "mat-drikke-dagligvarer", sub: "matkasse", relevance: "primary" },
+      { main: "mat-drikke-dagligvarer", productType: "matkasse", relevance: "primary" },
       { main: "tjenester-abonnement", relevance: "secondary" },
     ],
     country: "NO",

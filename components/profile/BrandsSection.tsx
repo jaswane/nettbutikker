@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCategory } from "@/lib/catalog";
+import { getCategory, getProductType } from "@/lib/catalog";
 import { RELEVANCE } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 
@@ -12,15 +12,17 @@ export function BrandsSection({ store }: { store: Store }) {
         <ul className="mt-2">
           {store.categories.map((c) => {
             const cat = getCategory(c.main);
-            const sub = cat?.subcategories?.find((s) => s.slug === c.sub);
+            const productType = c.productType ? getProductType(c.productType) : undefined;
             return (
               <li
-                key={`${c.main}-${c.sub ?? ""}`}
+                key={`${c.main}-${c.productType ?? ""}`}
                 className="flex items-baseline justify-between gap-6 border-t border-line py-2.5 text-sm first:border-t-0"
               >
                 <Link href={`/kategori/${c.main}`} className="text-ink hover:text-accent">
                   {cat?.name ?? c.main}
-                  {sub && <span className="text-ink-muted"> · {sub.name}</span>}
+                  {productType && (
+                    <span className="text-ink-muted"> · {productType.name}</span>
+                  )}
                 </Link>
                 <span className="text-xs text-ink-faint">{RELEVANCE[c.relevance]}</span>
               </li>

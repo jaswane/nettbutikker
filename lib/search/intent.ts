@@ -1,4 +1,4 @@
-import { allBrands, allCategories } from "@/lib/catalog";
+import { allBrands, allCategories, allProductTypes } from "@/lib/catalog";
 import { ATTRIBUTES, attributeByKey, type FilterKey } from "@/data/attribute-definitions";
 import { linkEntities, normalize } from "@/lib/search/lexicon";
 import type { MainCategorySlug, SearchIntent } from "@/lib/types";
@@ -18,7 +18,7 @@ export type ParsedQuery = {
   tokens: string[];
   intent: SearchIntent;
   categorySlugs: MainCategorySlug[];
-  subSlugs: string[];
+  productTypeSlugs: string[];
   brandSlugs: string[];
   /** Store matched directly by name (used for safety / "er X trygt"). */
   storeSlug?: string;
@@ -64,6 +64,7 @@ const WHERE_WORDS = ["hvor", "hvor kan", "hvor kjøper", "hvor får"];
 // Canonical ordering (data-file order) so multi-entity queries produce stable,
 // registry-ordered lists regardless of token order in the query.
 const CATEGORY_ORDER = new Map(allCategories.map((c, i) => [c.slug, i]));
+const PRODUCT_TYPE_ORDER = new Map(allProductTypes.map((p, i) => [p.slug, i]));
 const BRAND_ORDER = new Map(allBrands.map((b, i) => [b.slug, i]));
 const ATTRIBUTE_ORDER = new Map(ATTRIBUTES.map((a, i) => [a.key, i]));
 
@@ -73,7 +74,7 @@ export function parseQuery(raw: string): ParsedQuery {
 
   // Entity linking: which entities does the query mention?
   const categorySet = new Set<MainCategorySlug>();
-  const subSet = new Set<string>();
+  const productTypeSet = new Set<string>();
   const brandSet = new Set<string>();
   const attributeSet = new Set<FilterKey>();
   let bestStore: { slug: string; len: number } | undefined;
@@ -84,9 +85,10 @@ export function parseQuery(raw: string): ParsedQuery {
       case "category":
         categorySet.add(ref.slug);
         break;
-      case "subcategory":
-        categorySet.add(ref.parent);
-        subSet.add(ref.slug);
+      case "productType":
+        // A product-type mention implies its home categories for retrieval.
+        for (const main of ref.categories) categorySet.add(main);
+        productTypeSet.add(ref.slug);
         break;
       case "brand":
         brandSet.add(ref.slug);
@@ -116,7 +118,9 @@ export function parseQuery(raw: string): ParsedQuery {
   const categorySlugs = [...categorySet].sort(
     (a, b) => (CATEGORY_ORDER.get(a) ?? 0) - (CATEGORY_ORDER.get(b) ?? 0),
   );
-  const subSlugs = [...subSet];
+  const productTypeSlugs = [...productTypeSet].sort(
+    (a, b) => (PRODUCT_TYPE_ORDER.get(a) ?? 0) - (PRODUCT_TYPE_ORDER.get(b) ?? 0),
+  );
   const brandSlugs = [...brandSet].sort(
     (a, b) => (BRAND_ORDER.get(a) ?? 0) - (BRAND_ORDER.get(b) ?? 0),
   );
@@ -157,7 +161,7 @@ export function parseQuery(raw: string): ParsedQuery {
     tokens,
     intent,
     categorySlugs,
-    subSlugs,
+    productTypeSlugs,
     brandSlugs,
     storeSlug,
     attributeFilters,

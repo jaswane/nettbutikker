@@ -1,4 +1,4 @@
-import type { Category, CategoryMapping, MainCategorySlug } from "@/lib/types";
+﻿import type { Category, CategoryMapping, MainCategorySlug } from "@/lib/types";
 
 /**
  * The 13 main categories from PRD v0.2 §10.
@@ -29,11 +29,6 @@ export const categories: Category[] = [
       "undertøy",
       "moteklær",
     ],
-    subcategories: [
-      { slug: "dameklaer", name: "Dameklær", aliases: ["dameklær", "klær til dame", "kjoler"] },
-      { slug: "herreklaer", name: "Herreklær", aliases: ["herreklær", "klær til herre"] },
-      { slug: "sko", name: "Sko", aliases: ["sko", "joggesko", "sneakers", "støvler"] },
-    ],
   },
   {
     slug: "sport-friluft-trening",
@@ -59,11 +54,6 @@ export const categories: Category[] = [
       "yoga",
       "fitness",
     ],
-    subcategories: [
-      { slug: "lopesko", name: "Løpesko", aliases: ["løpesko", "lopesko", "joggesko til løping"] },
-      { slug: "sykkel", name: "Sykkel", aliases: ["sykkel", "el-sykkel", "sykkeldeler"] },
-      { slug: "friluft", name: "Friluftsutstyr", aliases: ["friluft", "telt", "sovepose", "tursekk"] },
-    ],
   },
   {
     slug: "hjem-interior-hage",
@@ -87,11 +77,6 @@ export const categories: Category[] = [
       "oppbevaring",
       "tekstil",
       "pyntegjenstander",
-    ],
-    subcategories: [
-      { slug: "mobler", name: "Møbler", aliases: ["møbler", "sofa", "stol", "bord"] },
-      { slug: "kjokken", name: "Kjøkken", aliases: ["kjøkken", "kjøkkenutstyr", "gryter"] },
-      { slug: "hage", name: "Hage", aliases: ["hage", "hagemøbler", "planter"] },
     ],
   },
   {
@@ -121,11 +106,6 @@ export const categories: Category[] = [
       "smartklokke",
       "kamera",
     ],
-    subcategories: [
-      { slug: "pc-data", name: "PC og data", aliases: ["pc", "gaming-pc", "laptop", "komponenter"] },
-      { slug: "mobil", name: "Mobil", aliases: ["mobil", "telefon", "smarttelefon"] },
-      { slug: "lyd-bilde", name: "Lyd og bilde", aliases: ["tv", "lyd", "hodetelefoner", "høyttaler"] },
-    ],
   },
   {
     slug: "baby-barn-leker",
@@ -145,10 +125,6 @@ export const categories: Category[] = [
       "leketøy",
       "spill",
       "brettspill",
-    ],
-    subcategories: [
-      { slug: "leker", name: "Leker", aliases: ["leker", "leketøy", "lego", "brettspill"] },
-      { slug: "babyutstyr", name: "Babyutstyr", aliases: ["babyutstyr", "barnevogn", "bæresele"] },
     ],
   },
   {
@@ -173,11 +149,6 @@ export const categories: Category[] = [
       "kosmetikk",
       "vitaminer",
     ],
-    subcategories: [
-      { slug: "hudpleie", name: "Hudpleie", aliases: ["hudpleie", "ansiktskrem", "serum"] },
-      { slug: "apotek", name: "Apotek", aliases: ["apotek", "reseptfritt", "vitaminer"] },
-      { slug: "sminke", name: "Sminke", aliases: ["sminke", "makeup", "kosmetikk"] },
-    ],
   },
   {
     slug: "dyr-kjaeledyr",
@@ -201,10 +172,6 @@ export const categories: Category[] = [
       "kanin",
       "smådyr",
     ],
-    subcategories: [
-      { slug: "hund", name: "Hund", aliases: ["hund", "hundefor", "hundeutstyr"] },
-      { slug: "katt", name: "Katt", aliases: ["katt", "kattefor", "kattesand"] },
-    ],
   },
   {
     slug: "bil-bat-motor",
@@ -224,10 +191,6 @@ export const categories: Category[] = [
       "motorsykkel",
       "biltilbehør",
       "verktøy til bil",
-    ],
-    subcategories: [
-      { slug: "bildeler", name: "Bildeler", aliases: ["bildeler", "reservedeler"] },
-      { slug: "dekk", name: "Dekk og felg", aliases: ["dekk", "felger", "vinterdekk"] },
     ],
   },
   {
@@ -249,10 +212,6 @@ export const categories: Category[] = [
       "kosttilskudd mat",
       "økologisk",
     ],
-    subcategories: [
-      { slug: "matkasse", name: "Matkasse", aliases: ["matkasse", "middagskasse"] },
-      { slug: "kaffe-te", name: "Kaffe og te", aliases: ["kaffe", "te"] },
-    ],
   },
   {
     slug: "hobby-gaver-moro",
@@ -273,10 +232,6 @@ export const categories: Category[] = [
       "puslespill",
       "festartikler",
     ],
-    subcategories: [
-      { slug: "kreativt", name: "Kreativt og håndarbeid", aliases: ["garn", "maling", "håndarbeid"] },
-      { slug: "gaver", name: "Gaver", aliases: ["gave", "gaver", "gaveideer"] },
-    ],
   },
   {
     slug: "syn-briller-linser",
@@ -292,10 +247,6 @@ export const categories: Category[] = [
       "synsundersøkelse",
       "brilleglass",
       "optiker",
-    ],
-    subcategories: [
-      { slug: "briller", name: "Briller", aliases: ["briller", "solbriller"] },
-      { slug: "linser", name: "Kontaktlinser", aliases: ["linser", "kontaktlinser"] },
     ],
   },
   {
@@ -315,10 +266,6 @@ export const categories: Category[] = [
       "strøm",
       "forsikring",
       "digital tjeneste",
-    ],
-    subcategories: [
-      { slug: "stromming", name: "Strømming", aliases: ["strømming", "streaming"] },
-      { slug: "programvare", name: "Programvare", aliases: ["software", "programvare", "lisens"] },
     ],
   },
   {
@@ -350,21 +297,21 @@ export const categoryMappings: CategoryMapping[] = [
   {
     oldSlug: "dameklaer",
     newMainCategory: "klaer-sko-mote",
-    newSubcategory: "dameklaer",
+    newProductType: "dameklaer",
     aliases: ["dameklær", "klær til dame", "moteklær", "kjoler"],
     riskLevel: "normal",
   },
   {
     oldSlug: "sportsutstyr",
     newMainCategory: "sport-friluft-trening",
-    newSubcategory: "friluft",
+    newProductType: "friluft",
     aliases: ["sport", "sportsutstyr", "friluftsutstyr"],
     riskLevel: "normal",
   },
   {
     oldSlug: "hudpleie",
     newMainCategory: "helse-skjonnhet-apotek",
-    newSubcategory: "hudpleie",
+    newProductType: "hudpleie",
     aliases: ["hudpleie", "ansiktspleie", "kremer"],
     riskLevel: "normal",
   },

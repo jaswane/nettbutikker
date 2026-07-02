@@ -64,12 +64,12 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     matchScore += 120;
   }
 
-  // Category match.
-  let bestCat: { relevance: string; sub?: string } | undefined;
+  // Category match, with product-type precision on top.
+  let bestCat: { relevance: string; productType?: string } | undefined;
   for (const ref of store.categories) {
     if (q.categorySlugs.includes(ref.main)) {
       if (!bestCat || RELEVANCE_CATEGORY[ref.relevance] > RELEVANCE_CATEGORY[bestCat.relevance]) {
-        bestCat = { relevance: ref.relevance, sub: ref.sub };
+        bestCat = { relevance: ref.relevance, productType: ref.productType };
       }
     }
   }
@@ -80,7 +80,7 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     // primary category hit (e.g. "Temu" matching the foreign-stores category).
     const categoryReasonRelevant =
       q.intent === "category_recommendation" || q.intent === "where_to_buy";
-    if (bestCat.sub && q.subSlugs.includes(bestCat.sub)) {
+    if (bestCat.productType && q.productTypeSlugs.includes(bestCat.productType)) {
       matchScore += 12;
       if (categoryReasonRelevant) reasons.push("Spesialisert på det du søker etter");
     } else if (categoryReasonRelevant) {
