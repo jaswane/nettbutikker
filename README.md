@@ -2,7 +2,8 @@
 
 Søkeførst AI-veiviser for norske nettbutikker. Bygget etter **PRD v0.2 – MVP Cut**,
 med produktbeslutninger fra søkemotorarbeidet dokumentert i
-[PRD v0.3 – tillegg](docs/PRD-v0.3-tillegg.md).
+[PRD v0.3 – tillegg](docs/PRD-v0.3-tillegg.md). Arkitekturvurdering,
+målarkitektur og migreringsplan: [docs/arkitektur-2026-07.md](docs/arkitektur-2026-07.md).
 Dette er en prototype, ikke et ferdig kommersielt nettsted: ingen database, ingen
 eksterne API-er, ingen innlogging, admin, scraping eller automatisk SEO-generering.
 
@@ -43,11 +44,15 @@ npm run dev        # utvikling på http://localhost:3000
 - `data/stores.ts` – 30 testbutikker (`Store`, `StoreAttributes`, `FieldConfidence` …)
 - `data/categories.ts` – 13 hovedkategorier + `CategoryMapping`
 - `data/brands.ts` – merkevarer for søk/ranking
-- `data/attribute-definitions.ts` – badges + Advanced Mode-filtre
-- `lib/search/intent.ts` – intent-parser (where_to_buy, is_store_safe,
-  store_with_attribute, brand_query, category_recommendation, unknown)
+- `data/attribute-definitions.ts` – attributt-REGISTERET: én oppføring per
+  attributt driver Advanced Mode-filtre, badges og søkefraser
+- `lib/catalog.ts` – **eneste lesevei** til entitetene: oppslag, postings
+  (kategori/merke/filter → butikker), relaterte butikker (QA-håndhevet)
+- `lib/search/lexicon.ts` – ett kompilert leksikon (fraser → entiteter) med
+  diakritikk-folding («elkjop» → Elkjøp) og stoppord-vern
+- `lib/search/intent.ts` – intent-parser over entity-linking-resultatet
 - `lib/search/ranking.ts` – relevansrangering (affiliate avgjør **ikke** rekkefølgen)
-- `lib/search/searchStores.ts` – setter sammen svaret
+- `lib/search/searchStores.ts` – kandidat-henting fra postings + svarbygging
 - `lib/letters.ts`, `lib/affiliate.ts`
 
 > **Datakvalitet:** Alle attributter er veiledende prototypdata, merket med
@@ -65,7 +70,11 @@ Ikke hotlink tredjepartslogoer eller butikkenes favicons – bruk kun lokale fil
 du har rett til å bruke.
 
 ## QA (`npm run qa`)
-Kontrollerer at: store-slugs er unike, affiliate-slugs er unike, alle
-kategorireferanser finnes i `categories.ts`, `/go` ikke er i sitemap, robots
-blokkerer `/go` og `/api`, `/go` setter `noindex`, alle rutefiler finnes, og at
-alle butikker har gyldig `lastChecked`/`dataQuality`.
+Kontrollerer bl.a.: unike slugs, referanseintegritet (kategori/underkategori/
+merke), `/go`-SEO-reglene, at alle rutefiler finnes, gyldig
+`lastChecked`/`dataQuality`, konsistens mellom topp-felter og
+`attributes.geography`, at kun `lib/catalog.ts` leser data-entiteter direkte,
+leksikon-hygiene (ingen stoppord som søkefraser, kollisjons-allowlist) – og
+kjører søkemotor-regresjonstestene pluss **golden-baselinen**
+(`scripts/golden-queries.json`, 23 frosne søk). Bevisste søkeendringer må
+regenerere baselinen med `npm run golden` i samme commit.
