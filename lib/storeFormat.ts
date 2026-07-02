@@ -34,6 +34,15 @@ export const RELEVANCE: Record<string, string> = {
   unknown: "Ukjent",
 };
 
+/**
+ * Lowercase the first letter for mid-sentence use («Løpesko» → «løpesko»),
+ * but leave acronyms alone («TV, lyd og bilde», «PC og datautstyr»).
+ */
+export function lcFirst(s: string): string {
+  if (s.length > 1 && s[1] === s[1].toUpperCase() && /[A-ZÆØÅ]/.test(s[1])) return s;
+  return s.charAt(0).toLowerCase() + s.slice(1);
+}
+
 /** Ja / Nei / Ukjent from a plain boolean. */
 export function ja(value: boolean | undefined): string {
   return value === undefined ? "Ukjent" : value ? "Ja" : "Nei";

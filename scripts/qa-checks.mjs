@@ -367,11 +367,20 @@ try {
           (x) => x.store.isNorwegian && x.store.attributes.payments.vipps?.value === true,
         ),
     ],
+    // Explanation model: attributes are named, never counted, and the
+    // Norwegian-store wish reads as its own sentence.
+    ["forklaring: Har Vipps", (r) => r.best?.reasons.includes("Har Vipps")],
+    ["forklaring: Norsk butikk", (r) => r.best?.reasons.includes("Norsk butikk")],
+    ["aldri «filtrene dine»", (r) =>
+      r.results.every((x) => x.reasons.every((s) => !s.includes("filtrene dine")))],
   ]);
 
   expectSearch("Hvor kjøper jeg LEGO?", {}, [
     ["intent=brand_query", (r) => r.parsed.intent === "brand_query"],
     ["beste treff fører LEGO", (r) => r.best?.store.brands?.some((b) => b.slug === "lego")],
+    // Explanation model: brand wording graded by the edge (primary → utvalg).
+    ["forklaring: Stort utvalg av LEGO", (r) =>
+      r.best?.reasons.includes("Stort utvalg av LEGO")],
   ]);
 
   expectSearch("Beste nettbutikk for løpesko", {}, [
@@ -381,6 +390,9 @@ try {
     // The answer must name the product type, not just the category – that is
     // the point of the vocabulary (docs/produkttype-modell.md §4).
     ["overskrift nevner løpesko", (r) => /løpesko/i.test(r.answer.headline)],
+    // Explanation model (docs/forklaringsmodell.md): graded, named reasons.
+    ["forklaring: Spesialisert på løpesko", (r) =>
+      r.best?.reasons.includes("Spesialisert på løpesko")],
     [
       "ingen dyrebutikker i topp 3 (stoppord-regresjon)",
       (r) =>

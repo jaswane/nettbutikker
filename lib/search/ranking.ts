@@ -4,6 +4,8 @@ import {
   attributeMatches,
   type FilterKey,
 } from "@/data/attribute-definitions";
+import { getCategory, getProductType } from "@/lib/catalog";
+import { lcFirst } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 import type { ParsedQuery } from "@/lib/search/intent";
 
@@ -61,6 +63,15 @@ const RELEVANCE_BRAND: Record<string, number> = {
   unknown: 4,
 };
 
+/** «a», «a og b», «a, b og c»; more than three → «a, b, c m.m.» */
+function joinNouns(nouns: string[]): string {
+  if (nouns.length === 1) return nouns[0];
+  if (nouns.length <= 3) {
+    return `${nouns.slice(0, -1).join(", ")} og ${nouns[nouns.length - 1]}`;
+  }
+  return `${nouns.slice(0, 3).join(", ")} m.m.`;
+}
+
 export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
   let matchScore = 0;
   const reasons: string[] = [];
@@ -72,11 +83,13 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
   }
 
   // Category match, with product-type precision on top.
-  let bestCat: { relevance: string; productType?: string } | undefined;
+  // Explanation model (docs/forklaringsmodell.md): name what the data knows,
+  // grade the wording by the edge's relevance – never stronger than the edge.
+  let bestCat: { main: string; relevance: string; productType?: string } | undefined;
   for (const ref of store.categories) {
     if (q.categorySlugs.includes(ref.main)) {
       if (!bestCat || RELEVANCE_CATEGORY[ref.relevance] > RELEVANCE_CATEGORY[bestCat.relevance]) {
-        bestCat = { relevance: ref.relevance, productType: ref.productType };
+        bestCat = { main: ref.main, relevance: ref.relevance, productType: ref.productType };
       }
     }
   }
@@ -87,15 +100,33 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     // primary category hit (e.g. "Temu" matching the foreign-stores category).
     const categoryReasonRelevant =
       q.intent === "category_recommendation" || q.intent === "where_to_buy";
-    if (bestCat.productType && q.productTypeSlugs.includes(bestCat.productType)) {
-      matchScore += 12;
-      if (categoryReasonRelevant) reasons.push("Spesialisert på det du søker etter");
-    } else if (categoryReasonRelevant) {
-      reasons.push("Dekker kategorien du søker i");
+    const ptMatch =
+      bestCat.productType && q.productTypeSlugs.includes(bestCat.productType);
+    if (ptMatch) matchScore += 12;
+    if (categoryReasonRelevant) {
+      const ptName = ptMatch ? getProductType(bestCat.productType!)?.name : undefined;
+      if (ptName) {
+        reasons.push(
+          bestCat.relevance === "primary"
+            ? `Spesialisert på ${lcFirst(ptName)}`
+            : `Har også ${lcFirst(ptName)} i sortimentet`,
+        );
+      } else {
+        const catName = getCategory(bestCat.main)?.name;
+        if (catName) {
+          reasons.push(
+            bestCat.relevance === "primary"
+              ? `Hovedområdet er ${lcFirst(catName)}`
+              : bestCat.relevance === "secondary"
+                ? `Dekker også ${lcFirst(catName)}`
+                : `Har noe innen ${lcFirst(catName)}`,
+          );
+        }
+      }
     }
   }
 
-  // Brand match.
+  // Brand match – wording graded by how central the brand is to the store.
   if (q.brandSlugs.length && store.brands?.length) {
     let bestBrand: { name: string; relevance: string } | undefined;
     for (const b of store.brands) {
@@ -107,7 +138,13 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     }
     if (bestBrand) {
       matchScore += RELEVANCE_BRAND[bestBrand.relevance] ?? 0;
-      reasons.push(`Fører ${bestBrand.name}`);
+      reasons.push(
+        bestBrand.relevance === "primary"
+          ? `Stort utvalg av ${bestBrand.name}`
+          : bestBrand.relevance === "secondary"
+            ? `Fører ${bestBrand.name}`
+            : `Har noe fra ${bestBrand.name}`,
+      );
     }
   }
 
@@ -127,13 +164,31 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     }
     matchedFilters.push(key);
   }
-  const verifiedCount = matchedFilters.length - unverifiedFilters.length;
-  if (verifiedCount > 0) {
-    reasons.push(`Matcher ${verifiedCount} av filtrene dine`);
+  // Name the verified attributes the user asked for («Har Vipps og fri
+  // frakt»); unverified ones stay on their own «ikke bekreftet» line.
+  // norwegian/shipsToNorway read as standalone sentences instead, and
+  // highDataQuality is already shown in the result footer.
+  if (q.wantsNorwegian && store.isNorwegian) {
+    reasons.push("Norsk butikk");
+  }
+  const verifiedNouns: string[] = [];
+  for (const key of matchedFilters) {
+    if (unverifiedFilters.includes(key)) continue;
+    if (key === "shipsToNorway") {
+      reasons.push("Sender til Norge");
+      continue;
+    }
+    const noun = attributeByKey.get(key)?.reasonNoun;
+    if (noun) verifiedNouns.push(noun);
+  }
+  if (verifiedNouns.length) {
+    reasons.push(`Har ${joinNouns(verifiedNouns)}`);
   }
   if (unverifiedFilters.length) {
-    const labels = unverifiedFilters.map((k) => attributeByKey.get(k)?.label ?? k);
-    reasons.push(`Kan ha ${labels.join(" og ")} – ikke bekreftet`);
+    const nouns = unverifiedFilters.map(
+      (k) => attributeByKey.get(k)?.reasonNoun ?? attributeByKey.get(k)?.label ?? k,
+    );
+    reasons.push(`Kan ha ${joinNouns(nouns)} – ikke bekreftet`);
   }
 
   // Quality baseline: trust, data quality, editorial. Kept OUT of matchScore –
@@ -143,23 +198,18 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
   baseline += QUALITY_SCORE[store.dataQuality];
   baseline += store.editorialScore * 0.4;
 
-  // Note: data quality is shown separately in the result footer, so we don't
-  // repeat it here as a reason (avoids "Verifisert datakvalitet" duplication).
-  if (store.trustLevel === "high") reasons.push("Høy tillit");
-
-  // "Norsk butikk" boost when relevant.
-  if (q.wantsNorwegian && store.isNorwegian) {
-    reasons.push("Norsk butikk");
-  }
+  // Cautions before praise: the UI caps at 3 lines, and warnings must never
+  // be crowded out by «Høy tillit» (docs/forklaringsmodell.md regel 3).
   if (!store.shipsToNorway) {
     baseline -= 30;
     reasons.push("Sender ikke til Norge");
   }
-
-  // Caution flag for low-trust stores on safety queries.
   if (store.trustLevel === "low") {
     reasons.push("Vær ekstra forsiktig – lav tillit");
   }
+  // Note: data quality is shown separately in the result footer, so we don't
+  // repeat it here as a reason (avoids "Verifisert datakvalitet" duplication).
+  if (store.trustLevel === "high") reasons.push("Høy tillit");
 
   return {
     store,

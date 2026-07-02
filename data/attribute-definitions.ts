@@ -85,6 +85,13 @@ export type AttributeDefinition = {
    * (e.g. data quality), treated as certain.
    */
   claim?: (store: Store) => FieldConfidence<unknown> | undefined;
+  /**
+   * Noun phrase for explanation sentences («Har {reasonNoun}», «Kan ha
+   * {reasonNoun} – ikke bekreftet»). Absent = the attribute is not named in
+   * explanations (handled elsewhere or shown in the result footer).
+   * See docs/forklaringsmodell.md.
+   */
+  reasonNoun?: string;
   /** Badge on cards/search results. Absent → no badge. */
   badge?: {
     tone: BadgeTone;
@@ -127,6 +134,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["voec"],
     predicate: (s) => flag(s.attributes.geography.voec),
     claim: (s) => s.attributes.geography.voec,
+    reasonNoun: "VOEC",
     badge: { tone: "neutral", rank: 3, show: (s) => !s.isNorwegian && flag(s.attributes.geography.voec) },
   },
 
@@ -138,6 +146,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["vipps"],
     predicate: (s) => flag(s.attributes.payments.vipps),
     claim: (s) => s.attributes.payments.vipps,
+    reasonNoun: "Vipps",
     badge: { tone: "neutral", rank: 2, boostedRank: 0.5 },
   },
   {
@@ -147,6 +156,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["klarna", "delbetaling", "faktura"],
     predicate: (s) => flag(s.attributes.payments.klarna),
     claim: (s) => s.attributes.payments.klarna,
+    reasonNoun: "Klarna",
     badge: { tone: "neutral", rank: 2.1, boostedRank: 0.5 },
   },
   {
@@ -156,6 +166,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["paypal"],
     predicate: (s) => flag(s.attributes.payments.paypal),
     claim: (s) => s.attributes.payments.paypal,
+    reasonNoun: "PayPal",
     badge: { tone: "neutral", rank: 3.4, boostedRank: 0.5 },
   },
   {
@@ -165,6 +176,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["apple pay", "applepay"],
     predicate: (s) => flag(s.attributes.payments.applePay),
     claim: (s) => s.attributes.payments.applePay,
+    reasonNoun: "Apple Pay",
     badge: { tone: "neutral", rank: 3.5, boostedRank: 0.5 },
   },
 
@@ -176,6 +188,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["fri frakt", "gratis frakt", "fri levering"],
     predicate: (s) => s.attributes.shipping.shippingType?.value === "free",
     claim: (s) => s.attributes.shipping.shippingType,
+    reasonNoun: "fri frakt",
     badge: { tone: "ok", rank: 4, boostedRank: 0.6 },
   },
   {
@@ -186,6 +199,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     subsumes: ["freeShipping"],
     predicate: (s) => s.attributes.shipping.shippingType?.value === "free_over_amount",
     claim: (s) => s.attributes.shipping.shippingType,
+    reasonNoun: "fri frakt over beløp",
     badge: {
       tone: "neutral",
       rank: 4.2,
@@ -203,6 +217,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["klikk og hent", "hente i butikk", "hent i butikk"],
     predicate: (s) => flag(s.attributes.shipping.clickAndCollect),
     claim: (s) => s.attributes.shipping.clickAndCollect,
+    reasonNoun: "klikk og hent",
     badge: { tone: "neutral", rank: 4.6, boostedRank: 0.62 },
   },
   {
@@ -212,6 +227,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["hjemlevering", "levert hjem", "hjem til døra"],
     predicate: (s) => flag(s.attributes.shipping.homeDelivery),
     claim: (s) => s.attributes.shipping.homeDelivery,
+    reasonNoun: "hjemlevering",
     badge: { tone: "neutral", rank: 4.5, boostedRank: 0.61 },
   },
 
@@ -223,6 +239,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["abonnement"],
     predicate: (s) => flag(s.attributes.commercial.subscription),
     claim: (s) => s.attributes.commercial.subscription,
+    reasonNoun: "abonnement",
   },
   {
     key: "freeTrial",
@@ -231,6 +248,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["gratis prøve", "prøveperiode"],
     predicate: (s) => flag(s.attributes.commercial.freeTrial),
     claim: (s) => s.attributes.commercial.freeTrial,
+    reasonNoun: "gratis prøve",
   },
   {
     key: "introOffer",
@@ -239,6 +257,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["introtilbud", "velkomsttilbud"],
     predicate: (s) => flag(s.attributes.commercial.introOffer),
     claim: (s) => s.attributes.commercial.introOffer,
+    reasonNoun: "introtilbud",
   },
   {
     key: "outlet",
@@ -247,6 +266,7 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     aliases: ["outlet", "restsalg"],
     predicate: (s) => flag(s.attributes.commercial.outlet),
     claim: (s) => s.attributes.commercial.outlet,
+    reasonNoun: "outlet",
   },
 
   // --- Datakvalitet --------------------------------------------------------------

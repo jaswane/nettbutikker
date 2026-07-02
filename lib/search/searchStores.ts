@@ -10,6 +10,7 @@ import {
 } from "@/lib/catalog";
 import { applyFilters, filterByKey, type FilterKey } from "@/data/attribute-definitions";
 import { site } from "@/lib/site";
+import { lcFirst } from "@/lib/storeFormat";
 import { parseQuery, type ParsedQuery } from "@/lib/search/intent";
 import { compareScored, scoreStore, type ScoredStore } from "@/lib/search/ranking";
 import { buildSearchUrl } from "@/lib/search/url";
@@ -89,7 +90,8 @@ function searchTopic(parsed: ParsedQuery): string | undefined {
     .map((s) => getProductType(s)?.name)
     .filter(Boolean)[0];
   const category = parsed.categorySlugs.map((s) => getCategory(s)?.name).filter(Boolean)[0];
-  return (productType ?? category)?.toLowerCase();
+  const topic = productType ?? category;
+  return topic ? lcFirst(topic) : undefined;
 }
 
 function buildAnswer(
