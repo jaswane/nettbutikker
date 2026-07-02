@@ -1,6 +1,8 @@
 # Nettbutikker.no – MVP-prototype
 
-Søkeførst AI-veiviser for norske nettbutikker. Bygget etter **PRD v0.2 – MVP Cut**.
+Søkeførst AI-veiviser for norske nettbutikker. Bygget etter **PRD v0.2 – MVP Cut**,
+med produktbeslutninger fra søkemotorarbeidet dokumentert i
+[PRD v0.3 – tillegg](docs/PRD-v0.3-tillegg.md).
 Dette er en prototype, ikke et ferdig kommersielt nettsted: ingen database, ingen
 eksterne API-er, ingen innlogging, admin, scraping eller automatisk SEO-generering.
 
