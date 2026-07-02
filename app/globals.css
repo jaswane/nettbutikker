@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================== */
+/*  DESIGN TOKENS – single identity: «Redaksjonell petrol»              */
+/*  White page, marine ink, deep petrol accent, light petrol + neutral  */
+/*  section surfaces, warm gold for small details. Flat editorial       */
+/*  identity – no beige, no card-on-colour, sharp corners. Colours are  */
+/*  space-separated RGB channels so Tailwind's `/<alpha>` works.        */
+/*  Light only – no dark mode in MVP.                                   */
+/* ================================================================== */
+
+:root {
+  /* Single modern sans family (Manrope) for both display and UI. */
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  --font-display: var(--font-manrope), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --display-tracking: -0.02em;
+
+  --paper: 255 255 255; /* #FFFFFF page background */
+  --surface: 245 247 248; /* #F5F7F8 neutral section surface */
+  --ink: 16 24 40; /* #101828 marine */
+  --ink-soft: 42 51 67;
+  --ink-muted: 93 102 117; /* #5D6675 */
+  --ink-faint: 140 148 160;
+  --line: 226 230 234; /* hairline */
+  --line-strong: 208 214 220;
+  --accent: 7 94 104; /* #075E68 deep petrol (see BRAND_ACCENT_HEX) */
+  --accent-soft: 234 243 243; /* #EAF3F3 light petrol surface */
+  --accent-ink: 6 78 86;
+  --accent-ring: rgba(7, 94, 104, 0.28);
+  --gold: 214 138 24; /* #D68A18 warm accent */
+  --button: 7 94 104; /* petrol CTA */
+  --ok: 36 120 87;
+  --warn: 176 116 28;
+  --bad: 158 54 54;
+}
+
+* {
+  border-color: rgb(var(--line));
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: rgb(var(--paper));
+  color: rgb(var(--ink));
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgb(var(--accent-soft));
+  color: rgb(var(--accent-ink));
+}
+
+/* Front-page only: extremely subtle petrol dot pattern behind the hero/search,
+   fading out before the next section. CSS only, behind all content, no clicks. */
+.home-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 820px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(rgb(var(--accent) / 0.06) 1.6px, transparent 1.8px);
+  background-size: 108px 108px;
+  background-position: 18px 14px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 14%, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 14%, transparent 90%);
+}
+
+@media (max-width: 640px) {
+  .home-hero::before {
+    height: 600px;
+    background-size: 128px 128px;
+    background-image: radial-gradient(rgb(var(--accent) / 0.045) 1.5px, transparent 1.7px);
+  }
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+  border-radius: 0;
+}
+
+/* Display type uses the per-theme tracking. Weight is set per heading via
+   Tailwind utilities (Manrope provides the full 400–800 range). */
+.font-display {
+  letter-spacing: var(--display-tracking);
+}
+
+@layer components {
+  /* Square, flat CTAs – no radius, no shadow. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm
+      font-medium transition-colors duration-200 ease-calm;
+  }
+  .btn-primary {
+    @apply btn bg-button text-white hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn border border-line-strong bg-transparent text-ink-soft
+      hover:border-ink hover:text-ink;
+  }
+
+  /* Flat neutral section surface – no border, no shadow, no radius. */
+  .card {
+    @apply bg-surface;
+  }
+
+  /* Quiet navigation tag – flat, sharp, bordered, not a pill. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 border border-line-strong bg-surface
+      px-3 py-2 text-sm text-ink-soft transition-colors duration-200 ease-calm
+      hover:border-accent hover:text-ink;
+  }
+
+  /* Text-style quick prompt (replaces pill example questions). */
+  .prompt {
+    @apply inline-flex items-center gap-2.5 text-left text-[15px] leading-snug
+      text-ink-soft transition-colors duration-200 hover:text-ink;
+  }
+
+  /* Attribute label – small flat tag, faint surface, sharp corners. */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium
+      leading-5;
+  }
+  .badge-neutral {
+    @apply badge bg-surface text-ink-muted;
+  }
+  .badge-ok {
+    @apply badge bg-ok/10 text-ok;
+  }
+  .badge-accent {
+    @apply badge bg-accent-soft text-accent-ink;
+  }
+  .badge-warn {
+    @apply badge bg-warn/10 text-warn;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-ink-muted;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .hairline {
+    @apply border-line;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

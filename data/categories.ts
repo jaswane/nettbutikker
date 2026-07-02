@@ -1,0 +1,379 @@
+import type { Category, CategoryMapping, MainCategorySlug } from "@/lib/types";
+
+/**
+ * The 13 main categories from PRD v0.2 §10.
+ * Aliases drive the Norwegian intent parser (e.g. "løpesko" → sport).
+ */
+export const categories: Category[] = [
+  {
+    slug: "klaer-sko-mote",
+    name: "Klær, sko og mote",
+    shortName: "Klær & mote",
+    description:
+      "Nettbutikker for klær, sko, vesker og mote – både norske kjeder og store internasjonale aktører.",
+    aliases: [
+      "klær",
+      "klaer",
+      "mote",
+      "sko",
+      "joggesko",
+      "sneakers",
+      "kjole",
+      "kjoler",
+      "dameklær",
+      "herreklær",
+      "barneklær",
+      "jakke",
+      "bukse",
+      "vesker",
+      "undertøy",
+      "moteklær",
+    ],
+    subcategories: [
+      { slug: "dameklaer", name: "Dameklær", aliases: ["dameklær", "klær til dame", "kjoler"] },
+      { slug: "herreklaer", name: "Herreklær", aliases: ["herreklær", "klær til herre"] },
+      { slug: "sko", name: "Sko", aliases: ["sko", "joggesko", "sneakers", "støvler"] },
+    ],
+  },
+  {
+    slug: "sport-friluft-trening",
+    name: "Sport, friluft og trening",
+    shortName: "Sport & friluft",
+    description:
+      "Sportsutstyr, treningsklær, sykkel og friluftsutstyr for tur og aktivitet.",
+    aliases: [
+      "sport",
+      "trening",
+      "friluft",
+      "tursko",
+      "løpesko",
+      "lopesko",
+      "joggesko",
+      "løping",
+      "sykkel",
+      "ski",
+      "fjell",
+      "tur",
+      "treningsklær",
+      "fotball",
+      "yoga",
+      "fitness",
+    ],
+    subcategories: [
+      { slug: "lopesko", name: "Løpesko", aliases: ["løpesko", "lopesko", "joggesko til løping"] },
+      { slug: "sykkel", name: "Sykkel", aliases: ["sykkel", "el-sykkel", "sykkeldeler"] },
+      { slug: "friluft", name: "Friluftsutstyr", aliases: ["friluft", "telt", "sovepose", "tursekk"] },
+    ],
+  },
+  {
+    slug: "hjem-interior-hage",
+    name: "Hjem, interiør og hage",
+    shortName: "Hjem & interiør",
+    description:
+      "Møbler, interiør, kjøkken, oppbevaring og alt til hus og hage.",
+    aliases: [
+      "hjem",
+      "interiør",
+      "interior",
+      "møbler",
+      "mobler",
+      "sofa",
+      "stol",
+      "bord",
+      "kjøkken",
+      "belysning",
+      "lampe",
+      "hage",
+      "oppbevaring",
+      "tekstil",
+      "pyntegjenstander",
+    ],
+    subcategories: [
+      { slug: "mobler", name: "Møbler", aliases: ["møbler", "sofa", "stol", "bord"] },
+      { slug: "kjokken", name: "Kjøkken", aliases: ["kjøkken", "kjøkkenutstyr", "gryter"] },
+      { slug: "hage", name: "Hage", aliases: ["hage", "hagemøbler", "planter"] },
+    ],
+  },
+  {
+    slug: "elektronikk-data-gaming",
+    name: "Elektronikk, data og gaming",
+    shortName: "Elektronikk & gaming",
+    description:
+      "Mobil, PC, TV, lyd, smarthus og alt innen gaming og data.",
+    aliases: [
+      "elektronikk",
+      "data",
+      "gaming",
+      "pc",
+      "gaming-pc",
+      "gaming pc",
+      "mobil",
+      "telefon",
+      "laptop",
+      "tv",
+      "lyd",
+      "hodetelefoner",
+      "konsoll",
+      "playstation",
+      "xbox",
+      "nintendo",
+      "skjerm",
+      "smartklokke",
+      "kamera",
+    ],
+    subcategories: [
+      { slug: "pc-data", name: "PC og data", aliases: ["pc", "gaming-pc", "laptop", "komponenter"] },
+      { slug: "mobil", name: "Mobil", aliases: ["mobil", "telefon", "smarttelefon"] },
+      { slug: "lyd-bilde", name: "Lyd og bilde", aliases: ["tv", "lyd", "hodetelefoner", "høyttaler"] },
+    ],
+  },
+  {
+    slug: "baby-barn-leker",
+    name: "Baby, barn og leker",
+    shortName: "Baby & leker",
+    description:
+      "Babyutstyr, barneklær, leker og alt det små trenger.",
+    aliases: [
+      "baby",
+      "barn",
+      "leker",
+      "lego",
+      "barnevogn",
+      "babyutstyr",
+      "bleier",
+      "barneklær",
+      "leketøy",
+      "spill",
+      "brettspill",
+    ],
+    subcategories: [
+      { slug: "leker", name: "Leker", aliases: ["leker", "leketøy", "lego", "brettspill"] },
+      { slug: "babyutstyr", name: "Babyutstyr", aliases: ["babyutstyr", "barnevogn", "bæresele"] },
+    ],
+  },
+  {
+    slug: "helse-skjonnhet-apotek",
+    name: "Helse, skjønnhet og apotek",
+    shortName: "Helse & skjønnhet",
+    description:
+      "Hudpleie, sminke, parfyme, kosttilskudd og apotekvarer på nett.",
+    aliases: [
+      "helse",
+      "skjønnhet",
+      "skjonnhet",
+      "apotek",
+      "hudpleie",
+      "sminke",
+      "makeup",
+      "parfyme",
+      "kosttilskudd",
+      "hår",
+      "hårpleie",
+      "the ordinary",
+      "kosmetikk",
+      "vitaminer",
+    ],
+    subcategories: [
+      { slug: "hudpleie", name: "Hudpleie", aliases: ["hudpleie", "ansiktskrem", "serum"] },
+      { slug: "apotek", name: "Apotek", aliases: ["apotek", "reseptfritt", "vitaminer"] },
+      { slug: "sminke", name: "Sminke", aliases: ["sminke", "makeup", "kosmetikk"] },
+    ],
+  },
+  {
+    slug: "dyr-kjaeledyr",
+    name: "Dyr og kjæledyr",
+    shortName: "Dyr",
+    description:
+      "Fôr, utstyr og tilbehør til hund, katt og andre kjæledyr.",
+    aliases: [
+      "dyr",
+      "kjæledyr",
+      "kjaeledyr",
+      "dyrebutikk",
+      "hund",
+      "katt",
+      "hundefor",
+      "kattefor",
+      // NB: aldri legg inn "for" (uten aksent) – det kolliderer med preposisjonen
+      // og gjør at f.eks. «beste nettbutikk for løpesko» matcher dyrebutikker.
+      "fôr",
+      "akvarium",
+      "kanin",
+      "smådyr",
+    ],
+    subcategories: [
+      { slug: "hund", name: "Hund", aliases: ["hund", "hundefor", "hundeutstyr"] },
+      { slug: "katt", name: "Katt", aliases: ["katt", "kattefor", "kattesand"] },
+    ],
+  },
+  {
+    slug: "bil-bat-motor",
+    name: "Bil, båt og motor",
+    shortName: "Bil & motor",
+    description:
+      "Bildeler, dekk, tilbehør og utstyr til bil, båt og MC.",
+    aliases: [
+      "bil",
+      "båt",
+      "bat",
+      "motor",
+      "bildeler",
+      "dekk",
+      "felger",
+      "mc",
+      "motorsykkel",
+      "biltilbehør",
+      "verktøy til bil",
+    ],
+    subcategories: [
+      { slug: "bildeler", name: "Bildeler", aliases: ["bildeler", "reservedeler"] },
+      { slug: "dekk", name: "Dekk og felg", aliases: ["dekk", "felger", "vinterdekk"] },
+    ],
+  },
+  {
+    slug: "mat-drikke-dagligvarer",
+    name: "Mat, drikke og dagligvarer",
+    shortName: "Mat & drikke",
+    description:
+      "Dagligvarer, spesialmat, kaffe og drikke levert hjem.",
+    aliases: [
+      "mat",
+      "drikke",
+      "dagligvarer",
+      "matkasse",
+      "middag",
+      "kaffe",
+      "te",
+      "snacks",
+      "godteri",
+      "kosttilskudd mat",
+      "økologisk",
+    ],
+    subcategories: [
+      { slug: "matkasse", name: "Matkasse", aliases: ["matkasse", "middagskasse"] },
+      { slug: "kaffe-te", name: "Kaffe og te", aliases: ["kaffe", "te"] },
+    ],
+  },
+  {
+    slug: "hobby-gaver-moro",
+    name: "Hobby, gaver og moro",
+    shortName: "Hobby & gaver",
+    description:
+      "Hobbyartikler, kreativt utstyr, gaver og morsomme ting.",
+    aliases: [
+      "hobby",
+      "gaver",
+      "gave",
+      "moro",
+      "håndarbeid",
+      "garn",
+      "maling",
+      "kreativ",
+      "modellbygging",
+      "puslespill",
+      "festartikler",
+    ],
+    subcategories: [
+      { slug: "kreativt", name: "Kreativt og håndarbeid", aliases: ["garn", "maling", "håndarbeid"] },
+      { slug: "gaver", name: "Gaver", aliases: ["gave", "gaver", "gaveideer"] },
+    ],
+  },
+  {
+    slug: "syn-briller-linser",
+    name: "Syn, briller og linser",
+    shortName: "Briller & linser",
+    description:
+      "Briller, solbriller og kontaktlinser på nett.",
+    aliases: [
+      "briller",
+      "solbriller",
+      "linser",
+      "kontaktlinser",
+      "synsundersøkelse",
+      "brilleglass",
+      "optiker",
+    ],
+    subcategories: [
+      { slug: "briller", name: "Briller", aliases: ["briller", "solbriller"] },
+      { slug: "linser", name: "Kontaktlinser", aliases: ["linser", "kontaktlinser"] },
+    ],
+  },
+  {
+    slug: "tjenester-abonnement",
+    name: "Tjenester og abonnement",
+    shortName: "Tjenester",
+    description:
+      "Abonnementstjenester, strømming, programvare og digitale tjenester.",
+    aliases: [
+      "tjenester",
+      "abonnement",
+      "strømming",
+      "stromming",
+      "programvare",
+      "software",
+      "mobilabonnement",
+      "strøm",
+      "forsikring",
+      "digital tjeneste",
+    ],
+    subcategories: [
+      { slug: "stromming", name: "Strømming", aliases: ["strømming", "streaming"] },
+      { slug: "programvare", name: "Programvare", aliases: ["software", "programvare", "lisens"] },
+    ],
+  },
+  {
+    slug: "utenlandske-nettbutikker",
+    name: "Utenlandske nettbutikker",
+    shortName: "Utenlandske",
+    description:
+      "Store internasjonale aktører som sender til Norge. Husk å sjekke VOEC, toll og levering.",
+    aliases: [
+      "utenlandsk",
+      "utenlandske",
+      "utlandet",
+      "kina",
+      "temu",
+      "aliexpress",
+      "shein",
+      "amazon",
+      "import",
+      "voec",
+    ],
+  },
+];
+
+export const categoryBySlug = new Map<MainCategorySlug, Category>(
+  categories.map((c) => [c.slug, c]),
+);
+
+export function getCategory(slug: string): Category | undefined {
+  return categoryBySlug.get(slug as MainCategorySlug);
+}
+
+/**
+ * Example category mapping (PRD §11). Lets old eButikker slugs be reconciled
+ * with the new structure later. Not exhaustive – illustrative for the MVP.
+ */
+export const categoryMappings: CategoryMapping[] = [
+  {
+    oldSlug: "dameklaer",
+    newMainCategory: "klaer-sko-mote",
+    newSubcategory: "dameklaer",
+    aliases: ["dameklær", "klær til dame", "moteklær", "kjoler"],
+    riskLevel: "normal",
+  },
+  {
+    oldSlug: "sportsutstyr",
+    newMainCategory: "sport-friluft-trening",
+    newSubcategory: "friluft",
+    aliases: ["sport", "sportsutstyr", "friluftsutstyr"],
+    riskLevel: "normal",
+  },
+  {
+    oldSlug: "hudpleie",
+    newMainCategory: "helse-skjonnhet-apotek",
+    newSubcategory: "hudpleie",
+    aliases: ["hudpleie", "ansiktspleie", "kremer"],
+    riskLevel: "normal",
+  },
+];
