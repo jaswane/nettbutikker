@@ -17,6 +17,10 @@ import type { Brand, Category, MainCategorySlug, ProductType, Store } from "@/li
  * Everything is precomputed once at module init from the static dataset.
  */
 
+// Claims read-model: part of the catalog's read surface (docs/claims-modell.md §7).
+export { storeClaims } from "@/lib/claims";
+export type { StoreClaim } from "@/lib/claims";
+
 // --- Entities ---------------------------------------------------------------
 
 export const allStores: readonly Store[] = stores;

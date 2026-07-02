@@ -486,6 +486,41 @@ try {
   }
 }
 
+// --- 11e. Claim freshness SLA (docs/claims-modell.md §4) ---------------------
+// Every claim is measured against its group's SLA. Stale claims FAIL the
+// build – that is the re-verification alarm working, not a flaky test. Fix by
+// re-verifying (new lastChecked) or downgrading confidence with a note.
+{
+  const { storeClaims, claimFreshness, claimAgeDays, STORE_SLA_DAYS } =
+    await importTs("lib/claims.ts");
+  const now = new Date();
+  let stale = 0;
+  let aging = 0;
+  let total = 0;
+  for (const s of stores) {
+    for (const c of storeClaims(s)) {
+      total++;
+      const f = claimFreshness(c, now);
+      if (f === "stale") {
+        fail(`Utdatert claim: ${s.slug} ${c.key} (sist kontrollert ${c.lastChecked})`);
+        stale++;
+      } else if (f === "aging") {
+        aging++;
+      }
+    }
+    if (claimAgeDays(s.lastChecked, now) > STORE_SLA_DAYS) {
+      fail(`Butikk "${s.slug}" har ikke hatt full kontroll på over ett år (${s.lastChecked})`);
+      stale++;
+    }
+  }
+  if (!stale) {
+    ok(
+      `Alle ${total} claims er innenfor ferskhets-SLA` +
+        (aging ? ` (${aging} nærmer seg – planlegg re-verifisering)` : ""),
+    );
+  }
+}
+
 // --- 12. Golden search regression (frozen baseline) --------------------------
 // scripts/golden-queries.json freezes intent/understood/count/top-3 for a
 // query battery. Any drift fails the build; intentional engine changes must
