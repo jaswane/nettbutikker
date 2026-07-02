@@ -627,6 +627,34 @@ try {
   if (!drift) ok(`Golden-baseline uendret for alle ${golden.length} søk`);
 }
 
+// --- 13. Search-quality floors (docs/sokekvalitet.md) ------------------------
+// The eval panel measures coverage of realistic Norwegian shopping queries.
+// Floors are a RATCHET: raise them when vocabulary work lifts the rates,
+// never lower them. Full gap report: npm run eval.
+{
+  const { runEval } = await import("./eval-core.mjs");
+  const { searchStores } = await importTs("lib/search/searchStores.ts");
+  const cases = JSON.parse(await readText("scripts/eval-queries.json"));
+  const s = runEval(searchStores, cases);
+
+  const FORSTAAELSE_GULV = 45;
+  const AERLIGHET_GULV = 100;
+
+  if (s.forstaelse >= FORSTAAELSE_GULV) {
+    ok(`Søkeforståelse ${s.forstaelse} % (gulv ${FORSTAAELSE_GULV} %, ${s.inScopeTotal} spørringer)`);
+  } else {
+    fail(`Søkeforståelse ${s.forstaelse} % er under gulvet ${FORSTAAELSE_GULV} % – kjør npm run eval`);
+  }
+  if (s.aerlighet >= AERLIGHET_GULV) {
+    ok(`Søkeærlighet ${s.aerlighet} % (gulv ${AERLIGHET_GULV} %, ${s.outOfScopeTotal} spørringer)`);
+  } else {
+    fail(`Søkeærlighet ${s.aerlighet} % er under gulvet ${AERLIGHET_GULV} % – kjør npm run eval`);
+    for (const f of s.results.filter((r) => !r.inScope && !r.ok).slice(0, 10)) {
+      fail(`  «${f.query}»: ${f.problems.join("; ")}`);
+    }
+  }
+}
+
 // --- Summary ---------------------------------------------------------------
 console.log(
   `\n${failures === 0 ? "\x1b[32m" : "\x1b[31m"}${passes} ok, ${failures} feil\x1b[0m\n`,
