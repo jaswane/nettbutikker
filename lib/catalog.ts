@@ -1,6 +1,7 @@
 import { stores } from "@/data/stores";
 import { categories } from "@/data/categories";
 import { brands } from "@/data/brands";
+import { FILTERS, type FilterKey } from "@/data/attribute-definitions";
 import type { Brand, Category, MainCategorySlug, Store } from "@/lib/types";
 
 /**
@@ -63,6 +64,15 @@ export function storesInCategory(main: MainCategorySlug): readonly Store[] {
 /** Stores carrying a brand edge, unordered (retrieval candidates). */
 export function storesWithBrand(brandSlug: string): readonly Store[] {
   return storesByBrand.get(brandSlug) ?? [];
+}
+
+const storesByFilter = new Map<FilterKey, Store[]>(
+  FILTERS.map((f) => [f.key, stores.filter(f.predicate)]),
+);
+
+/** Stores satisfying an attribute filter, unordered (retrieval candidates). */
+export function storesMatchingFilter(key: FilterKey): readonly Store[] {
+  return storesByFilter.get(key) ?? [];
 }
 
 /**

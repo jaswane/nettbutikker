@@ -118,6 +118,11 @@ export type Store = {
   id: string;
   name: string;
   slug: string;
+  /**
+   * Extra search phrases for the store beyond its name (e.g. "hm" for H&M).
+   * Diacritic-less typing ("elkjop") is handled automatically by the lexicon.
+   */
+  searchAliases?: string[];
   websiteUrl: string;
   affiliateSlug?: string;
   logo?: StoreLogo;

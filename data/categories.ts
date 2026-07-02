@@ -194,9 +194,9 @@ export const categories: Category[] = [
       "katt",
       "hundefor",
       "kattefor",
-      // NB: aldri legg inn "for" (uten aksent) – det kolliderer med preposisjonen
-      // og gjør at f.eks. «beste nettbutikk for løpesko» matcher dyrebutikker.
-      "fôr",
+      // NB: «fôr» kan ALDRI være alias – normalisering gjør det til stoppordet
+      // "for", som får f.eks. «beste nettbutikk for løpesko» til å matche
+      // dyrebutikker. QA (leksikon-stoppordsjekken) håndhever dette.
       "akvarium",
       "kanin",
       "smådyr",

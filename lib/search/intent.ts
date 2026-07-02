@@ -1,11 +1,16 @@
-import { allBrands as brands, allCategories as categories, allStores as stores } from "@/lib/catalog";
+import { allBrands, allCategories } from "@/lib/catalog";
 import { ATTRIBUTES, attributeByKey, type FilterKey } from "@/data/attribute-definitions";
+import { linkEntities, normalize } from "@/lib/search/lexicon";
 import type { MainCategorySlug, SearchIntent } from "@/lib/types";
 
 /**
- * Lightweight Norwegian intent parser (PRD §6).
- * No external AI – pure string/alias matching over the local dataset.
+ * Norwegian intent parser (PRD §6).
+ * No external AI – entity linking via the shared lexicon
+ * (lib/search/lexicon.ts) plus deterministic intent rules. The parser
+ * interprets which entities a query mentions; it does not own vocabulary.
  */
+
+export { normalize } from "@/lib/search/lexicon";
 
 export type ParsedQuery = {
   raw: string;
@@ -23,15 +28,6 @@ export type ParsedQuery = {
   /** Whether the user is asking for a "best" recommendation. */
   wantsBest: boolean;
 };
-
-/** Normalise text but keep Norwegian letters. */
-export function normalize(input: string): string {
-  return input
-    .toLowerCase()
-    .replace(/[^\wæøå\s-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 function includesPhrase(haystack: string, needle: string): boolean {
   // Word-ish boundary match so "for" doesn't match "fortelle".
@@ -65,75 +61,70 @@ const BEST_WORDS = ["beste", "best", "anbefal", "anbefalt", "topp"];
 
 const WHERE_WORDS = ["hvor", "hvor kan", "hvor kjøper", "hvor får"];
 
-/**
- * Detect attribute filters from the query using the attribute registry
- * (data/attribute-definitions.ts) – phrases live with the attribute they
- * belong to, not here.
- */
-function detectAttributeFilters(norm: string): FilterKey[] {
-  const found = new Set<FilterKey>();
-  for (const attr of ATTRIBUTES) {
-    if (attr.group === undefined) continue; // only filterable attributes
-    if (attr.aliases.some((p) => includesPhrase(norm, p))) found.add(attr.key as FilterKey);
-  }
-  // Specific attributes subsume broader ones (e.g. "fri frakt over" → drop "fri frakt").
-  for (const key of [...found]) {
-    for (const broader of attributeByKey.get(key)?.subsumes ?? []) {
-      found.delete(broader as FilterKey);
-    }
-  }
-  return [...found];
-}
-
-function detectCategories(norm: string): { main: MainCategorySlug[]; subs: string[] } {
-  const main = new Set<MainCategorySlug>();
-  const subs = new Set<string>();
-  for (const cat of categories) {
-    const aliasHit =
-      cat.aliases.some((a) => includesPhrase(norm, a)) ||
-      includesPhrase(norm, cat.name) ||
-      includesPhrase(norm, cat.shortName);
-    if (aliasHit) main.add(cat.slug);
-    for (const sub of cat.subcategories ?? []) {
-      if (sub.aliases.some((a) => includesPhrase(norm, a)) || includesPhrase(norm, sub.name)) {
-        main.add(cat.slug);
-        subs.add(sub.slug);
-      }
-    }
-  }
-  return { main: [...main], subs: [...subs] };
-}
-
-function detectBrands(norm: string): string[] {
-  const found = new Set<string>();
-  for (const brand of brands) {
-    if (brand.aliases.some((a) => includesPhrase(norm, a)) || includesPhrase(norm, brand.name)) {
-      found.add(brand.slug);
-    }
-  }
-  return [...found];
-}
-
-function detectStore(norm: string): string | undefined {
-  // Longest store-name match wins (e.g. "barnas hus" over "hus").
-  let best: { slug: string; len: number } | undefined;
-  for (const store of stores) {
-    const name = normalize(store.name);
-    if (includesPhrase(norm, name) && (!best || name.length > best.len)) {
-      best = { slug: store.slug, len: name.length };
-    }
-  }
-  return best?.slug;
-}
+// Canonical ordering (data-file order) so multi-entity queries produce stable,
+// registry-ordered lists regardless of token order in the query.
+const CATEGORY_ORDER = new Map(allCategories.map((c, i) => [c.slug, i]));
+const BRAND_ORDER = new Map(allBrands.map((b, i) => [b.slug, i]));
+const ATTRIBUTE_ORDER = new Map(ATTRIBUTES.map((a, i) => [a.key, i]));
 
 export function parseQuery(raw: string): ParsedQuery {
   const normalized = normalize(raw);
   const tokens = normalized.split(" ").filter(Boolean);
 
-  const { main: categorySlugs, subs: subSlugs } = detectCategories(normalized);
-  const brandSlugs = detectBrands(normalized);
-  const storeSlug = detectStore(normalized);
-  const attributeFilters = detectAttributeFilters(normalized);
+  // Entity linking: which entities does the query mention?
+  const categorySet = new Set<MainCategorySlug>();
+  const subSet = new Set<string>();
+  const brandSet = new Set<string>();
+  const attributeSet = new Set<FilterKey>();
+  let bestStore: { slug: string; len: number } | undefined;
+
+  for (const match of linkEntities(normalized)) {
+    const ref = match.ref;
+    switch (ref.type) {
+      case "category":
+        categorySet.add(ref.slug);
+        break;
+      case "subcategory":
+        categorySet.add(ref.parent);
+        subSet.add(ref.slug);
+        break;
+      case "brand":
+        brandSet.add(ref.slug);
+        break;
+      case "store":
+        // Longest store-phrase match wins (e.g. "barnas hus" over "hus").
+        if (!bestStore || match.phrase.length > bestStore.len) {
+          bestStore = { slug: ref.slug, len: match.phrase.length };
+        }
+        break;
+      case "attribute":
+        // Only filterable attributes participate in search.
+        if (attributeByKey.get(ref.key)?.group !== undefined) {
+          attributeSet.add(ref.key as FilterKey);
+        }
+        break;
+    }
+  }
+
+  // Specific attributes subsume broader ones (e.g. "fri frakt over" → "fri frakt").
+  for (const key of [...attributeSet]) {
+    for (const broader of attributeByKey.get(key)?.subsumes ?? []) {
+      attributeSet.delete(broader as FilterKey);
+    }
+  }
+
+  const categorySlugs = [...categorySet].sort(
+    (a, b) => (CATEGORY_ORDER.get(a) ?? 0) - (CATEGORY_ORDER.get(b) ?? 0),
+  );
+  const subSlugs = [...subSet];
+  const brandSlugs = [...brandSet].sort(
+    (a, b) => (BRAND_ORDER.get(a) ?? 0) - (BRAND_ORDER.get(b) ?? 0),
+  );
+  const attributeFilters = [...attributeSet].sort(
+    (a, b) => (ATTRIBUTE_ORDER.get(a) ?? 0) - (ATTRIBUTE_ORDER.get(b) ?? 0),
+  );
+  const storeSlug = bestStore?.slug;
+
   const wantsNorwegian = attributeFilters.includes("norwegian");
   const wantsBest = BEST_WORDS.some((w) => includesPhrase(normalized, w));
 

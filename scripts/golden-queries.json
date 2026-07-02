@@ -96,10 +96,12 @@
   {
     "query": "Er elkjop trygt?",
     "filters": [],
-    "intent": "unknown",
-    "understood": false,
-    "resultCount": 0,
-    "top": []
+    "intent": "is_store_safe",
+    "understood": true,
+    "resultCount": 1,
+    "top": [
+      "elkjop"
+    ]
   },
   {
     "query": "hudpleie",
@@ -177,8 +179,8 @@
     "resultCount": 3,
     "top": [
       "musti",
-      "zooplus",
-      "vom-og-hundemat"
+      "vom-og-hundemat",
+      "zooplus"
     ]
   },
   {

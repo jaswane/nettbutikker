@@ -1,4 +1,12 @@
-import { allStores as stores, getBrand, getCategory } from "@/lib/catalog";
+import {
+  allStores as stores,
+  getBrand,
+  getCategory,
+  getStore,
+  storesInCategory,
+  storesMatchingFilter,
+  storesWithBrand,
+} from "@/lib/catalog";
 import { applyFilters, filterByKey, type FilterKey } from "@/data/attribute-definitions";
 import { site } from "@/lib/site";
 import { parseQuery, type ParsedQuery } from "@/lib/search/intent";
@@ -232,20 +240,40 @@ export function searchStores(query: string, options: SearchOptions = {}): Search
     };
   }
 
-  // Candidate pool: everything that passes the hard filters.
-  const candidates = stores.filter((s) => applyFilters(s, activeFilters));
+  // Candidate retrieval: union the index postings for every entity the query
+  // linked to (store, categories, brands, active filters). Only candidates can
+  // produce a match signal, so this is equivalent to scanning every store –
+  // but reads from the graph indexes instead (arkitektur fase 0).
+  const candidateSet = new Set<typeof stores[number]>();
+  if (parsed.storeSlug) {
+    const s = getStore(parsed.storeSlug);
+    if (s) candidateSet.add(s);
+  }
+  for (const slug of parsed.categorySlugs) {
+    for (const s of storesInCategory(slug)) candidateSet.add(s);
+  }
+  for (const slug of parsed.brandSlugs) {
+    for (const s of storesWithBrand(slug)) candidateSet.add(s);
+  }
+  for (const key of activeFilters) {
+    for (const s of storesMatchingFilter(key)) candidateSet.add(s);
+  }
 
   // Require a genuine match signal per store (matchScore, not total score –
   // the quality baseline must not qualify a store by itself). The asked-about
-  // store in a safety lookup is always kept.
-  const scored = candidates
+  // store in a safety lookup is always kept. Hard filters apply to every
+  // candidate (AND semantics).
+  const scored = [...candidateSet]
+    .filter((s) => applyFilters(s, activeFilters))
     .map((s) => scoreStore(s, parsed))
-    .filter((s) => isEmptyQuery || s.matchScore > 0 || parsed.storeSlug === s.store.slug)
+    .filter((s) => s.matchScore > 0 || parsed.storeSlug === s.store.slug)
     .sort(compareScored);
 
-  // For empty query, surface a few high-quality stores as a starting point.
+  // For empty query, surface a few high-quality stores as a starting point
+  // (no entity signal exists, so this reads the full catalog by design).
   const ranked = isEmptyQuery
-    ? candidates
+    ? stores
+        .filter((s) => applyFilters(s, activeFilters))
         .map((s) => scoreStore(s, parsed))
         .sort((a, b) => b.store.editorialScore - a.store.editorialScore)
         .slice(0, 6)

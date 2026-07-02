@@ -267,6 +267,7 @@ export const stores: Store[] = [
     id: "hm",
     name: "H&M",
     slug: "hm",
+    searchAliases: ["hm", "h og m", "hennes og mauritz"],
     websiteUrl: "https://www2.hm.com/no_no",
     shortDescription:
       "Internasjonal motekjede med rimelige basisplagg og trendklær for hele familien.",
@@ -293,6 +294,7 @@ export const stores: Store[] = [
   {
     id: "sport-1",
     name: "Sport 1",
+    searchAliases: ["sport1"],
     slug: "sport-1",
     websiteUrl: "https://www.sport1.no",
     affiliateSlug: "sport-1",
@@ -424,6 +426,7 @@ export const stores: Store[] = [
   {
     id: "apotek-1",
     name: "Apotek 1",
+    searchAliases: ["apotek1"],
     slug: "apotek-1",
     websiteUrl: "https://www.apotek1.no",
     shortDescription:
@@ -677,6 +680,7 @@ export const stores: Store[] = [
     id: "vom-og-hundemat",
     name: "VOM og Hundemat",
     slug: "vom-og-hundemat",
+    searchAliases: ["vom"],
     websiteUrl: "https://www.vomoghundemat.no",
     shortDescription:
       "Norsk produsent og nettbutikk for ferskt hundefôr basert på norske råvarer, levert hjem.",

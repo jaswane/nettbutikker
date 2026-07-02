@@ -196,23 +196,52 @@ try {
   if (!bad) ok("Alle butikker har gyldig lastChecked og dataQuality");
 }
 
-// --- 9. Alias hygiene: no Norwegian stopwords as search aliases -------------
-// A stopword alias silently poisons results (e.g. "for" once made
-// "beste nettbutikk for løpesko" match pet stores).
+// --- 9. Lexicon hygiene: no stopwords, no unknown cross-family collisions ----
+// The lexicon is the single bridge from language to entities (PRD v0.3 §4–5).
+// (a) No compiled phrase may be a Norwegian stopword – a stopword alias
+//     silently poisons results ("for" once made «beste nettbutikk for
+//     løpesko» match pet stores).
+// (b) A phrase pointing at multiple entity FAMILIES (kategori-familien,
+//     merke, butikk, attributt) is genuine ambiguity and must be an explicit,
+//     reviewed decision – new ones fail the build.
 {
-  const STOPWORDS = new Set([
-    "for", "med", "til", "og", "er", "en", "et", "den", "det", "de",
-    "i", "på", "om", "av", "som", "du", "jeg", "hva", "hvor", "best",
-    "beste", "ny", "nye", "klar", "kan", "skal", "vil", "har", "ikke",
-  ]);
-  const offenders = [];
-  for (const c of categories) {
-    for (const a of c.aliases) if (STOPWORDS.has(a)) offenders.push(`${c.slug}: "${a}"`);
-    for (const sub of c.subcategories ?? [])
-      for (const a of sub.aliases) if (STOPWORDS.has(a)) offenders.push(`${c.slug}/${sub.slug}: "${a}"`);
+  const { STOPWORDS } = await importTs("lib/search/stopwords.ts");
+  const { lexiconPhrases } = await importTs("lib/search/lexicon.ts");
+
+  const stopwordOffenders = [];
+  for (const { phrase } of lexiconPhrases()) {
+    if (STOPWORDS.has(phrase)) stopwordOffenders.push(`"${phrase}"`);
   }
-  if (offenders.length) fail(`Stoppord brukt som alias: ${offenders.join(", ")}`);
-  else ok("Ingen norske stoppord brukt som kategori-/underkategorialiaser");
+  if (stopwordOffenders.length)
+    fail(`Stoppord i leksikonet: ${stopwordOffenders.join(", ")}`);
+  else ok("Ingen stoppord blant leksikonets søkefraser");
+
+  // Reviewed, intentional cross-family ambiguities.
+  const ALLOWED_COLLISIONS = new Set([
+    "lego", // merkevare + leke-kategori/underkategori
+    "temu", // butikk + alias for utenlandske-kategorien
+    "amazon", // butikk + alias for utenlandske-kategorien
+    "playstation", // Sony-merkealias + elektronikk-kategorialias
+    "the ordinary", // merkevare + alias for helse/skjønnhet-kategorien
+    "voec", // attributt + alias for utenlandske-kategorien
+    "abonnement", // attributt + alias for tjenester-kategorien
+  ]);
+  const family = (ref) =>
+    ref.type === "category" || ref.type === "subcategory" ? "kategori" : ref.type;
+  let unknown = 0;
+  for (const { phrase, refs } of lexiconPhrases()) {
+    const families = new Set(refs.map(family));
+    if (families.size > 1 && !ALLOWED_COLLISIONS.has(phrase)) {
+      fail(
+        `Ukjent leksikon-kollisjon: "${phrase}" → ${refs
+          .map((r) => `${r.type}:${r.slug ?? r.key}`)
+          .join(", ")}`,
+      );
+      unknown++;
+    }
+  }
+  if (!unknown)
+    ok(`Alle kryss-familie-kollisjoner i leksikonet er godkjente (${ALLOWED_COLLISIONS.size} kjente)`);
 }
 
 // --- 10. Referential integrity: store brands + subcategory refs -------------
