@@ -1,0 +1,260 @@
+[
+  {
+    "query": "Er Temu trygt?",
+    "filters": [],
+    "intent": "is_store_safe",
+    "understood": true,
+    "resultCount": 7,
+    "top": [
+      "temu",
+      "zalando",
+      "amazon"
+    ]
+  },
+  {
+    "query": "Norske nettbutikker med Vipps",
+    "filters": [],
+    "intent": "store_with_attribute",
+    "understood": true,
+    "resultCount": 18,
+    "top": [
+      "fjellsport",
+      "apotek-1",
+      "elkjop"
+    ]
+  },
+  {
+    "query": "Hvor kjøper jeg LEGO?",
+    "filters": [],
+    "intent": "brand_query",
+    "understood": true,
+    "resultCount": 4,
+    "top": [
+      "lekekassen",
+      "jollyroom",
+      "barnas-hus"
+    ]
+  },
+  {
+    "query": "Beste nettbutikk for løpesko",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 5,
+    "top": [
+      "sport-1",
+      "fjellsport",
+      "xxl"
+    ]
+  },
+  {
+    "query": "Nettbutikker med Klarna",
+    "filters": [],
+    "intent": "store_with_attribute",
+    "understood": true,
+    "resultCount": 25,
+    "top": [
+      "fjellsport",
+      "elkjop",
+      "komplett"
+    ]
+  },
+  {
+    "query": "Hvor kjøper jeg gaming-PC?",
+    "filters": [],
+    "intent": "where_to_buy",
+    "understood": true,
+    "resultCount": 5,
+    "top": [
+      "komplett",
+      "elkjop",
+      "power"
+    ]
+  },
+  {
+    "query": "zalando",
+    "filters": [],
+    "intent": "is_store_safe",
+    "understood": true,
+    "resultCount": 1,
+    "top": [
+      "zalando"
+    ]
+  },
+  {
+    "query": "Er Amazon trygt?",
+    "filters": [],
+    "intent": "is_store_safe",
+    "understood": true,
+    "resultCount": 7,
+    "top": [
+      "amazon",
+      "zalando",
+      "temu"
+    ]
+  },
+  {
+    "query": "Er elkjop trygt?",
+    "filters": [],
+    "intent": "unknown",
+    "understood": false,
+    "resultCount": 0,
+    "top": []
+  },
+  {
+    "query": "hudpleie",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 4,
+    "top": [
+      "blivakker",
+      "apotek-1",
+      "vita"
+    ]
+  },
+  {
+    "query": "sykkel",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 5,
+    "top": [
+      "fjellsport",
+      "xxl",
+      "sport-1"
+    ]
+  },
+  {
+    "query": "briller",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 1,
+    "top": [
+      "synsam"
+    ]
+  },
+  {
+    "query": "matkasse",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 1,
+    "top": [
+      "oda"
+    ]
+  },
+  {
+    "query": "klær til dame",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 5,
+    "top": [
+      "zalando",
+      "boozt",
+      "hm"
+    ]
+  },
+  {
+    "query": "beste nettbutikk for møbler",
+    "filters": [],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 6,
+    "top": [
+      "bohus",
+      "jysk",
+      "elkjop"
+    ]
+  },
+  {
+    "query": "Hvor kan jeg kjøpe hundefôr?",
+    "filters": [],
+    "intent": "where_to_buy",
+    "understood": true,
+    "resultCount": 3,
+    "top": [
+      "musti",
+      "zooplus",
+      "vom-og-hundemat"
+    ]
+  },
+  {
+    "query": "iphone",
+    "filters": [],
+    "intent": "brand_query",
+    "understood": true,
+    "resultCount": 3,
+    "top": [
+      "elkjop",
+      "komplett",
+      "amazon"
+    ]
+  },
+  {
+    "query": "playstation",
+    "filters": [],
+    "intent": "brand_query",
+    "understood": true,
+    "resultCount": 5,
+    "top": [
+      "power",
+      "elkjop",
+      "komplett"
+    ]
+  },
+  {
+    "query": "vipps",
+    "filters": [],
+    "intent": "store_with_attribute",
+    "understood": true,
+    "resultCount": 26,
+    "top": [
+      "fjellsport",
+      "apotek-1",
+      "elkjop"
+    ]
+  },
+  {
+    "query": "nettbutikker med fri frakt",
+    "filters": [],
+    "intent": "store_with_attribute",
+    "understood": true,
+    "resultCount": 1,
+    "top": [
+      "zalando"
+    ]
+  },
+  {
+    "query": "norske nettbutikker med klarna og fri frakt",
+    "filters": [],
+    "intent": "store_with_attribute",
+    "understood": true,
+    "resultCount": 0,
+    "top": []
+  },
+  {
+    "query": "sport",
+    "filters": [
+      "vipps"
+    ],
+    "intent": "category_recommendation",
+    "understood": true,
+    "resultCount": 4,
+    "top": [
+      "fjellsport",
+      "xxl",
+      "sport-1"
+    ]
+  },
+  {
+    "query": "xkqzv jwrpt",
+    "filters": [],
+    "intent": "unknown",
+    "understood": false,
+    "resultCount": 0,
+    "top": []
+  }
+]

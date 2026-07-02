@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "qa": "node scripts/qa-checks.mjs",
+    "golden": "node scripts/generate-golden.mjs",
     "check": "npm run lint && npm run typecheck && npm run qa && npm run build"
   },
   "dependencies": {

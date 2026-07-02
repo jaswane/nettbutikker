@@ -326,6 +326,34 @@ try {
   ]);
 }
 
+// --- 12. Golden search regression (frozen baseline) --------------------------
+// scripts/golden-queries.json freezes intent/understood/count/top-3 for a
+// query battery. Any drift fails the build; intentional engine changes must
+// regenerate the file (npm run golden) in the same commit.
+{
+  const { searchStores } = await importTs("lib/search/searchStores.ts");
+  const golden = JSON.parse(await readText("scripts/golden-queries.json"));
+  let drift = 0;
+  for (const g of golden) {
+    const r = searchStores(g.query, { filters: g.filters });
+    const problems = [];
+    if (r.parsed.intent !== g.intent)
+      problems.push(`intent ${r.parsed.intent} ≠ ${g.intent}`);
+    if (r.understood !== g.understood)
+      problems.push(`understood ${r.understood} ≠ ${g.understood}`);
+    if (r.results.length !== g.resultCount)
+      problems.push(`antall ${r.results.length} ≠ ${g.resultCount}`);
+    const top = r.results.slice(0, 3).map((x) => x.store.slug);
+    if (top.join(",") !== g.top.join(","))
+      problems.push(`topp [${top}] ≠ [${g.top}]`);
+    if (problems.length) {
+      fail(`Golden «${g.query}» – ${problems.join("; ")}`);
+      drift++;
+    }
+  }
+  if (!drift) ok(`Golden-baseline uendret for alle ${golden.length} søk`);
+}
+
 // --- Summary ---------------------------------------------------------------
 console.log(
   `\n${failures === 0 ? "\x1b[32m" : "\x1b[31m"}${passes} ok, ${failures} feil\x1b[0m\n`,
