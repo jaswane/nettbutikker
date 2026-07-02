@@ -211,7 +211,9 @@ Nøkkelbeslutninger:
    søkefraser, badge og predikat. (Gjort – se §6.)
 3. **Claim blir førsteklasses**: `{subjekt, predikat, verdi, kilde, confidence,
    sjekket}`. `FieldConfidence` er allerede 80 % av dette; det som mangler er
-   kilde som entitet og en review-kø.
+   kilde som entitet og en review-kø. *(Analysert og besluttet 2026-07-02:
+   lesemodell-kontrakt + ferskhets-SLA er bygget nå; selve claim-loggen er
+   trigger-styrt til fase 3 – se [claims-modell.md](claims-modell.md).)*
 4. **Leksikonet er den eneste broen fra språk til graf.** Alle entitetstyper,
    én kollisjonspolitikk, ett stoppord-vern, diakritikk-folding. (Gjort.)
 5. **Søk er en ren funksjon over et kompilert indeks-snapshot.** Ingen
@@ -244,7 +246,9 @@ Nøkkelbeslutninger:
 **Fase 3 – Datavekst (500+ butikker):**
 - TS → JSON-datafiler med skjemavalidering (zod) bak katalogen.
 - Importverktøy + AI-ekstraksjon som produserer claims til review-kø
-  (`needsManualReview` finnes allerede som frø).
+  (`needsManualReview` finnes allerede som frø). Claim-loggen, Source-
+  entiteten og resolusjonsreglene er ferdig spesifisert i
+  [claims-modell.md](claims-modell.md) §5–§6 (T1-triggeren).
 - Postgres når JSON-filene blir uhåndterlige – kun katalog-internt bytte.
 
 **Fase 4 – Søk 2.0:**

@@ -72,6 +72,10 @@ Når du vil legge inn ekte logoer:
 Ikke hotlink tredjepartslogoer eller butikkenes favicons – bruk kun lokale filer
 du har rett til å bruke.
 
+> **Claims:** hvert fakta er lagret som sin oppløste claim (`FieldConfidence` =
+> verdi + confidence + sist kontrollert + kilde). Semantikk, ferskhets-SLA og
+> planen for full claim-logg: [docs/claims-modell.md](docs/claims-modell.md).
+
 ## QA (`npm run qa`)
 Kontrollerer bl.a.: unike slugs, referanseintegritet (kategori/underkategori/
 merke), `/go`-SEO-reglene, at alle rutefiler finnes, gyldig
