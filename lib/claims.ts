@@ -14,6 +14,7 @@ import type { Confidence, FieldConfidence, Store } from "@/lib/types";
 export type ClaimGroup =
   | "payments"
   | "shipping"
+  | "returns"
   | "geography"
   | "commercial"
   | "trust"
@@ -28,6 +29,7 @@ export type ClaimGroup =
 export const CLAIM_SLA_DAYS: Record<ClaimGroup, number | null> = {
   payments: 365,
   shipping: 365,
+  returns: 365,
   commercial: 365,
   trust: 540,
   brands: 540,
@@ -53,6 +55,7 @@ export type StoreClaim = {
 const ATTRIBUTE_GROUPS = [
   "payments",
   "shipping",
+  "returns",
   "geography",
   "commercial",
   "trust",

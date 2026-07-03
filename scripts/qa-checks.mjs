@@ -556,7 +556,7 @@ try {
     country: "NO", isNorwegian: true, shipsToNorway: true,
     attributes: {
       payments: vippsFc ? { vipps: vippsFc } : {},
-      shipping: {}, geography: {}, commercial: {}, trust: {},
+      shipping: {}, returns: {}, geography: {}, commercial: {}, trust: {},
     },
     trustLevel: "medium", dataQuality: "B", editorialScore: 50,
     lastChecked: "2026-06-24",

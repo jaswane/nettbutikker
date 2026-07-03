@@ -1,5 +1,5 @@
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
-import { COUNTRY, ja, jaFc, shipText } from "@/lib/storeFormat";
+import { COUNTRY, dagerFc, ja, jaFc, shipText } from "@/lib/storeFormat";
 import type { Confidence, Store } from "@/lib/types";
 
 type Row = { label: string; value: string };
@@ -50,9 +50,16 @@ export function PracticalInfoSection({ store }: { store: Store }) {
     ...(a.shipping.freeShippingFrom?.value != null
       ? [{ label: "Fri frakt over", value: `${a.shipping.freeShippingFrom.value} kr` }]
       : []),
+    { label: "Leveringstid", value: dagerFc(a.shipping.deliveryDays, "ca. ") },
     { label: "Hjemlevering", value: jaFc(a.shipping.homeDelivery) },
     { label: "Klikk og hent", value: jaFc(a.shipping.clickAndCollect) },
     { label: "Instabox", value: jaFc(a.shipping.instabox) },
+  ];
+
+  // Return terms are a top purchase-decision driver – own group.
+  const retur: Row[] = [
+    { label: "Returfrist", value: dagerFc(a.returns.returnWindowDays) },
+    { label: "Fri retur", value: jaFc(a.returns.freeReturns) },
   ];
 
   const omButikken: Row[] = [
@@ -83,6 +90,7 @@ export function PracticalInfoSection({ store }: { store: Store }) {
     <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
       <Group title="Betaling" rows={betaling} />
       <Group title="Frakt og levering" rows={frakt} />
+      <Group title="Retur" rows={retur} />
       <Group title="Om butikken" rows={omButikken} />
       <Group title="Andre vilkår" rows={andreVilkar} />
     </div>

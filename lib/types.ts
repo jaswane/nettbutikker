@@ -81,6 +81,8 @@ export type StoreAttributes = {
   shipping: {
     shippingType?: FieldConfidence<ShippingType>;
     freeShippingFrom?: FieldConfidence<number | null>;
+    /** Typical delivery time in days (decision driver, docs/opplevelse-2026-07.md). */
+    deliveryDays?: FieldConfidence<number>;
     homeDelivery?: FieldConfidence<boolean>;
     clickAndCollect?: FieldConfidence<boolean>;
     instabox?: FieldConfidence<boolean>;
@@ -99,6 +101,11 @@ export type StoreAttributes = {
     giftCard?: FieldConfidence<boolean>;
     outlet?: FieldConfidence<boolean>;
     priceMatch?: FieldConfidence<boolean>;
+  };
+  returns: {
+    /** Return window in days. */
+    returnWindowDays?: FieldConfidence<number>;
+    freeReturns?: FieldConfidence<boolean>;
   };
   trust: {
     tryggEhandel?: FieldConfidence<boolean>;

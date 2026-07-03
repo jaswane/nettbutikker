@@ -51,12 +51,15 @@ export type FilterKey =
   | "applePay"
   | "freeShipping"
   | "freeShippingOver"
+  | "fastDelivery"
+  | "freeReturns"
   | "clickAndCollect"
   | "homeDelivery"
   | "subscription"
   | "freeTrial"
   | "introOffer"
   | "outlet"
+  | "giftCard"
   | "highDataQuality";
 
 /** All attribute keys – filters plus badge-only attributes. */
@@ -211,6 +214,28 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     },
   },
   {
+    key: "fastDelivery",
+    label: "Rask levering",
+    group: "Frakt og levering",
+    aliases: ["rask levering", "levering i morgen", "kjapp levering"],
+    predicate: (s) => {
+      const days = s.attributes.shipping.deliveryDays?.value;
+      return days !== undefined && days <= 2;
+    },
+    claim: (s) => s.attributes.shipping.deliveryDays,
+    reasonNoun: "rask levering",
+  },
+  {
+    key: "freeReturns",
+    label: "Fri retur",
+    group: "Frakt og levering",
+    aliases: ["fri retur", "gratis retur"],
+    predicate: (s) => flag(s.attributes.returns.freeReturns),
+    claim: (s) => s.attributes.returns.freeReturns,
+    reasonNoun: "fri retur",
+    badge: { tone: "ok", rank: 4.4, boostedRank: 0.6 },
+  },
+  {
     key: "clickAndCollect",
     label: "Klikk og hent",
     group: "Frakt og levering",
@@ -267,6 +292,15 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     predicate: (s) => flag(s.attributes.commercial.outlet),
     claim: (s) => s.attributes.commercial.outlet,
     reasonNoun: "outlet",
+  },
+  {
+    key: "giftCard",
+    label: "Gavekort",
+    group: "Kommersielt",
+    aliases: ["gavekort"],
+    predicate: (s) => flag(s.attributes.commercial.giftCard),
+    claim: (s) => s.attributes.commercial.giftCard,
+    reasonNoun: "gavekort",
   },
 
   // --- Datakvalitet --------------------------------------------------------------

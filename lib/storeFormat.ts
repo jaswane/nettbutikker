@@ -59,6 +59,13 @@ export function jaFc(fc?: FieldConfidence<boolean>): string {
   return fc.confidence === "low" ? `Trolig ${base.toLowerCase()}` : base;
 }
 
+/** Day-count claim → «30 dager», confidence-honest per claims-modell §8. */
+export function dagerFc(fc?: FieldConfidence<number>, prefix = ""): string {
+  if (fc === undefined || fc.confidence === "unknown") return "Ukjent";
+  const base = `${prefix}${fc.value} ${fc.value === 1 ? "dag" : "dager"}`;
+  return fc.confidence === "low" ? `${base} (ikke bekreftet)` : base;
+}
+
 export function shipText(fc?: FieldConfidence<ShippingType>): string {
   if (fc === undefined || fc.confidence === "unknown") return "Ukjent";
   let base: string;
