@@ -235,13 +235,17 @@ export function searchStores(query: string, options: SearchOptions = {}): Search
     activeFilters.length > 0;
 
   if (!isEmptyQuery && !hasSignal) {
+    // Coverage language, never user-blame: for a perfectly normal word like
+    // «rosenkål» the truth is that OUR coverage ends here – not that the
+    // user was unclear (docs/opplevelse-2026-07.md).
+    const shownQuery = query.trim().length > 40 ? `${query.trim().slice(0, 40)}…` : query.trim();
     return {
       query,
       parsed,
       answer: {
-        headline: "Vi forsto ikke helt hva du leter etter.",
+        headline: `Vi har ikke dekning for «${shownQuery}» ennå.`,
         subline:
-          "Prøv å beskrive varen, merkevaren eller butikken – for eksempel «løpesko», «LEGO» eller «Er Temu trygt?».",
+          "Vi dekker vanlige kjøpsbehov som klær, elektronikk, sport, hjem og dyr – og om butikker er trygge. Prøv et annet ord, eller se eksemplene under.",
         bestLabel: "",
         tone: "neutral",
       },

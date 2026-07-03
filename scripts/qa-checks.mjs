@@ -418,6 +418,11 @@ try {
     ["forstått=false", (r) => r.understood === false],
     ["ingen resultater", (r) => r.results.length === 0],
     ["ingen 'beste valg'", (r) => r.best === undefined],
+    // Coverage language, never user-blame: «rosenkål» is a perfectly clear
+    // word – OUR coverage ends, the user was not unclear.
+    ["dekningsspråk, ikke «forsto ikke»", (r) =>
+      /har ikke dekning/.test(r.answer.headline) && !/forsto ikke/i.test(r.answer.headline)],
+    ["overskriften siterer søket", (r) => r.answer.headline.includes("xkqzv jwrpt")],
   ]);
 
   expectSearch("hudpleie", {}, [
