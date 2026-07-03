@@ -45,6 +45,19 @@ export function SearchForm({
     return () => mq.removeEventListener("change", apply);
   }, []);
 
+  // /sok-internal navigation (follow-ups, examples, «Se alle treff») re-renders
+  // this same mounted form with new props. Sync state so the input, the
+  // Advanced filter set and the NEXT instant search always match the page –
+  // otherwise a follow-up that adds a filter would leave the form filtering
+  // differently from the results it stands above.
+  useEffect(() => {
+    setQuery(initialQuery);
+  }, [initialQuery]);
+  const initialFiltersKey = initialFilters.join(",");
+  useEffect(() => {
+    setFilters(new Set(initialFiltersKey.split(",").filter(Boolean) as FilterKey[]));
+  }, [initialFiltersKey]);
+
   const filterList = useMemo(() => [...filters], [filters]);
 
   // Instant answer (level 1 of the search experience): the engine is a pure

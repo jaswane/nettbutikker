@@ -96,3 +96,39 @@ var allerede affiliate-fri (PRD §17) – nå sier UI-et det høyt.
 «Første søk tregt, neste raskere» fra manuell testing var dev-serverens
 on-demand-kompilering – finnes ikke i produksjon. Den reelle strukturelle
 tregheten (SSR per søk) er nå utenfor kritisk sti for opplevelsen.
+
+## 8. Produksjonsreview (2026-07-03)
+
+Kritisk gjennomgang av UX-endringene før videre bygging. Funn og status:
+
+**Rettet:**
+- **Konsistensfeil panel/side:** skjema-state (`query`/`filters`) synket ikke
+  når props endret seg ved /sok-intern navigasjon (forfin-lenker, eksempler).
+  En forfin-lenke som la til filter i URL-en etterlot skjemaet med FÆRRE
+  filtre enn siden det sto over – neste instant-søk og neste Enter brukte
+  feil filtre. Nå synkes state fra props; verifisert: followUp-klikk →
+  «Avansert 2», og panelets «Se alle treff (4)» = full sides 4 treff for
+  samme query+filtre.
+- «Enter ↵»-hintet i panelet skjules på mobil (meningsløst uten tastatur).
+
+**Verifisert OK:** mobil (ingen horisontal overflow, panel innenfor
+viewport), tastatur (Tab inn i panelet holder det åpent, Escape lukker,
+skriving gjenåpner), panelet vises aldri for spørringen siden allerede
+besvarer, dekningsspråket i begge nivåer, native clear-kryss lukker panelet.
+
+**Dokumenterte avveininger (venter bevisst):**
+- **Klient-eksponering:** hele katalogen – inkludert `editorialScore` og
+  `needsManualReview`, som aldri rendres – skipper nå i klient-bundelen
+  sammen med rankingvektene. Offentlig produktdata, ikke en sikkerhetsrisiko,
+  men interne signaler bør bli server-side når panelet bytter til
+  `/api/search` (fase 3/4-seamen i §2). Ikke verdt en egen klient-katalog nå.
+- **«(ikke bekreftet)»-tetthet:** de nye retur-/leveringsfeltene er alle
+  low-confidence, så profilene viser mange forbehold. Ærlig og villet –
+  løftes av reell verifisering (nye lastChecked/confidence), ikke av UI.
+- **Regresjonsvern:** motoren bak panelet dekkes av golden/eval/QA; selve
+  panelet (React-adferd) dekkes ikke av QA-harnesset og er verifisert
+  manuelt. Komponent-tester vurderes hvis panelet får mer logikk
+  (piltaster, API-kilde).
+- Combobox-ARIA (aria-expanded/activedescendant) venter til ev.
+  piltast-navigasjon – dagens panel er lenker i dokumentflyt og
+  tastaturtilgjengelig som de er.

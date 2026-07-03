@@ -61,7 +61,8 @@ export function InstantAnswer({
             <span>
               Se alle treff{results.length > top.length ? ` (${results.length})` : ""}
             </span>
-            <span aria-hidden className="text-xs text-ink-faint">Enter ↵</span>
+            {/* Keyboard hint is noise on touch devices */}
+            <span aria-hidden className="hidden text-xs text-ink-faint sm:inline">Enter ↵</span>
           </Link>
         </>
       ) : (
