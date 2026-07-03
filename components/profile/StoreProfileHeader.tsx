@@ -1,3 +1,4 @@
+import { AffiliateMark } from "@/components/AffiliateMark";
 import { StoreLogo } from "@/components/StoreLogo";
 import { getCategory } from "@/lib/catalog";
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
@@ -40,9 +41,21 @@ export function StoreProfileHeader({ store }: { store: Store }) {
         <span className="text-xs text-ink-muted">
           Datakvalitet {store.dataQuality} – {DATA_QUALITY_TEXT[store.dataQuality]} · Sist
           kontrollert {store.lastChecked}
-          {isAffiliate(store) ? " · annonselenke" : ""}
+          {isAffiliate(store) && (
+            <>
+              {" · "}
+              <AffiliateMark />
+            </>
+          )}
         </span>
       </div>
+
+      {isAffiliate(store) && (
+        <p className="mt-3 text-xs leading-relaxed text-ink-faint">
+          Vi kan få provisjon hvis du handler via lenken. Det påvirker aldri
+          rangeringen eller vurderingen vår.
+        </p>
+      )}
     </header>
   );
 }

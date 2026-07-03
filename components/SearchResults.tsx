@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AffiliateMark } from "@/components/AffiliateMark";
 import { BadgeRow } from "@/components/Badge";
 import { DataQualityTag } from "@/components/StoreCard";
 import { StoreLogo } from "@/components/StoreLogo";
@@ -202,7 +203,7 @@ function BestPanel({
         {isAffiliate(store) && (
           <>
             <span aria-hidden className="text-ink-faint">·</span>
-            <span>annonselenke</span>
+            <AffiliateMark />
           </>
         )}
       </div>
