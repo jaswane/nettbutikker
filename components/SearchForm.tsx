@@ -3,7 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AdvancedPanel } from "@/components/AdvancedPanel";
+import { InstantAnswer } from "@/components/InstantAnswer";
 import type { FilterKey } from "@/data/attribute-definitions";
+import { searchStores, type SearchResult } from "@/lib/search/searchStores";
 import { buildSearchUrl } from "@/lib/search/url";
 
 type Props = {
@@ -31,6 +33,8 @@ export function SearchForm({
   const [filters, setFilters] = useState<Set<FilterKey>>(new Set(initialFilters));
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [placeholder, setPlaceholder] = useState(PLACEHOLDER_LONG);
+  const [instant, setInstant] = useState<{ result: SearchResult; ms: number } | null>(null);
+  const [instantOpen, setInstantOpen] = useState(true);
 
   // Shorter placeholder on small screens (P2).
   useEffect(() => {
@@ -42,6 +46,29 @@ export function SearchForm({
   }, []);
 
   const filterList = useMemo(() => [...filters], [filters]);
+
+  // Instant answer (level 1 of the search experience): the engine is a pure
+  // function over the static catalog, so it runs right here in the browser.
+  // The full page (Enter / «Se alle treff») stays the canonical level 2.
+  // Not shown for the query the surrounding page already answers.
+  const trimmed = query.trim();
+  const showInstant =
+    trimmed.length >= 2 && trimmed.toLowerCase() !== initialQuery.trim().toLowerCase();
+
+  useEffect(() => {
+    if (!showInstant) {
+      setInstant(null);
+      return;
+    }
+    // Small debounce for calm rendering – the search itself takes ~1 ms.
+    const t = setTimeout(() => {
+      const started = performance.now();
+      const result = searchStores(trimmed, { filters: filterList });
+      setInstant({ result, ms: performance.now() - started });
+      setInstantOpen(true);
+    }, 90);
+    return () => clearTimeout(t);
+  }, [showInstant, trimmed, filterList]);
 
   const navigate = useCallback(
     (q: string, f: FilterKey[]) => router.push(buildSearchUrl(q, f)),
@@ -71,8 +98,19 @@ export function SearchForm({
   const isHero = variant === "hero";
 
   return (
-    <div className="w-full">
+    <div
+      className="w-full"
+      onBlur={(e) => {
+        // Close the instant panel when focus leaves the whole search area.
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setInstantOpen(false);
+      }}
+      onFocus={() => setInstantOpen(true)}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") setInstantOpen(false);
+      }}
+    >
       <form onSubmit={onSubmit}>
+        <div className="relative">
         <div
           className={
             isHero
@@ -105,6 +143,16 @@ export function SearchForm({
               <SearchIcon />
             </span>
           </button>
+        </div>
+
+        {instant && instantOpen && showInstant && (
+          <InstantAnswer
+            result={instant.result}
+            query={trimmed}
+            filters={filterList}
+            ms={instant.ms}
+          />
+        )}
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-3 px-1">
