@@ -32,7 +32,10 @@ npm run dev        # utvikling på http://localhost:3000
 | `npm run check`     | lint + typecheck + qa + build                            |
 
 ## Ruter
-- `/` – søkeførst forside (start-skjerm, ingen katalog over fold)
+- `/` – søkeførst forside (start-skjerm, ingen katalog over fold).
+  Søkefeltet gir instant-svar mens du skriver (klient-side motor);
+  Enter/«Se alle treff» går til full resultatside
+  (se [docs/opplevelse-2026-07.md](docs/opplevelse-2026-07.md))
 - `/sok` – søkeresultat med konklusjon, beste valg, alternativer og Advanced Mode
 - `/butikk/[slug]` – butikkprofil (30 butikker)
 - `/kategori/[slug]` – 13 hovedkategorier
