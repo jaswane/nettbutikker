@@ -1,14 +1,15 @@
 import type { MetadataRoute } from "next";
-import { allCategories as categories, allStores as stores } from "@/lib/catalog";
+import { allCategories as categories, getPublicStores } from "@/lib/catalog";
 import { nonEmptyLetters } from "@/lib/letters";
 import { site } from "@/lib/site";
 
 /**
  * Sitemap (PRD §19). Includes home, /sok, store profiles, categories,
  * /nettbutikker, alphabetical pages and legal pages. Deliberately EXCLUDES
- * /go/* (PRD §17).
+ * /go/* (PRD §17) and – via getPublicStores – draft-profiler i produksjon.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
+  const stores = getPublicStores();
   const base = site.url;
   const now = new Date();
 

@@ -3,11 +3,14 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { StoreProfile } from "@/components/StoreProfile";
-import { allStores, getCategory, getStore, relatedStores } from "@/lib/catalog";
+import { getCategory, getPublicStores, getPublishedStore, relatedStores } from "@/lib/catalog";
 import { site } from "@/lib/site";
 
+// Publiseringspolicy: kun offentlige butikker (i produksjon = verified) får
+// en side. Direkte besøk på en draft-slug gir notFound() i produksjon fordi
+// getPublishedStore da returnerer undefined. I development vises alle.
 export function generateStaticParams() {
-  return allStores.map((s) => ({ slug: s.slug }));
+  return getPublicStores().map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -16,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const store = getStore(slug);
+  const store = getPublishedStore(slug);
   if (!store) return { title: "Butikk ikke funnet" };
   return {
     title: `${store.name} – anbefaling og fakta`,
@@ -36,7 +39,7 @@ export default async function StorePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const store = getStore(slug);
+  const store = getPublishedStore(slug);
   if (!store) notFound();
 
   const related = relatedStores(store);

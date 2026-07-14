@@ -1,5 +1,5 @@
 import { ATTRIBUTES, type AttributeKey } from "@/data/attribute-definitions";
-import { allBrands, allCategories, allProductTypes, allStores } from "@/lib/catalog";
+import { allBrands, allCategories, allProductTypes, getPublicStores } from "@/lib/catalog";
 import { STOPWORDS } from "@/lib/search/stopwords";
 import type { MainCategorySlug } from "@/lib/types";
 
@@ -99,7 +99,9 @@ for (const brand of allBrands) {
   for (const alias of brand.aliases) addPhrase(alias, ref);
 }
 
-for (const store of allStores) {
+// Kun publiserte butikker i leksikonet: i produksjon skal en draft-butikk
+// ikke engang gjenkjennes som entitet i søket.
+for (const store of getPublicStores()) {
   const ref: LexiconRef = { type: "store", slug: store.slug };
   addPhrase(store.name, ref);
   for (const alias of store.searchAliases ?? []) addPhrase(alias, ref);

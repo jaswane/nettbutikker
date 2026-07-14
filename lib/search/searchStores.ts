@@ -1,9 +1,9 @@
 import {
-  allStores as stores,
   getBrand,
   getCategory,
   getProductType,
-  getStore,
+  getPublicStores,
+  getPublishedStore,
   storesInCategory,
   storesMatchingFilter,
   storesWithBrand,
@@ -14,6 +14,10 @@ import { lcFirst } from "@/lib/storeFormat";
 import { parseQuery, type ParsedQuery } from "@/lib/search/intent";
 import { compareScored, scoreStore, type ScoredStore } from "@/lib/search/ranking";
 import { buildSearchUrl } from "@/lib/search/url";
+
+// Publiseringspolicyen ligger i katalogen: i produksjon inneholder denne
+// listen (og alle edge-indeksene) kun verified-butikker.
+const stores = getPublicStores();
 
 export type FollowUp = { label: string; href: string };
 
@@ -266,7 +270,7 @@ export function searchStores(query: string, options: SearchOptions = {}): Search
   // but reads from the graph indexes instead (arkitektur fase 0).
   const candidateSet = new Set<typeof stores[number]>();
   if (parsed.storeSlug) {
-    const s = getStore(parsed.storeSlug);
+    const s = getPublishedStore(parsed.storeSlug);
     if (s) candidateSet.add(s);
   }
   for (const slug of parsed.categorySlugs) {

@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LetterNav } from "@/components/LetterNav";
 import { StoreCard } from "@/components/StoreCard";
 import { JsonLd } from "@/components/JsonLd";
-import { allStores as stores } from "@/lib/catalog";
+import { getPublicStores } from "@/lib/catalog";
 import {
   groupByLetter,
   isValidLetter,
@@ -14,7 +14,7 @@ import {
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
-  return nonEmptyLetters(stores).map((letter) => ({ letter }));
+  return nonEmptyLetters(getPublicStores()).map((letter) => ({ letter }));
 }
 
 export async function generateMetadata({
@@ -42,7 +42,7 @@ export default async function LetterPage({
   const decoded = decodeURIComponent(letter).toLowerCase();
   if (!isValidLetter(decoded)) notFound();
 
-  const list = groupByLetter(stores).get(decoded) ?? [];
+  const list = groupByLetter(getPublicStores()).get(decoded) ?? [];
   const label = letterLabel(decoded);
 
   const itemList = {

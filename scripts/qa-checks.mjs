@@ -777,6 +777,89 @@ try {
   }
 }
 
+// --- 15. Publiseringspolicy: drafts er usynlige i produksjon ------------------
+// Policyen bor i lib/catalog.ts (isPublishedStore/getPublicStores). Testes ved
+// å kjøre publish-policy-probe.mjs i en subprosess med NODE_ENV=production –
+// samme kode som produksjonsbygget kjører, ingen mocks.
+{
+  const { execFileSync } = await import("node:child_process");
+
+  const runProbe = (env) =>
+    JSON.parse(
+      execFileSync(process.execPath, [resolve(root, "scripts/publish-policy-probe.mjs")], {
+        cwd: root,
+        encoding: "utf8",
+        env: { ...process.env, ...env },
+        stdio: ["ignore", "pipe", "ignore"],
+      })
+        .trim()
+        .split("\n")
+        .at(-1),
+    );
+
+  // 15a. Produksjon: alle offentlige flater er verified-only
+  const prod = runProbe({ NODE_ENV: "production" });
+  const verified = new Set(prod.verifiedSlugs);
+  const onlyVerified = (slugs) => slugs.every((s) => verified.has(s));
+
+  if (
+    prod.publicSlugs.length === prod.verifiedSlugs.length &&
+    onlyVerified(prod.publicSlugs)
+  )
+    ok(`Produksjonskatalogen er verified-only (${prod.publicSlugs.length} av ${prod.total})`);
+  else fail(`Draft i produksjonskatalogen: [${prod.publicSlugs}]`);
+
+  if (onlyVerified(prod.sitemapStoreSlugs) && prod.sitemapStoreSlugs.length === verified.size)
+    ok("Produksjons-sitemap inneholder kun verified-profiler");
+  else fail(`Draft i produksjons-sitemap: [${prod.sitemapStoreSlugs}]`);
+
+  if (onlyVerified(prod.searchResultSlugs))
+    ok("Produksjonssøket returnerer kun verified-butikker");
+  else fail(`Draft i produksjonssøk: [${prod.searchResultSlugs}]`);
+
+  if (onlyVerified(prod.relatedSlugs))
+    ok("«Vurder også» viser kun verified-butikker i produksjon");
+  else fail(`Draft i relaterte butikker: [${prod.relatedSlugs}]`);
+
+  if (prod.lookupVerified === "lekekassen" && !prod.lookupDraftElkjop && !prod.lookupDraftTemu)
+    ok("Prod-oppslag: verified finnes (lekekassen), drafts gir undefined → 404 (elkjop, temu)");
+  else
+    fail(
+      `Prod-oppslag feil: verified=${prod.lookupVerified}, drafts=${prod.lookupDraftElkjop},${prod.lookupDraftTemu}`,
+    );
+
+  // 15b. Development: alle butikker er fortsatt tilgjengelige
+  const dev = runProbe({ NODE_ENV: "development" });
+  if (dev.publicSlugs.length === dev.total && dev.lookupDraftElkjop === "elkjop")
+    ok(`Development viser alle ${dev.total} butikker (drafts kan testes lokalt)`);
+  else fail(`Development skjuler butikker: ${dev.publicSlugs.length} av ${dev.total}`);
+
+  // 15c. Butikk-ruten håndhever policyen (draft-slug → notFound i prod)
+  const storePage = await readText("app/butikk/[slug]/page.tsx");
+  if (
+    storePage.includes("getPublishedStore") &&
+    storePage.includes("notFound()") &&
+    !storePage.includes("getStore(")
+  )
+    ok("Butikk-ruten bruker getPublishedStore + notFound (drafts → 404 i prod)");
+  else fail("Butikk-ruten håndhever ikke publiseringspolicyen");
+
+  // 15d. contentStatus er publiseringsgate, aldri ranking-signal
+  {
+    const { readdir } = await import("node:fs/promises");
+    const entries = await readdir(resolve(root, "lib/search"), { recursive: true });
+    const offenders = [];
+    for (const entry of entries) {
+      const rel = `lib/search/${String(entry).replace(/\\/g, "/")}`;
+      if (!/\.(ts|tsx)$/.test(rel)) continue;
+      if ((await readText(rel)).includes("contentStatus")) offenders.push(rel);
+    }
+    if (offenders.length)
+      for (const f of offenders) fail(`contentStatus brukt i søk/ranking: ${f}`);
+    else ok("contentStatus leses ikke av søk/ranking (kun publiseringsgate i catalog)");
+  }
+}
+
 // --- Summary ---------------------------------------------------------------
 console.log(
   `\n${failures === 0 ? "\x1b[32m" : "\x1b[31m"}${passes} ok, ${failures} feil\x1b[0m\n`,

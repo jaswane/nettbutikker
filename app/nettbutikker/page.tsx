@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LetterNav } from "@/components/LetterNav";
 import { JsonLd } from "@/components/JsonLd";
-import { allCategories as categories, allStores as stores } from "@/lib/catalog";
+import { allCategories as categories, getPublicStores } from "@/lib/catalog";
 import { groupByLetter, letterLabel, nonEmptyLetters } from "@/lib/letters";
 import { site } from "@/lib/site";
 
@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default function NettbutikkerPage() {
+  // Kun offentlige butikker (publiseringspolicyen i lib/catalog.ts).
+  const stores = getPublicStores();
   const grouped = groupByLetter(stores);
   const letters = nonEmptyLetters(stores);
 

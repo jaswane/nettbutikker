@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { LETTERS, letterLabel, nonEmptyLetters } from "@/lib/letters";
-import { allStores as stores } from "@/lib/catalog";
+import { getPublicStores } from "@/lib/catalog";
 
-/** A–Z / Æ Ø Å / 0-9 navigation strip (PRD §15). */
+/** A–Z / Æ Ø Å / 0-9 navigation strip (PRD §15). Public stores only. */
 export function LetterNav({ active }: { active?: string }) {
-  const available = new Set(nonEmptyLetters(stores));
+  const available = new Set(nonEmptyLetters(getPublicStores()));
   return (
     <nav aria-label="Bla alfabetisk" className="flex flex-wrap gap-1.5">
       {LETTERS.map((l) => {
