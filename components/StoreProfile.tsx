@@ -6,44 +6,42 @@ import { StoreProfileNav, type ProfileTab } from "@/components/profile/StoreProf
 import { OverviewSection } from "@/components/profile/OverviewSection";
 import { PracticalInfoSection } from "@/components/profile/PracticalInfoSection";
 import { BrandsSection } from "@/components/profile/BrandsSection";
-import { ReviewsSection } from "@/components/profile/ReviewsSection";
 import { RelatedStores } from "@/components/profile/RelatedStores";
 import type { Store } from "@/lib/types";
 
-const TABS = [
-  { id: "oversikt", label: "Oversikt" },
-  { id: "info", label: "Praktisk info" },
-  { id: "merker", label: "Merkevarer og kategorier" },
-  { id: "omtaler", label: "Omtaler" },
-] as const satisfies readonly ProfileTab[];
-
-type TabId = (typeof TABS)[number]["id"];
-
 /**
- * Store profile orchestrator. Desktop: underline tabs show one section.
- * Mobile: sections stack vertically (the tab nav is hidden under `sm`).
+ * Store profile orchestrator. The tab bar is visual navigation only: every
+ * panel is server-rendered in the initial HTML and hidden with CSS, so the
+ * full content is always crawlable (SEO/AI-søk) regardless of JavaScript.
+ *
+ * Three fixed tabs. «Omtaler» is deliberately absent: the editorial verdict
+ * lives in Oversikt («Vår vurdering»), and a reviews tab returns only when a
+ * real user-review system exists (see profile/ReviewsSection.tsx).
  */
 export function StoreProfile({ store, related }: { store: Store; related: Store[] }) {
-  const [active, setActive] = useState<TabId>("oversikt");
+  const tabs: ProfileTab[] = [
+    { id: "oversikt", label: "Oversikt" },
+    { id: "info", label: "Praktisk info" },
+    { id: "merker", label: "Merkevarer" },
+  ];
+
+  const [active, setActive] = useState("oversikt");
 
   return (
     <div>
       <StoreProfileHeader store={store} />
-      <StoreProfileNav tabs={TABS} active={active} onSelect={(id) => setActive(id as TabId)} />
+      <StoreProfileNav tabs={tabs} active={active} onSelect={setActive} />
 
       <div className="mt-8">
-        <Section id="oversikt" active={active} label="Oversikt">
+        <Panel id="oversikt" active={active}>
           <OverviewSection store={store} />
-        </Section>
-        <Section id="info" active={active} label="Praktisk info">
+        </Panel>
+        <Panel id="info" active={active}>
           <PracticalInfoSection store={store} />
-        </Section>
-        <Section id="merker" active={active} label="Merkevarer og kategorier">
+        </Panel>
+        <Panel id="merker" active={active}>
           <BrandsSection store={store} />
-        </Section>
-        <Section id="omtaler" active={active} label="Omtaler">
-          <ReviewsSection store={store} />
-        </Section>
+        </Panel>
       </div>
 
       <RelatedStores stores={related} />
@@ -51,24 +49,26 @@ export function StoreProfile({ store, related }: { store: Store; related: Store[
   );
 }
 
-/** Visible when active (desktop) or always (mobile, stacked with a heading). */
-function Section({
+/**
+ * Tab panel. Inactive panels get the `hidden` attribute (display:none) but
+ * remain in the DOM/initial HTML – content is never fetched on click.
+ */
+function Panel({
   id,
   active,
-  label,
   children,
 }: {
-  id: TabId;
-  active: TabId;
-  label: string;
+  id: string;
+  active: string;
   children: React.ReactNode;
 }) {
-  const on = active === id;
   return (
-    <section className={on ? "block" : "block sm:hidden"}>
-      <h2 className="mb-4 border-t border-line pt-7 text-xs font-semibold uppercase tracking-[0.12em] text-ink-faint sm:hidden">
-        {label}
-      </h2>
+    <section
+      role="tabpanel"
+      id={`panel-${id}`}
+      aria-labelledby={`tab-${id}`}
+      hidden={active !== id}
+    >
       {children}
     </section>
   );

@@ -12,7 +12,8 @@
     "qa": "node scripts/qa-checks.mjs",
     "golden": "node scripts/generate-golden.mjs",
     "eval": "node scripts/search-eval.mjs",
-    "check": "npm run lint && npm run typecheck && npm run qa && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run qa && npm run qa:content && npm run build",
+    "qa:content": "node scripts/content-audit.mjs"
   },
   "dependencies": {
     "next": "^15.5.19",

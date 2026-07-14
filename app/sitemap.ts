@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/kontakt",
     "/personvern",
     "/annonser-og-samarbeid",
+    "/legg-til-nettbutikk",
   ];
 
   const entries: MetadataRoute.Sitemap = staticPages.map((path) => ({

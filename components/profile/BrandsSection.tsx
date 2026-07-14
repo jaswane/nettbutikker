@@ -1,59 +1,61 @@
 import Link from "next/link";
 import { getCategory, getProductType } from "@/lib/catalog";
 import { buildSearchUrl } from "@/lib/search/url";
-import { RELEVANCE } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 
-/** Categories and brands as plain lists (no brand pages, no badge wall). */
+/**
+ * Categories and brands as simple link lists (no internal relevance labels,
+ * no brand pages, no badge wall). Destinations:
+ *  - category  → /kategori/[slug] (real category page)
+ *  - productType → /sok?q=<navn> (server-rendered search projection)
+ *  - brand     → /sok?q=<merke> (server-rendered brand search; brand_query)
+ * Internal relevance/primary/secondary stays in the data model, unused here.
+ */
 export function BrandsSection({ store }: { store: Store }) {
+  // Flatten each category edge into its category and (optional) product type,
+  // de-duplicated, preserving order.
+  const categoryItems: { key: string; label: string; href: string }[] = [];
+  const seen = new Set<string>();
+  for (const ref of store.categories) {
+    const cat = getCategory(ref.main);
+    if (cat && !seen.has(`c:${cat.slug}`)) {
+      seen.add(`c:${cat.slug}`);
+      categoryItems.push({ key: `c:${cat.slug}`, label: cat.name, href: `/kategori/${cat.slug}` });
+    }
+    if (ref.productType) {
+      const pt = getProductType(ref.productType);
+      if (pt && !seen.has(`p:${pt.slug}`)) {
+        seen.add(`p:${pt.slug}`);
+        categoryItems.push({ key: `p:${pt.slug}`, label: pt.name, href: buildSearchUrl(pt.name) });
+      }
+    }
+  }
+
   return (
     <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
       <section>
         <h3 className="text-sm font-semibold text-ink">Kategorier</h3>
-        <ul className="mt-2">
-          {store.categories.map((c) => {
-            const cat = getCategory(c.main);
-            const productType = c.productType ? getProductType(c.productType) : undefined;
-            return (
-              <li
-                key={`${c.main}-${c.productType ?? ""}`}
-                className="flex items-baseline justify-between gap-6 border-t border-line py-2.5 text-sm first:border-t-0"
-              >
-                <span className="min-w-0">
-                  <Link href={`/kategori/${c.main}`} className="text-ink hover:text-accent">
-                    {cat?.name ?? c.main}
-                  </Link>
-                  {productType && (
-                    <>
-                      <span className="text-ink-muted"> · </span>
-                      {/* Internal link into the search projection of the same edge */}
-                      <Link
-                        href={buildSearchUrl(productType.name)}
-                        className="text-ink-muted underline-offset-2 hover:text-accent hover:underline"
-                      >
-                        {productType.name}
-                      </Link>
-                    </>
-                  )}
-                </span>
-                <span className="text-xs text-ink-faint">{RELEVANCE[c.relevance]}</span>
-              </li>
-            );
-          })}
+        <ul className="mt-2 space-y-1.5 text-sm">
+          {categoryItems.map((item) => (
+            <li key={item.key}>
+              <Link href={item.href} className="text-link">
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
       <section>
         <h3 className="text-sm font-semibold text-ink">Merkevarer</h3>
         {store.brands && store.brands.length > 0 ? (
-          <ul className="mt-2">
+          <ul className="mt-2 space-y-1.5 text-sm">
             {store.brands.map((b) => (
-              <li
-                key={b.slug}
-                className="flex items-baseline justify-between gap-6 border-t border-line py-2.5 text-sm first:border-t-0"
-              >
-                <span className="text-ink">{b.name}</span>
-                <span className="text-xs text-ink-faint">{RELEVANCE[b.relevance]}</span>
+              <li key={b.slug}>
+                {/* No brand pages yet → link to a server-rendered brand search. */}
+                <Link href={buildSearchUrl(b.name)} className="text-link">
+                  {b.name}
+                </Link>
               </li>
             ))}
           </ul>

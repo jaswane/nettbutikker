@@ -46,6 +46,16 @@ export default function Page() {
           Informasjon om priser, frakt, betalingsmåter og lagerstatus kan endre
           seg. Sjekk derfor alltid butikkens egne vilkår før du handler.
         </p>
+        <p className="text-pretty">
+          Driver du en nettbutikk som ikke er oppført? Les om{" "}
+          <Link
+            href="/legg-til-nettbutikk"
+            className="text-accent-ink underline-offset-2 hover:underline"
+          >
+            hvordan du kan få den vurdert
+          </Link>
+          .
+        </p>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">

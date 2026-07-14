@@ -127,6 +127,37 @@ export type StoreLogo = {
   background?: "light" | "dark" | "transparent";
 };
 
+/**
+ * A primary source backing the profile's claims (butikkens egne vilkår,
+ * om oss-side osv.). Rendered under «Kilder og sist kontrollert» in Praktisk
+ * info and required (min. two) before a profile can be `verified`.
+ */
+export type StoreSource = {
+  label: string;
+  url: string;
+  /** ISO date the source was last checked against the profile. */
+  checkedAt: string;
+  /** Which claim areas the source supports, e.g. "payments", "returns". */
+  supports?: string[];
+};
+
+/** One H2-section of the long editorial description (redaksjonell standard). */
+export type DescriptionSection = {
+  heading: string;
+  paragraphs: string[];
+};
+
+/**
+ * How the listing came to exist:
+ *  - "editorial": vi valgte selv å legge inn butikken (standard; gjelder også
+ *    når feltet mangler)
+ *  - "paid": butikken har betalt for arbeidet med vurdering og oppføring
+ * Feltet beskriver KUN opphav. Det skal ALDRI leses av ranking, score eller
+ * anbefalinger – håndhevet av QA (qa-checks.mjs). Fremtidig synlig merking
+ * skjer i Praktisk info, ikke i profilhodet.
+ */
+export type ListingType = "editorial" | "paid";
+
 export type Store = {
   id: string;
   name: string;
@@ -140,9 +171,29 @@ export type Store = {
   affiliateSlug?: string;
   logo?: StoreLogo;
   shortDescription: string;
-  /** Longer editorial description shown on the store profile (optional). */
+  /**
+   * Direct summary (50–80 ord) that opens the profile's Oversikt: what kind
+   * of store, who it fits, what it does not cover.
+   */
   longDescription?: string;
-  /** Short editorial verdict used in the "Omtaler" section (optional). */
+  /**
+   * Full editorial description (≥300 ord for `verified` profiles), structured
+   * as H2 sections per the redaksjonelle standarden: hva selger butikken,
+   * hvem passer den for, betaling/frakt, retur, hva bør kontrolleres.
+   * Facts only – every claim must be covered by `sources`.
+   */
+  descriptionSections?: DescriptionSection[];
+  /** Primary sources backing the profile (min. two for `verified`). */
+  sources?: StoreSource[];
+  /**
+   * Editorial content status. `verified` requires ≥300 ord beskrivelse,
+   * ≥2 kilder, lastChecked + komplette kjernefelter (håndheves av
+   * `npm run qa:content`). Absent/`draft` = under arbeid.
+   */
+  contentStatus?: "draft" | "verified";
+  /** Listing origin (see ListingType). Absent = "editorial". Never in ranking. */
+  listingType?: ListingType;
+  /** Short editorial verdict shown under «Vår vurdering» in Oversikt (optional). */
   reviewSummary?: string;
   editorialPros?: string[];
   editorialCons?: string[];

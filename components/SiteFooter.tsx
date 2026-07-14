@@ -8,6 +8,7 @@ const footerLinks = [
   { href: "/kontakt", label: "Kontakt" },
   { href: "/personvern", label: "Personvern" },
   { href: "/annonser-og-samarbeid", label: "Annonser og samarbeid" },
+  { href: "/legg-til-nettbutikk", label: "Legg til nettbutikk" },
 ];
 
 export function SiteFooter() {

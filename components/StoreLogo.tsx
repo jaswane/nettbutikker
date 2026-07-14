@@ -3,16 +3,21 @@ import type { Store } from "@/lib/types";
 /**
  * Store logo with a discreet initial-based fallback.
  *
- * Future logos: drop local files at /public/logos/[slug].svg (or .png) and set
- *   logo: { src: "/logos/[slug].svg", alt: "Butikknavn", background: "light" }
- * on the store in data/stores.ts. Until a file exists we render the initial.
- * Never hotlink third-party logos or store favicons.
+ * The holder adapts to the logo's own background (never auto-stripped):
+ *  - transparent → shown directly, no holder, no border (avoids a card look)
+ *  - light       → white holder with a very faint 1px border
+ *  - dark        → dark holder for light-on-transparent artwork
+ * Common: no rounding, no shadow, object-contain, capped height, small
+ * vertical padding, small logos are never stretched. Files live in
+ * /public/logos/ (see docs/BRAND_ASSETS.md); never hotlink third-party logos.
+ *
+ * Stores without a logo keep a square petrol-tinted initial tile.
  */
 
 const SIZES = {
-  sm: { box: "h-7 w-7", text: "text-[11px]" },
-  md: { box: "h-10 w-10", text: "text-sm" },
-  lg: { box: "h-14 w-14", text: "text-lg" },
+  sm: { img: "h-6", pad: "px-1.5 py-0.5", maxW: "max-w-[104px]", box: "h-7 w-7", text: "text-[11px]" },
+  md: { img: "h-8", pad: "px-2 py-1", maxW: "max-w-[150px]", box: "h-10 w-10", text: "text-sm" },
+  lg: { img: "h-10", pad: "px-2 py-1", maxW: "max-w-[210px]", box: "h-14 w-14", text: "text-lg" },
 } as const;
 
 type Size = keyof typeof SIZES;
@@ -27,18 +32,37 @@ export function StoreLogo({
   className?: string;
 }) {
   const s = SIZES[size];
-  const initial = store.name.trim().charAt(0).toUpperCase();
 
   if (store.logo?.src) {
-    return (
+    const bg = store.logo.background ?? "light";
+    const img = (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={store.logo.src}
         alt={store.logo.alt ?? store.name}
-        className={`${s.box} shrink-0 border border-line object-contain ${
-          store.logo.background === "dark" ? "bg-ink" : "bg-white"
-        } p-1 ${className}`}
+        className={`${s.img} w-auto object-contain`}
       />
+    );
+
+    // Transparent logos need no chrome – show them directly.
+    if (bg === "transparent") {
+      return (
+        <span className={`inline-flex shrink-0 overflow-hidden ${s.maxW} ${className}`}>
+          {img}
+        </span>
+      );
+    }
+
+    // light / dark → adaptive holder that hugs the logo (sharp corners,
+    // faint/dark surface), capped and clipped for pathologically wide logos.
+    return (
+      <span
+        className={`inline-flex shrink-0 items-center overflow-hidden ${s.pad} ${s.maxW} border ${
+          bg === "dark" ? "border-ink/20 bg-ink" : "border-line/70 bg-white"
+        } ${className}`}
+      >
+        {img}
+      </span>
     );
   }
 
@@ -48,7 +72,7 @@ export function StoreLogo({
       aria-hidden
       className={`${s.box} ${s.text} grid shrink-0 place-items-center bg-accent-soft font-bold text-accent-ink ${className}`}
     >
-      {initial}
+      {store.name.trim().charAt(0).toUpperCase()}
     </span>
   );
 }

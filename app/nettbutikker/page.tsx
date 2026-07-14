@@ -104,6 +104,15 @@ export default function NettbutikkerPage() {
           );
         })}
       </div>
+
+      {/* Diskret henvisning for butikkeiere – ingen salgspromotering utover dette. */}
+      <p className="mt-14 border-t border-line pt-6 text-sm text-ink-muted">
+        Driver du en nettbutikk som ikke er oppført?{" "}
+        <Link href="/legg-til-nettbutikk" className="text-link">
+          Les om hvordan du kan få den vurdert
+        </Link>
+        .
+      </p>
     </div>
   );
 }

@@ -1,6 +1,18 @@
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
-import { COUNTRY, dagerFc, ja, jaFc, shipText } from "@/lib/storeFormat";
+import { COUNTRY, dagerFc, ja, jaFc, shipText, TRUST } from "@/lib/storeFormat";
 import type { Confidence, Store } from "@/lib/types";
+
+/** Plain-Norwegian labels for what a source supports. */
+const SUPPORTS_TEXT: Record<string, string> = {
+  productRange: "sortiment",
+  payments: "betaling",
+  shipping: "frakt og levering",
+  returns: "retur",
+  company: "selskapsinformasjon",
+  brands: "merkevarer",
+  clickAndCollect: "klikk og hent",
+  priceMatch: "prismatch",
+};
 
 type Row = { label: string; value: string };
 
@@ -67,11 +79,7 @@ export function PracticalInfoSection({ store }: { store: Store }) {
     { label: "Norsk butikk", value: ja(store.isNorwegian) },
     { label: "Sender til Norge", value: ja(store.shipsToNorway) },
     { label: "VOEC", value: jaFc(a.geography.voec) },
-    {
-      label: "Datakvalitet",
-      value: `${store.dataQuality} – ${DATA_QUALITY_TEXT[store.dataQuality]}`,
-    },
-    { label: "Sist kontrollert", value: store.lastChecked },
+    { label: "Vår tillitsvurdering", value: TRUST[store.trustLevel] },
   ];
 
   // Other terms: only surface the ones that actually apply, to avoid a wall of "Nei".
@@ -87,12 +95,53 @@ export function PracticalInfoSection({ store }: { store: Store }) {
   ].filter(Boolean) as Row[];
 
   return (
-    <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
-      <Group title="Betaling" rows={betaling} />
-      <Group title="Frakt og levering" rows={frakt} />
-      <Group title="Retur" rows={retur} />
-      <Group title="Om butikken" rows={omButikken} />
-      <Group title="Andre vilkår" rows={andreVilkar} />
+    <div>
+      <div className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
+        <Group title="Betaling" rows={betaling} />
+        <Group title="Frakt og levering" rows={frakt} />
+        <Group title="Retur og kundeservice" rows={retur} />
+        <Group title="Om butikken" rows={omButikken} />
+        <Group title="Andre vilkår" rows={andreVilkar} />
+      </div>
+
+      {/* Kilder og sist kontrollert – full bredde nederst */}
+      <section className="mt-10 border-t border-line pt-6">
+        <h3 className="text-sm font-semibold text-ink">Kilder og sist kontrollert</h3>
+        <p className="mt-1.5 text-sm text-ink-muted">
+          Sist kontrollert {store.lastChecked} · Datakvalitet {store.dataQuality} –{" "}
+          {DATA_QUALITY_TEXT[store.dataQuality]}
+        </p>
+        {store.sources && store.sources.length > 0 ? (
+          <ul className="mt-3">
+            {store.sources.map((src) => (
+              <li
+                key={src.url}
+                className="flex flex-col gap-0.5 border-t border-line py-2.5 text-sm first:border-t-0 sm:flex-row sm:items-baseline sm:justify-between"
+              >
+                <a
+                  href={src.url}
+                  target="_blank"
+                  rel="noopener nofollow"
+                  className="text-link"
+                >
+                  {src.label} ↗
+                </a>
+                <span className="text-xs text-ink-muted">
+                  Kontrollert {src.checkedAt}
+                  {src.supports && src.supports.length > 0 && (
+                    <> · dekker {src.supports.map((s) => SUPPORTS_TEXT[s] ?? s).join(", ")}</>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-3 text-sm text-ink-muted">
+            Kildeliste er ikke lagt inn for denne butikken ennå. Opplysningene er
+            basert på butikkens egne sider og kontrolleres manuelt.
+          </p>
+        )}
+      </section>
     </div>
   );
 }

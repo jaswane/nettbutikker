@@ -605,8 +605,76 @@ export const stores: Store[] = [
     slug: "lekekassen",
     websiteUrl: "https://www.lekekassen.no",
     affiliateSlug: "lekekassen",
+    logo: { src: "/logos/lekekassen.svg", alt: "Lekekassen", background: "light" },
     shortDescription:
       "Norsk nettbutikk for leker, spill og hobby med bredt utvalg for alle aldre.",
+    longDescription:
+      "Lekekassen er en norsk nettbutikk for leker og hobbyprodukter, drevet av Lekekassen AS i Grimstad og eid av Europris. Sortimentet dekker alt fra LEGO og brettspill til utelek og hobbymateriell, med fri frakt over 1000 kroner og normalt 1–3 virkedagers levering. Butikken passer best for deg som skal kjøpe leker eller gaver til barn – den fører ikke barnevogner, bilstoler eller annet babyutstyr.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Lekekassen?",
+        paragraphs: [
+          "Lekekassen selger leker, spill og hobbyprodukter på nett. Sortimentet spenner fra byggesett, dukker, plysj og puslespill til utelek som lekehus, basseng, vannleker og elektriske biler for barn, i tillegg til hobbymateriell.",
+          "Butikken fører kjente merkevarer som LEGO, Barbie, Paw Patrol og Pokémon. Selskapet omtaler seg som Norges største lekebutikk og oppgir å sende flere hundre tusen bestillinger i året til hele Skandinavia. Søsterbutikkene Toyspace i Sverige og Danmark og Hobbykassen i Norge drives av samme selskap, som har hovedkontor og lager på 21 000 kvadratmeter i Grimstad.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Lekekassen passer først og fremst for deg som skal kjøpe leker, spill eller gaver til barn, eller utstyr til lek ute i hagen. Utvalget dekker de fleste aldersgrupper fra småbarn og oppover.",
+          "Butikken er mindre aktuell hvis du leter etter babyutstyr som vogner og bilstoler – det ligger utenfor sortimentet.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Vipps, kortbetaling (Visa og Mastercard via Nets) eller Klarna faktura med 30 dagers forfall. Kjøper må være over 18 år.",
+          "Frakt koster 79 kroner for ordre under 1000 kroner og er gratis over dette, med unntak for enkelte varer. Hjemlevering tilbys for 99 kroner, og varer over 35 kilo har eget frakttillegg. Normal leveringstid er oppgitt til 1–3 virkedager til hentested. Butikken leverer til fastlands-Norge, ikke til Svalbard eller Jan Mayen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager fra dagen etter at du mottar varen. Returfrakt betaler du selv – butikken tilbyr ikke returseddel eller fri retur. Varen må være ubrukt og i originalemballasjen, og refusjon skjer innen 10 dager etter at returen er mottatt.",
+          "Reklamasjonsretten følger forbrukerkjøpsloven: to år, eller fem år for varer som er ment å vare vesentlig lenger.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om varene dine kvalifiserer til fri frakt, siden enkelte varer er unntatt. Husk at returfrakt ikke dekkes, og at forseglede varer må ha forseglingen intakt ved retur. Leveringstiden kan bli lengre rundt jul og påske.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Lekekassen før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Lekekassen – Om oss",
+        url: "https://www.lekekassen.no/om-oss",
+        checkedAt: "2026-07-13",
+        supports: ["company", "productRange", "brands"],
+      },
+      {
+        label: "Lekekassen – Betingelser",
+        url: "https://www.lekekassen.no/betingelser",
+        checkedAt: "2026-07-13",
+        supports: ["payments", "shipping", "returns"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Solid norsk lekespesialist med bredt sortiment, kjente merkevarer og oppgitt leveringstid på 1–3 virkedager. Vær oppmerksom på at returfrakt betales av kunden.",
+    editorialPros: [
+      "Stort utvalg leker og kjente merkevarer",
+      "Fri frakt over 1000 kr",
+      "Oppgitt leveringstid 1–3 virkedager",
+      "PrisMatch-garanti",
+    ],
+    editorialCons: [
+      "Returfrakt betales av kunden",
+      "14 dagers angrerett er lovens minimum",
+      "Ingen fysisk butikk",
+    ],
     bestFor: ["Leker og brettspill", "LEGO og byggesett", "Gaveideer til barn"],
     notBestFor: ["Babyutstyr som vogner og bilstoler"],
     categories: [
@@ -614,23 +682,36 @@ export const stores: Store[] = [
       { main: "hobby-gaver-moro", productType: "gaver", relevance: "secondary" },
     ],
     brands: [
-      { name: "LEGO", slug: "lego", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
+      { name: "LEGO", slug: "lego", relevance: "primary", confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/om-oss" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(2, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(499, "low"), homeDelivery: fc(true) },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser", note: "Klarna faktura, 30 dagers forfall" },
+      },
+      shipping: {
+        deliveryDays: { value: 2, confidence: "medium", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser", note: "Oppgitt 1–3 virkedager" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
+        freeShippingFrom: { value: 1000, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser", note: "99 kr, uavhengig av kjøpesum" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      commercial: {
+        priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/prismatch" },
+      },
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
+      },
       trust: { tryggEhandel: fc(true, "low") },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 76,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-13",
   },
 
   // ───────────────────────── Dyr og kjæledyr ─────────────────────────────────

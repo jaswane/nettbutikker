@@ -6,14 +6,14 @@ import Link from "next/link";
  * full policy. Trust through transparency – commission is disclosed in the
  * same breath as the promise that it never affects ranking (PRD §17).
  */
-export function AffiliateMark() {
+export function AffiliateMark({ label = "annonselenke" }: { label?: string }) {
   return (
     <Link
       href="/annonser-og-samarbeid"
       title="Vi kan få provisjon hvis du handler via lenken. Det påvirker aldri hvilke butikker vi anbefaler eller rekkefølgen."
       className="underline decoration-line-strong decoration-dotted underline-offset-2 transition-colors hover:text-ink"
     >
-      annonselenke
+      {label}
     </Link>
   );
 }

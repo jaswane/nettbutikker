@@ -23,6 +23,10 @@ const points = [
     p: "Der en lenke er en annonselenke, forsøker vi å merke det tydelig. Utgående annonselenker er merket teknisk som «sponset» for søkemotorer.",
   },
   {
+    h: "Betalte oppføringer",
+    p: "Enkelte butikker kan betale for arbeidet med å bli vurdert og oppført i databasen. Slike betalinger påvirker aldri ranking eller anbefaling, og betalte oppføringer skal kunne merkes tydelig når de finnes. Redaksjonelle fakta og vurderinger bestemmes av Nettbutikker.no.",
+  },
+  {
     h: "Vil du samarbeide?",
     p: "Er du en nettbutikk som vil være med, eller mener du data om butikken din er feil? Ta kontakt, så ser vi på det.",
   },

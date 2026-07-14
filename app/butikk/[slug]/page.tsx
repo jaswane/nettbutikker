@@ -54,15 +54,28 @@ export default async function StorePage({
 
         <StoreProfile store={store} related={related} />
 
-        {/* Store schema-lite via JSON-LD */}
+        {/*
+          WebPage + mainEntity Organization (maskinlesbar profil). Only
+          verified, visible fields: name/url/description are on the page,
+          the logo file is served locally, dateModified = lastChecked (real
+          content check date). Deliberately NO Review/AggregateRating until
+          real, visible reviews exist.
+        */}
         <JsonLd
           data={{
             "@context": "https://schema.org",
-            "@type": "Organization",
-            name: store.name,
-            url: store.websiteUrl,
-            description: store.shortDescription,
-            ...(primaryCat ? { knowsAbout: getCategory(primaryCat.main)?.name } : {}),
+            "@type": "WebPage",
+            url: `${site.url}/butikk/${store.slug}`,
+            name: `${store.name} – anbefaling og fakta`,
+            dateModified: store.lastChecked,
+            mainEntity: {
+              "@type": "Organization",
+              name: store.name,
+              url: store.websiteUrl,
+              description: store.shortDescription,
+              ...(store.logo?.src ? { logo: `${site.url}${store.logo.src}` } : {}),
+              ...(primaryCat ? { knowsAbout: getCategory(primaryCat.main)?.name } : {}),
+            },
           }}
         />
       </div>

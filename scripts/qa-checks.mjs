@@ -164,6 +164,7 @@ try {
     "app/kontakt/page.tsx",
     "app/personvern/page.tsx",
     "app/annonser-og-samarbeid/page.tsx",
+    "app/legg-til-nettbutikk/page.tsx",
     "app/sitemap.ts",
     "app/robots.ts",
   ];
@@ -658,6 +659,121 @@ try {
     for (const f of s.results.filter((r) => !r.inScope && !r.ok).slice(0, 10)) {
       fail(`  «${f.query}»: ${f.problems.join("; ")}`);
     }
+  }
+}
+
+// --- 14. Kommersiell oppføring og redaksjonell integritet --------------------
+// Regler for /legg-til-nettbutikk og skillet redaksjonelt/betalt/brukeromtaler.
+// Bruker en egen filvandrer (ikke git grep) så også nye, ennå ucommittede
+// filer kontrolleres.
+{
+  const { readdir } = await import("node:fs/promises");
+
+  /** All source files (path + content) under the given roots. */
+  async function sourceFiles(dirs, extRe = /\.(ts|tsx|mjs)$/) {
+    const out = [];
+    for (const dir of dirs) {
+      const entries = await readdir(resolve(root, dir), { recursive: true });
+      for (const entry of entries) {
+        const rel = `${dir}/${String(entry).replace(/\\/g, "/")}`;
+        if (!extRe.test(rel)) continue;
+        out.push({ rel, text: await readText(rel) });
+      }
+    }
+    return out;
+  }
+
+  // Lines that are actual code: block comments (also JSX ones) are blanked
+  // with line numbers preserved, and line comments are cut without touching
+  // URLs like https://.
+  function codeLines(text) {
+    const stripped = text
+      .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ""))
+      .replace(/(^|[^:])\/\/.*$/gm, "$1");
+    return stripped
+      .split("\n")
+      .map((line, i) => ({ line, no: i + 1 }))
+      .filter(({ line }) => line.trim() !== "");
+  }
+
+  // 14a. Sitemap, footer og CTA for /legg-til-nettbutikk
+  const sitemapSrc = await readText("app/sitemap.ts");
+  if (sitemapSrc.includes('"/legg-til-nettbutikk"'))
+    ok("/legg-til-nettbutikk er med i sitemap.ts");
+  else fail("/legg-til-nettbutikk mangler i sitemap.ts");
+
+  const footerSrc = await readText("components/SiteFooter.tsx");
+  if (footerSrc.includes('"/legg-til-nettbutikk"'))
+    ok("Footer lenker til /legg-til-nettbutikk");
+  else fail("Footer mangler lenke til /legg-til-nettbutikk");
+
+  const salesSrc = await readText("app/legg-til-nettbutikk/page.tsx");
+  if (salesSrc.includes('href="/kontakt"'))
+    ok("Salgssidens CTA går til /kontakt");
+  else fail("Salgssiden mangler CTA-lenke til /kontakt");
+
+  // 14b. Kontaktadressen vises KUN på /kontakt (lib/site.ts-regelen)
+  {
+    const files = await sourceFiles(["app", "components", "lib", "data"]);
+    const offenders = files.filter(
+      (f) =>
+        f.text.includes("kontakt@swanecreative.no") &&
+        f.rel !== "app/kontakt/page.tsx",
+    );
+    if (offenders.length)
+      for (const f of offenders)
+        fail(`kontakt@swanecreative.no utenfor /kontakt: ${f.rel}`);
+    else ok("kontakt@swanecreative.no finnes kun i app/kontakt/page.tsx");
+  }
+
+  // 14c. listingType skal ALDRI leses av søk/ranking (lib/types.ts-kontrakten)
+  {
+    const files = await sourceFiles(["lib/search"]);
+    const offenders = files.filter((f) =>
+      codeLines(f.text).some(({ line }) => line.includes("listingType")),
+    );
+    if (offenders.length)
+      for (const f of offenders)
+        fail(`listingType brukt i søk/ranking: ${f.rel}`);
+    else ok("listingType leses ikke av søk/ranking (lib/search)");
+  }
+
+  // 14d. Ingen Review/AggregateRating-schema uten ekte, synlige omtaler
+  {
+    const files = await sourceFiles(["app", "components"]);
+    const offenders = [];
+    for (const f of files) {
+      for (const { line, no } of codeLines(f.text)) {
+        if (/AggregateRating|"@type"\s*:\s*"Review"/.test(line))
+          offenders.push(`${f.rel}:${no}`);
+      }
+    }
+    if (offenders.length)
+      for (const o of offenders) fail(`Review/AggregateRating-schema funnet: ${o}`);
+    else ok("Ingen Review/AggregateRating-schema (ingen ekte omtaler finnes)");
+  }
+
+  // 14e. Ingen placeholder om fremtidige brukeromtaler i rendret tekst
+  {
+    const files = await sourceFiles(["app", "components"]);
+    const offenders = [];
+    for (const f of files) {
+      for (const { line, no } of codeLines(f.text)) {
+        if (/[Bb]rukeromtaler er ikke åpnet|åpne for omtaler senere/.test(line))
+          offenders.push(`${f.rel}:${no}`);
+      }
+    }
+    if (offenders.length)
+      for (const o of offenders) fail(`Omtale-placeholder rendres: ${o}`);
+    else ok("Ingen placeholder-tekst om fremtidige brukeromtaler");
+  }
+
+  // 14f. Omtaler-fanen forblir av til ekte omtaler finnes
+  {
+    const profileSrc = await readText("components/StoreProfile.tsx");
+    if (codeLines(profileSrc).some(({ line }) => line.includes("ReviewsSection")))
+      fail("StoreProfile importerer ReviewsSection – Omtaler skal være av til ekte omtaler finnes");
+    else ok("StoreProfile rendrer ikke Omtaler-fanen (ingen ekte omtaler)");
   }
 }
 

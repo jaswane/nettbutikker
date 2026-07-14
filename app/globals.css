@@ -32,7 +32,8 @@
   --accent-ink: 6 78 86;
   --accent-ring: rgba(7, 94, 104, 0.28);
   --gold: 214 138 24; /* #D68A18 warm accent */
-  --button: 7 94 104; /* petrol CTA */
+  --button: 6 52 60; /* #06343C deep petrol – darker than accent so the main
+                        CTA never competes visually with the petrol active tab */
   --ok: 36 120 87;
   --warn: 176 116 28;
   --bad: 158 54 54;
@@ -109,6 +110,14 @@ body {
   .btn-ghost {
     @apply btn border border-line-strong bg-transparent text-ink-soft
       hover:border-ink hover:text-ink;
+  }
+
+  /* Inline text link – petrol, underline on hover + keyboard focus.
+     Only for genuinely clickable inline text (categories, brands, sources),
+     never for tabs, buttons or whole clickable rows. */
+  .text-link {
+    @apply text-accent-ink underline-offset-2 transition-colors hover:underline
+      focus-visible:underline;
   }
 
   /* Flat neutral section surface – no border, no shadow, no radius. */
