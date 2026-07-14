@@ -102,38 +102,124 @@ export const stores: Store[] = [
     slug: "komplett",
     websiteUrl: "https://www.komplett.no",
     affiliateSlug: "komplett",
+    logo: { src: "/logos/komplett.svg", alt: "Komplett", background: "transparent" },
     shortDescription:
       "Norsk nettbutikk med stort utvalg innen PC, komponenter, gaming og elektronikk – populær for egenbygg.",
     longDescription:
-      "Komplett er en av Norges mest etablerte nettbutikker for PC, komponenter og elektronikk, og er særlig populær blant dem som bygger egen maskin. Utvalget er bredt, og nettbutikken har lang fartstid i det norske markedet.",
+      "Komplett er en norsk nettbutikk for elektronikk, drevet av Komplett Services AS med lager i Sandefjord. Sortimentet spenner fra PC-er, komponenter og gamingutstyr til mobil, TV, lyd og hvitevarer, med fri frakt over 1500 kroner og 60 dagers åpent kjøp med gratis retur. Butikken passer best for deg som handler data og elektronikk på nett – den har ingen fysiske butikker.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Komplett?",
+        paragraphs: [
+          "Komplett selger elektronikk på nett: PC-er, datakomponenter, gamingutstyr, mobiler, TV-er, lydprodukter, smarte hjem-produkter, kjøkkenutstyr og hvitevarer. Butikken har levert elektronikk til norske hjem siden 1996 og omtaler seg som Norges største nettbutikk.",
+          "Sortimentet dekker kjente merkevarer som Apple og Samsung, med egne merkesider for begge. Alle varer sendes fra eget lager i Sandefjord, og selskapet tilbyr også innbytte av brukt elektronikk mot prisavslag eller gavekort.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Komplett passer først og fremst for deg som handler datautstyr og elektronikk på nett – fra ferdige gaming-PC-er og komponenter til egenbygg, til mobil, TV og hvitevarer.",
+          "Butikken har ingen fysiske butikker. Vil du se og prøve varene før kjøp, må du velge en kjede med varehus – hos Komplett er alternativet et gratis Pick-up-Point ved lageret i Sandefjord.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med bank- eller kredittkort, Vipps, faktura eller kjøpsfinansiering. Faktura og delbetaling leveres av Walley eller Komplett selv, og finansieringsordningen Flex av Resurs Bank – Komplett tilbyr ikke Klarna. Er du under 18 år, kan du bare betale med eget bankkort.",
+          "Frakten er gratis på ordre over 1500 kroner, og medlemmer av kundeklubben Komplett Club har alltid fri frakt. Under grensen koster pakke til hentested 59 kroner, postkasselevering 39 kroner og hjemlevering 159 kroner. I flere storbyer tilbys ekspresslevering samme eller neste kveld med Porterbuddy fra 79 kroner. Generell leveringstid er oppgitt til 1–5 dager, og butikken leverer til Fastlands-Norge og Svalbard.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Komplett gir 60 dagers åpent kjøp med gratis retur, godt utover den lovfestede angreretten på 14 dager. Enkelte varegrupper har unntak: ferdigbygde Komplett-PC-er med brutt emballasje, varer kjøpt med Flex, åpnede CD- og DVD-plater, elektroniske lisenser og åpnede hygieneprodukter har kortere eller ingen åpent kjøp-periode.",
+          "Ved godkjente reklamasjoner dekker Komplett returfrakten. Reklamasjonsretten følger forbrukerkjøpsloven: to år, eller fem år for varer som er ment å vare vesentlig lenger. Butikken er Trygg e-handel-sertifisert.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om ordren din når fri frakt-grensen på 1500 kroner, og vær oppmerksom på unntakene fra åpent kjøp hvis du kjøper ferdigbygd PC, programvare eller hygieneprodukter. Uavhentede pakker belastes med gebyr.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Komplett før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Komplett – Salgsbetingelser forbruker",
+        url: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/",
+        checkedAt: "2026-07-14",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Komplett – Frakt og levering",
+        url: "https://www.komplett.no/kundeservice/frakt-og-levering/",
+        checkedAt: "2026-07-14",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "Komplett – Om oss",
+        url: "https://www.komplett.no/kundeservice/om-komplett/om-oss/",
+        checkedAt: "2026-07-14",
+        supports: ["company", "productRange", "returns", "priceMatch"],
+      },
+    ],
+    contentStatus: "verified",
     reviewSummary:
-      "Solid og etablert norsk aktør med bredt PC-utvalg. Godt valg for egenbygg og komponenter; mindre relevant om du vil ha en fysisk butikkopplevelse.",
-    editorialPros: ["Stort utvalg komponenter og gaming", "Etablert norsk aktør", "Vipps og Klarna"],
-    editorialCons: ["Ingen fysisk butikkopplevelse", "Frakt kan komme i tillegg"],
+      "Etablert norsk elektronikkbutikk med bredt utvalg innen PC og gaming, 60 dagers åpent kjøp med gratis retur og fri frakt over 1500 kroner. Vær oppmerksom på at Klarna ikke tilbys, og at unntak gjelder fra åpent kjøp for enkelte varegrupper.",
+    editorialPros: [
+      "60 dagers åpent kjøp med gratis retur",
+      "Fri frakt over 1500 kr – alltid for Komplett Club-medlemmer",
+      "Stort utvalg PC, komponenter og gaming",
+      "Prismatch-garanti",
+      "Ekspresslevering i flere storbyer",
+    ],
+    editorialCons: [
+      "Tilbyr ikke Klarna – faktura via Walley eller Komplett",
+      "Frakt koster under 1500 kr for ikke-medlemmer",
+      "Ingen fysiske butikker (kun Pick-up-Point i Sandefjord)",
+    ],
     bestFor: ["Gaming-PC og komponenter", "Bredt PC-utvalg", "Bygg din egen maskin"],
     notBestFor: ["Fysisk butikkopplevelse"],
     categories: [
       { main: "elektronikk-data-gaming", productType: "pc-data", relevance: "primary" },
     ],
     brands: [
-      { name: "Apple", slug: "apple", relevance: "secondary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Samsung", slug: "samsung", relevance: "limited", confidence: "low", lastChecked: CHECKED },
+      { name: "Apple", slug: "apple", relevance: "secondary", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/brand/Apple" },
+      { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/brand/Samsung" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true), klarna: fc(true, "high"), paypal: fc(false, "low") },
-      shipping: { deliveryDays: fc(2, "low"), shippingType: fc("paid"), homeDelivery: fc(true), clickAndCollect: fc(true) },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/" },
+        klarna: { value: false, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/", note: "Faktura/delbetaling via Walley og Komplett, finansiering via Resurs (Flex) – ikke Klarna" },
+        paypal: { value: false, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/" },
+      },
+      shipping: {
+        deliveryDays: { value: 3, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/om-oss/", note: "Oppgitt 1–5 dager fra eget lager i Sandefjord" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/" },
+        freeShippingFrom: { value: 1500, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/", note: "Komplett Club-medlemmer har alltid fri frakt" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/", note: "159 kr under 1500 kr; Porterbuddy-ekspress i storbyer fra 79 kr" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/", note: "Gratis Pick-up-Point ved lageret i Sandefjord" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
-      trust: { tryggEhandel: fc(true, "low") },
+      commercial: {
+        priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/om-oss/" },
+      },
+      returns: {
+        returnWindowDays: { value: 60, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/om-oss/", note: "60 dagers åpent kjøp (lovfestet angrerett 14 dager); unntak for enkelte varegrupper" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/om-oss/" },
+      },
+      trust: {
+        tryggEhandel: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/", note: "Sertifiseringen omtales i salgsbetingelsene §16" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 86,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-14",
   },
   {
     id: "multicom",
@@ -373,36 +459,134 @@ export const stores: Store[] = [
     slug: "fjellsport",
     websiteUrl: "https://www.fjellsport.no",
     affiliateSlug: "fjellsport",
+    logo: { src: "/logos/fjellsport.svg", alt: "Fjellsport", background: "transparent" },
     shortDescription:
       "Norsk spesialist på teknisk friluftsutstyr og kvalitetsmerker for fjell, tur og ski.",
     longDescription:
-      "Fjellsport er en norsk spesialist på teknisk friluftsutstyr, med vekt på kvalitetsmerker for fjell, tur og ski. Sortimentet retter seg mot dem som vil ha utstyr som holder, og butikken fører flere kjente friluftsmerker.",
+      "Fjellsport er en norsk nettbutikk for friluftsutstyr, drevet av Fjellsport AS med hovedkontor og lager i Sandefjord. Sortimentet dekker klær, sko, sekker og turutstyr fra kjente kvalitetsmerker, med fri frakt over 1200 kroner, 100 dagers åpent kjøp og gratis retur. Butikken passer best for deg som skal ha utstyr til fjell, tur og ski – den er ikke en generell sportsbutikk for lagidrett.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Fjellsport?",
+        paragraphs: [
+          "Fjellsport selger friluftsutstyr på nett: klær og sko til dame, herre og barn, sekker, telt, soveposer og annet turutstyr tilpasset skandinavisk klima. Butikken fører kjente merkevarer som Norrøna og Patagonia, og har egen outlet med nedsatte varer.",
+          "Selskapet ble grunnlagt i 2010, har rundt hundre ansatte og drives fra Sandefjord, der både administrasjon og lager holder til. Siden 2022 har Fjellsport vært eid av danske Egmont-stiftelsen gjennom Outnordic Invest AB, og jakt- og fiskebutikken Skittfiske er en del av samme miljø.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Fjellsport passer for deg som skal ha utstyr til fjelltur, ski, klatring eller friluftsliv, og som leter etter tekniske kvalitetsmerker. Den lange åpent kjøp-perioden gjør butikken praktisk når du er usikker på størrelse eller modell.",
+          "Butikken er mindre aktuell for lagidrett, treningsapparater og generelt sportsutstyr utenfor friluftssegmentet.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Vipps, kort (Visa og Mastercard) eller faktura og delbetaling via Avarda – Klarna tilbys ikke. Gavekort kan også brukes som betalingsmiddel.",
+          "Frakten er gratis på ordre over 1200 kroner for de rimeligste fraktvalgene. Under grensen koster postkasselevering og pakkeboks 59 kroner, post i butikk 69 kroner og hjemlevering 199 kroner. I flere storbyer tilbys ekspresslevering med Porterbuddy. Du kan også hente bestillingen gratis ved lageret i Sandefjord, normalt klar etter én til tre timer. Butikken leverer i hele Norge; sendinger til Svalbard har eget frakttillegg, og Jan Mayen dekkes ikke.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Fjellsport gir 100 dagers åpent kjøp fra du mottar varen, forutsatt at den kan selges som ny med alle merkelapper intakt. Returen er gratis: du oppretter returlapp på nett og leverer pakken hos Posten uten kostnad, eller leverer den ved lageret i Sandefjord.",
+          "Den lovfestede angreretten på 14 dager gjelder i tillegg, og refusjon skjer til samme betalingsmiddel etter at returen er behandlet. Kundeservice er tilgjengelig på telefon, chat og e-post.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om ordren din når fri frakt-grensen på 1200 kroner, og husk at åpent kjøp forutsetter at varen er ubrukt med merkelappene på. Skal du sende til Svalbard, kommer et eget frakttillegg.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Fjellsport før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Fjellsport – Kjøpsvilkår",
+        url: "https://www.fjellsport.no/faq/terms",
+        checkedAt: "2026-07-14",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Fjellsport – Levering",
+        url: "https://www.fjellsport.no/faq/levering",
+        checkedAt: "2026-07-14",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "Fjellsport – Betaling",
+        url: "https://www.fjellsport.no/faq/betaling",
+        checkedAt: "2026-07-14",
+        supports: ["payments"],
+      },
+      {
+        label: "Fjellsport – Returinfo",
+        url: "https://www.fjellsport.no/faq/returinfo",
+        checkedAt: "2026-07-14",
+        supports: ["returns"],
+      },
+      {
+        label: "Fjellsport – Om Fjellsport",
+        url: "https://www.fjellsport.no/faq/om-fjellsport",
+        checkedAt: "2026-07-14",
+        supports: ["company", "productRange"],
+      },
+    ],
+    contentStatus: "verified",
     reviewSummary:
-      "Sterk på teknisk friluft og kvalitetsmerker. Godt valg for tur og ski, men ikke et budsjettalternativ.",
-    editorialPros: ["Teknisk kvalitetsutstyr", "Kjente friluftsmerker", "Norsk butikk med høy datakvalitet"],
-    editorialCons: ["Høyere prisnivå"],
+      "Norsk friluftsspesialist med kvalitetsmerker, 100 dagers åpent kjøp, gratis retur og fri frakt over 1200 kroner. Vær oppmerksom på at Klarna ikke tilbys, og at sortimentet er smalt utenfor friluftssegmentet.",
+    editorialPros: [
+      "100 dagers åpent kjøp",
+      "Gratis retur med ferdig returlapp",
+      "Fri frakt over 1200 kr",
+      "Fører Norrøna, Patagonia og andre kvalitetsmerker",
+      "Gratis henting ved lageret i Sandefjord",
+    ],
+    editorialCons: [
+      "Tilbyr ikke Klarna – faktura via Avarda",
+      "Smalt sortiment utenfor friluft",
+      "Frakttillegg til Svalbard",
+    ],
     bestFor: ["Teknisk friluftsutstyr", "Kvalitetsmerker", "Ski og fjell"],
-    notBestFor: ["Budsjettkjøp"],
+    notBestFor: ["Lagidrett og treningsapparater"],
     categories: [{ main: "sport-friluft-trening", productType: "friluft", relevance: "primary" }],
     brands: [
-      { name: "Norrøna", slug: "norrona", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Patagonia", slug: "patagonia", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Norrøna", slug: "norrona", relevance: "primary", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/merker/norrona" },
+      { name: "Patagonia", slug: "patagonia", relevance: "secondary", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/merker/patagonia" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(999, "low"), homeDelivery: fc(true) },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/betaling" },
+        klarna: { value: false, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/betaling", note: "Faktura og delbetaling via Avarda – ikke Klarna" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/betaling" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/betaling", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        deliveryDays: { value: 3, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "Oppgitt 1–7 dager avhengig av fraktvalg" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering" },
+        freeShippingFrom: { value: 1200, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "Gjelder rimeligste fraktalternativ" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "199 kr under 1200 kr; Porterbuddy-ekspress i storbyer" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "Gratis henting ved lageret i Sandefjord, normalt klar etter 1–3 timer" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { outlet: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
-      trust: { tryggEhandel: fc(true, "medium") },
+      commercial: {
+        outlet: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/kampanjer/outlet" },
+      },
+      returns: {
+        returnWindowDays: { value: 100, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/returinfo", note: "100 dagers åpent kjøp; lovfestet angrerett 14 dager" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/returinfo", note: "Gratis returlapp via Posten" },
+      },
+      // Trygg e-handel: ikke dokumenterbart fra primærkilder 2026-07-15 – utelatt.
+      trust: {},
     },
     trustLevel: "high",
     dataQuality: "A",
     editorialScore: 85,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-14",
   },
 
   // ───────────────────────── Helse, skjønnhet og apotek ──────────────────────
@@ -443,35 +627,124 @@ export const stores: Store[] = [
     searchAliases: ["apotek1"],
     slug: "apotek-1",
     websiteUrl: "https://www.apotek1.no",
+    logo: { src: "/logos/apotek-1.svg", alt: "Apotek 1", background: "light" },
     shortDescription:
       "Landsdekkende norsk apotekkjede med reseptfrie varer, hudpleie og helseprodukter på nett.",
     longDescription:
-      "Apotek 1 er en landsdekkende norsk apotekkjede med nettbutikk for reseptfrie varer, hudpleie og helseprodukter. Som etablert apotekaktør er det et trygt valg for apotekvarer på nett.",
+      "Apotek 1 er en landsdekkende norsk apotekkjede med nettapotek for reseptfrie legemidler, hudpleie og helseprodukter. Nettbutikken drives av Apotek 1 Gruppen AS og er registrert som nettapotek hos Direktoratet for medisinske produkter. Du kan hente bestillinger gratis i nærmeste apotek, normalt etter to timer. Butikken passer best for apotekvarer – for et bredt sminkeutvalg finnes egne skjønnhetsbutikker.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Apotek 1?",
+        paragraphs: [
+          "Apotek 1 selger apotekvarer på nett: reseptfrie legemidler, hudpleie, kosttilskudd, munnstell, baby- og barneprodukter og annet helseutstyr. Både reseptfrie og reseptbelagte legemidler kan kjøpes gjennom nettapoteket.",
+          "Nettbutikken drives av Apotek 1 Skårersletta, en avdeling av Apotek 1 Gruppen AS i Lørenskog, og er registrert som nettapotek hos Direktoratet for medisinske produkter. Kjeden omtaler seg som Norges ledende apotekkjede, og alle som jobber med bestilling og pakking er underlagt taushetsplikt.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Apotek 1 passer for deg som vil handle apotekvarer på nett fra en regulert norsk apotekaktør – enten du bestiller reseptfrie legemidler, henter resepter eller fyller på med hudpleie og kosttilskudd. Abonnementsordningen gjør det enkelt å få faste varer tilsendt automatisk, uten ekstra kostnad for selve abonnementet.",
+          "Leter du etter et bredt utvalg sminke og parfyme, er rene skjønnhetsbutikker mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Visa, Mastercard, Klarna eller Vipps. Gavekort og tilgodelapper kan ikke brukes i nettbutikken. Kjøp av reseptfrie legemidler på nett har 18 års aldersgrense.",
+          "Billigste levering er postkasse med Posten til 19 kroner, mens pakkeskap med Instabox koster 59 kroner, utlevering i butikk 49 kroner og hjemlevering med PostNord 99 kroner. På Østlandet tilbys levering samme dag med Porterbuddy for 29 kroner. Medlemmer av kundeklubben har fri frakt på ordre over 299 kroner. Leveringstiden er oppgitt til 1–4 virkedager, og varene sendes i diskré emballasje. Butikken sender kun til adresser i Norge, ikke til Svalbard – legemidler kan ikke leveres i postkassen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager etter at du har mottatt varen, og returforsendelsen betaler du selv. Viktige unntak følger av loven: legemidler, medisinsk utstyr, forseglede hygienevarer med brutt forsegling og varer som raskt forringes kan ikke returneres.",
+          "Henter du i apotek, er bestillingen normalt klar etter to timer, og du får SMS når varene kan hentes. Utlevering krever legitimasjon, og kun personen som står på bestillingen kan motta pakken.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Husk at legemidler og forseglede helsevarer ikke kan angres eller returneres, og at uavhentede pakker kan medføre gebyr. Sjekk om varen kan hentes gratis i ditt nærmeste apotek før du betaler for frakt.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Apotek 1 før du bestiller. Har du spørsmål om legemidler eller helse, kontakt apotek eller lege.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Apotek 1 – Kjøpsbetingelser",
+        url: "https://www.apotek1.no/kundesenter/kjopsbetingelser",
+        checkedAt: "2026-07-14",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Apotek 1 – Frakt og levering",
+        url: "https://www.apotek1.no/kundesenter/frakt-og-levering",
+        checkedAt: "2026-07-14",
+        supports: ["shipping", "clickAndCollect", "payments"],
+      },
+      {
+        label: "Apotek 1 – Om selskapet",
+        url: "https://www.apotek1.no/om-apotek1/om-selskapet",
+        checkedAt: "2026-07-14",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
     reviewSummary:
-      "Trygt, etablert apotek på nett for reseptfrie varer og helseprodukter. Mindre bredt på sminke enn rene skjønnhetsbutikker.",
-    editorialPros: ["Trygg apotekaktør", "Reseptfrie varer på nett", "Klikk og hent"],
-    editorialCons: ["Begrenset sminkeutvalg"],
+      "Regulert norsk nettapotek med gratis klikk og hent i apotekene, rimelig postkasselevering og abonnement på faste varer. Vær oppmerksom på at legemidler og forseglede helsevarer ikke kan returneres, og at returfrakt ellers betales av kunden.",
+    editorialPros: [
+      "Registrert nettapotek under norsk tilsyn",
+      "Gratis klikk og hent i apotek, normalt klar etter 2 timer",
+      "Postkasselevering fra 19 kr",
+      "Abonnement på faste varer uten ekstra kostnad",
+      "Diskré emballasje og taushetsplikt",
+    ],
+    editorialCons: [
+      "Returfrakt betales av kunden",
+      "Legemidler og forseglede helsevarer kan ikke returneres",
+      "Fri frakt krever kundeklubb-medlemskap og kjøp over 299 kr",
+    ],
     bestFor: ["Apotekvarer på nett", "Reseptfrie legemidler", "Trygg helsehandel"],
     notBestFor: ["Bredt sminkeutvalg"],
     categories: [{ main: "helse-skjonnhet-apotek", productType: "apotek", relevance: "primary" }],
     brands: [
-      { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.apotek1.no/varemerker/cerave-hudpleie" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(false, "low") },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(499, "low"), clickAndCollect: fc(true, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        deliveryDays: { value: 2, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Oppgitt 1–4 virkedager; samme dag med Porterbuddy på Østlandet" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Fri frakt gjelder kundeklubb-medlemmer" },
+        freeShippingFrom: { value: 299, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "For medlemmer av kundeklubben" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "PostNord 99 kr; Porterbuddy 29 kr på Østlandet" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Gratis, normalt klar etter 2 timer" },
+        instabox: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Pakkeskap 59 kr" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: {},
-      returns: { returnWindowDays: fc(14, "low"), freeReturns: fc(false, "low") },
-      trust: { tryggEhandel: fc(true, "medium") },
+      commercial: {
+        subscription: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser", note: "Abonnement på faste varer, uten ekstra kostnad for abonnementet" },
+      },
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser", note: "Ikke angrerett på legemidler, medisinsk utstyr og brutte forseglinger" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser" },
+      },
+      // Trygg e-handel: ikke omtalt i egne vilkår, ikke dokumenterbart 2026-07-15 – utelatt.
+      trust: {},
     },
     trustLevel: "high",
     dataQuality: "A",
     editorialScore: 84,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-14",
   },
   {
     id: "blivakker",

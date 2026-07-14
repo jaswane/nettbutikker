@@ -18,9 +18,9 @@
     "understood": true,
     "resultCount": 18,
     "top": [
+      "komplett",
       "fjellsport",
-      "apotek-1",
-      "elkjop"
+      "apotek-1"
     ]
   },
   {
@@ -52,11 +52,11 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 25,
+    "resultCount": 24,
     "top": [
-      "fjellsport",
+      "apotek-1",
       "elkjop",
-      "komplett"
+      "lekekassen"
     ]
   },
   {
@@ -190,8 +190,8 @@
     "understood": true,
     "resultCount": 3,
     "top": [
-      "elkjop",
       "komplett",
+      "elkjop",
       "amazon"
     ]
   },
@@ -203,8 +203,8 @@
     "resultCount": 5,
     "top": [
       "power",
-      "elkjop",
-      "komplett"
+      "komplett",
+      "elkjop"
     ]
   },
   {
@@ -214,9 +214,9 @@
     "understood": true,
     "resultCount": 26,
     "top": [
+      "komplett",
       "fjellsport",
-      "apotek-1",
-      "elkjop"
+      "apotek-1"
     ]
   },
   {
