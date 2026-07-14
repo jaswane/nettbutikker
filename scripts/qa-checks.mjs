@@ -557,7 +557,7 @@ try {
     country: "NO", isNorwegian: true, shipsToNorway: true,
     attributes: {
       payments: vippsFc ? { vipps: vippsFc } : {},
-      shipping: {}, returns: {}, geography: {}, commercial: {}, trust: {},
+      shipping: {}, returns: {}, geography: {}, commercial: {},
     },
     trustLevel: "medium", dataQuality: "B", editorialScore: 50,
     lastChecked: "2026-06-24",
@@ -858,6 +858,34 @@ try {
       for (const f of offenders) fail(`contentStatus brukt i søk/ranking: ${f}`);
     else ok("contentStatus leses ikke av søk/ranking (kun publiseringsgate i catalog)");
   }
+}
+
+// --- 16. Trygg e-Handel er nedlagt og skal ikke reintroduseres ----------------
+// Den norske sertifiseringsordningen ble lagt ned 2025-02-01. Ingen aktiv
+// bruk tillates i kode, datafelt eller synlig tekst (app/components/lib/data).
+// Migrasjonskommentarer og historisk dokumentasjon (docs/) er tillatt.
+{
+  const { readdir } = await import("node:fs/promises");
+  const RE = /tryggEhandel|trygg\s*e-?handel/i;
+  const offenders = [];
+  for (const dir of ["app", "components", "lib", "data"]) {
+    const entries = await readdir(resolve(root, dir), { recursive: true });
+    for (const entry of entries) {
+      const rel = `${dir}/${String(entry).replace(/\\/g, "/")}`;
+      if (!/\.(ts|tsx)$/.test(rel)) continue;
+      // Blank block comments (line numbers preserved) and cut line comments,
+      // so migration notes are allowed while code and visible text are not.
+      const stripped = (await readText(rel))
+        .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ""))
+        .replace(/(^|[^:])\/\/.*$/gm, "$1");
+      stripped.split("\n").forEach((line, i) => {
+        if (RE.test(line)) offenders.push(`${rel}:${i + 1}`);
+      });
+    }
+  }
+  if (offenders.length)
+    for (const o of offenders) fail(`Trygg e-Handel (nedlagt 2025-02-01) i aktiv bruk: ${o}`);
+  else ok("Ingen aktiv bruk av nedlagte Trygg e-Handel (kun migrasjonsnotater/docs)");
 }
 
 // --- Summary ---------------------------------------------------------------

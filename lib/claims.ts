@@ -17,7 +17,6 @@ export type ClaimGroup =
   | "returns"
   | "geography"
   | "commercial"
-  | "trust"
   | "brands";
 
 /**
@@ -31,7 +30,6 @@ export const CLAIM_SLA_DAYS: Record<ClaimGroup, number | null> = {
   shipping: 365,
   returns: 365,
   commercial: 365,
-  trust: 540,
   brands: 540,
   geography: null,
 };
@@ -58,7 +56,6 @@ const ATTRIBUTE_GROUPS = [
   "returns",
   "geography",
   "commercial",
-  "trust",
 ] as const;
 
 /** All resolved claims for a store, as one flat, uniform list. */

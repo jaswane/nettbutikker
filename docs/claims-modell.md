@@ -109,8 +109,12 @@ v0.3: utdaterte påstander presentert som fakta er en produktfeil):
 | Gruppe | SLA | Begrunnelse |
 | --- | --- | --- |
 | payments, shipping, commercial | 365 dager | endres med butikkens avtaler |
-| trust (Trygg E-handel), brands | 540 dager | endres sjeldnere |
+| brands | 540 dager | endres sjeldnere |
 | geography (land, VOEC …) | ingen | strukturelle fakta |
+
+> Historikk: gruppen `trust` (Trygg E-handel-badgen) ble fjernet 2026-07-15 –
+> den norske sertifiseringsordningen ble lagt ned 1. februar 2025 og skal ikke
+> presenteres som et aktivt tillitssignal.
 | butikkens `lastChecked` | 365 dager | hele profilen skal ha en årlig runde |
 
 At en QA-kjøring kan begynne å feile «av seg selv» åtte måneder frem i tid er

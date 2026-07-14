@@ -62,8 +62,12 @@ export type FilterKey =
   | "giftCard"
   | "highDataQuality";
 
-/** All attribute keys – filters plus badge-only attributes. */
-export type AttributeKey = FilterKey | "tryggEhandel";
+/**
+ * All attribute keys. (Historisk fantes badge-attributten «tryggEhandel» i
+ * tillegg; den norske sertifiseringsordningen ble lagt ned 2025-02-01 og
+ * attributten er fjernet – QA hindrer reintroduksjon.)
+ */
+export type AttributeKey = FilterKey;
 
 export type FilterGroup =
   | "Land og avgift"
@@ -312,15 +316,6 @@ export const ATTRIBUTES: AttributeDefinition[] = [
     predicate: (s) => s.dataQuality === "A" || s.dataQuality === "B",
   },
 
-  // --- Badge-only (not filters) ---------------------------------------------------
-  {
-    key: "tryggEhandel",
-    label: "Trygg E-handel",
-    aliases: [],
-    predicate: (s) => flag(s.attributes.trust.tryggEhandel),
-    claim: (s) => s.attributes.trust.tryggEhandel,
-    badge: { tone: "ok", rank: 5 },
-  },
 ];
 
 export const attributeByKey = new Map<AttributeKey, AttributeDefinition>(

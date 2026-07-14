@@ -107,9 +107,11 @@ export type StoreAttributes = {
     returnWindowDays?: FieldConfidence<number>;
     freeReturns?: FieldConfidence<boolean>;
   };
-  trust: {
-    tryggEhandel?: FieldConfidence<boolean>;
-  };
+  // Migrasjon 2026-07-15: den tidligere `trust`-gruppen (tryggEhandel) er
+  // fjernet. Den norske «Trygg e-Handel»-sertifiseringen ble lagt ned
+  // 2025-02-01 og skal ikke presenteres som aktivt tillitssignal noe sted.
+  // Tillitsvurdering bygger i stedet på dokumenterte egenskaper (kilder,
+  // datakvalitet, vilkår). QA feiler ved reintroduksjon.
 };
 
 export type TrustLevel = "high" | "medium" | "low" | "unknown";
