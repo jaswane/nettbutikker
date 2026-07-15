@@ -16,6 +16,7 @@ export const COUNTRY: Record<StoreCountry, string> = {
   CN: "Kina",
   NL: "Nederland",
   FI: "Finland",
+  IE: "Irland",
   EU: "EU",
   other: "Annet",
 };

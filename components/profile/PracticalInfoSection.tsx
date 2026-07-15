@@ -12,6 +12,10 @@ const SUPPORTS_TEXT: Record<string, string> = {
   brands: "merkevarer",
   clickAndCollect: "klikk og hent",
   priceMatch: "prismatch",
+  marketplace: "markedsplasstruktur",
+  voec: "VOEC/avgifter",
+  productSafety: "produktsikkerhet",
+  customerService: "kundeservice",
 };
 
 type Row = { label: string; value: string };

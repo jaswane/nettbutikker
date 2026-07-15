@@ -47,10 +47,11 @@ console.log(
     verifiedSlugs,
     draftCount: draftSlugs.length,
     publicSlugs,
-    // Oppslags-API: én verified og to drafts
+    // Oppslags-API: én verified og de to første gjenværende drafts (dynamisk,
+    // så proben overlever at butikker løftes til verified)
     lookupVerified: getPublishedStore("lekekassen")?.slug ?? null,
-    lookupDraftElkjop: getPublishedStore("elkjop")?.slug ?? null,
-    lookupDraftTemu: getPublishedStore("temu")?.slug ?? null,
+    draftProbeSlugs: draftSlugs.slice(0, 2),
+    lookupDrafts: draftSlugs.slice(0, 2).map((s) => getPublishedStore(s)?.slug ?? null),
     searchResultSlugs,
     relatedSlugs,
     sitemapStoreSlugs,

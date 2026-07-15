@@ -29,6 +29,7 @@ export type StoreCountry =
   | "CN"
   | "NL"
   | "FI"
+  | "IE"
   | "EU"
   | "other";
 

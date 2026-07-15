@@ -30,39 +30,134 @@ export const stores: Store[] = [
     slug: "elkjop",
     websiteUrl: "https://www.elkjop.no",
     affiliateSlug: "elkjop",
+    logo: { src: "/logos/elkjop.svg", alt: "Elkjøp", background: "transparent" },
     shortDescription:
       "Norges store elektronikkjede med alt fra mobil og PC til hvitevarer, og butikker for klikk og hent.",
+    longDescription:
+      "Elkjøp er en norsk elektronikkjede drevet av Elkjøp Norge AS, med nettbutikk og varehus over hele landet. Sortimentet dekker mobil, PC, TV, lyd, gaming, hvitevarer og smarte hjem-produkter, med gratis klikk og hent i varehus og 50 dagers åpent kjøp. Deler av utvalget selges av eksterne partnere via Elkjøp Marketplace, med egne vilkår. Butikken passer best for deg som vil kombinere netthandel med varehus i nærheten.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Elkjøp?",
+        paragraphs: [
+          "Elkjøp selger elektronikk og hvitevarer: mobiler, PC-er, TV-er, lydprodukter, gaming, smarte hjem-produkter, kjøkkenutstyr og storelektronikk. Kjeden omtaler seg som Nordens største elektronikkjede og fører merkevarer som Apple, Samsung, Dyson og Garmin med egne merkesider.",
+          "Deler av utvalget på nettsiden selges gjennom Elkjøp Marketplace, der eksterne partnere er selger. Ved slike kjøp inngår du avtale direkte med partneren, og det fremgår av produktsiden, handlekurven og ordrebekreftelsen hvem som selger varen. Marketplace-kjøp følger partnerens vilkår: faktura og klikk og hent tilbys ikke, og Elkjøps åpent kjøp-ordning gjelder ikke.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Elkjøp passer for deg som vil kombinere netthandel med fysiske varehus – enten du henter varen selv etter en time, vil se produktet før kjøp, eller trenger hjemlevering og innbæring av hvitevarer. Tjenester som installasjon, montering og gratis resirkulering av gamle produkter i varehus er dokumenterte tilleggstilbud.",
+          "Er du ute etter smale nisjeprodukter eller spesialisert rådgivning innen ett segment, kan spesialistbutikker passe bedre.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "I nettbutikken kan du betale med Visa, Mastercard og American Express, Vipps, Apple Pay, Trustly og Elkjøp-gavekort. Faktura tilbys via Klarna og finansiering via Avida – faktura kan ikke brukes ved kjøp fra Marketplace-partnere. Du må være 18 år for å handle på nettsiden.",
+          "Klikk og hent er gratis: varer på lager i valgt varehus kan hentes innen én time, og varer uten lokal lagerstatus sendes kostnadsfritt til varehuset. Postpakker har fri frakt over 3000 kroner; under grensen koster hentested fra 59 kroner (prioritert fra 89), levering på døren fra 149 kroner og småvarer 79 kroner. Storvarer leveres uten innbæring fra 0 kroner over 3000 kroner i utvalgte postnummer, eller med innbæring fra 849 kroner. Leveringstiden er oppgitt til 2–7 dager for post på døren og lenger til hentested. Elkjøp leverer ikke til utlandet.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Elkjøp gir 50 dagers åpent kjøp på de fleste varer, forutsatt at produktet returneres i samme stand. Retur i varehus er gratis; retur per post eller henting hos deg krever at du dekker fraktkostnaden. Unntak fra åpent kjøp gjelder blant annet mobiler med brutt emballasje, programvare, hygieneprodukter og Marketplace-kjøp, som følger partnerens vilkår.",
+          "Den lovfestede angreretten er 14 dager, med returfrakt betalt av kunden. Reklamasjonsretten følger forbrukerkjøpsloven: to år, eller fem år for varer ment å vare vesentlig lenger. Prismatch tilbys mot Komplett, NetOnNet, Skousen og Power i kjøpsøyeblikket, men ikke på outlet-, demo- eller Marketplace-varer.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om varen selges av Elkjøp eller en Marketplace-partner – vilkårene for betaling, retur og åpent kjøp er forskjellige. Kontroller om ordren når fri frakt-grensen på 3000 kroner, og husk at retur per post koster frakt selv under åpent kjøp.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Elkjøp før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Elkjøp – Kjøpsvilkår",
+        url: "https://www.elkjop.no/kundeservice/kjopsvilkar",
+        checkedAt: "2026-07-15",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Elkjøp – Frakt og levering",
+        url: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt",
+        checkedAt: "2026-07-15",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "Elkjøp – Betalingsløsninger",
+        url: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger",
+        checkedAt: "2026-07-15",
+        supports: ["payments"],
+      },
+      {
+        label: "Elkjøp – Prismatch",
+        url: "https://www.elkjop.no/kundeservice/prismatch",
+        checkedAt: "2026-07-15",
+        supports: ["priceMatch"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk elektronikkjede med gratis klikk og hent innen én time, 50 dagers åpent kjøp og bredt betalingsutvalg. Vær oppmerksom på at Marketplace-kjøp fra partnere følger egne vilkår, og at fri frakt først gjelder over 3000 kroner.",
+    editorialPros: [
+      "Gratis klikk og hent, klar innen 1 time ved lagervare",
+      "50 dagers åpent kjøp med gratis retur i varehus",
+      "Bredt betalingsutvalg: Vipps, Klarna, Apple Pay, Amex",
+      "Prismatch mot Komplett, NetOnNet, Skousen og Power",
+      "Varehus i hele landet med installasjons- og resirkuleringstjenester",
+    ],
+    editorialCons: [
+      "Fri frakt for postpakker først over 3000 kr",
+      "Marketplace-kjøp har egne vilkår – uten faktura, klikk og hent og åpent kjøp",
+      "Returfrakt per post betales av kunden",
+    ],
     bestFor: ["Hvitevarer og storelektronikk", "Klikk og hent samme dag", "Trygg norsk kjede"],
-    notBestFor: ["Smale nisjeprodukter", "Lavest mulig pris på tilbehør"],
+    notBestFor: ["Smale nisjeprodukter"],
     categories: [
       { main: "elektronikk-data-gaming", productType: "lyd-bilde", relevance: "primary" },
       { main: "hjem-interior-hage", relevance: "secondary" },
     ],
     brands: [
-      { name: "Apple", slug: "apple", relevance: "secondary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Dyson", slug: "dyson", relevance: "limited", confidence: "low", lastChecked: CHECKED },
-      { name: "Garmin", slug: "garmin", relevance: "limited", confidence: "low", lastChecked: CHECKED },
+      { name: "Apple", slug: "apple", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/apple" },
+      { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/samsung" },
+      { name: "Dyson", slug: "dyson", relevance: "limited", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/dyson" },
+      { name: "Garmin", slug: "garmin", relevance: "limited", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/garmin" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true), applePay: fc(true, "low") },
-      shipping: { deliveryDays: fc(2, "low"),
-        shippingType: fc("free_over_amount"),
-        freeShippingFrom: fc(1000),
-        homeDelivery: fc(true, "high"),
-        clickAndCollect: fc(true, "high"),
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger", note: "Faktura via Klarna; finansiering via Avida. Ikke ved Marketplace-kjøp" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+        amex: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+      },
+      shipping: {
+        deliveryDays: { value: 4, confidence: "medium", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Oppgitt 2–7 dager post på døren; klikk og hent innen 1 time ved lagervare" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt" },
+        freeShippingFrom: { value: 3000, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Gjelder postpakker (standard) og storvarer uten innbæring i utvalgte postnummer" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Fra 149 kr; storvarer med innbæring fra 849 kr; ekspress kveld i utvalgte områder" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Gratis; klar innen 1 time ved lagervare i valgt varehus" },
       },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { priceMatch: fc(true, "low"), giftCard: fc(true) },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      commercial: {
+        priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/prismatch", note: "Mot Komplett, NetOnNet, Skousen og Power; ikke outlet/demo/Marketplace" },
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
+      },
+      returns: {
+        returnWindowDays: { value: 50, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/kjopsvilkar", note: "50 dagers åpent kjøp (lovfestet angrerett 14 dager); unntak for enkelte varegrupper og Marketplace" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/kjopsvilkar", note: "Gratis retur i varehus under åpent kjøp; per post/henting dekkes frakten av kunden" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 88,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-15",
   },
   {
     id: "power",
@@ -1266,37 +1361,153 @@ export const stores: Store[] = [
     slug: "temu",
     websiteUrl: "https://www.temu.com",
     shortDescription:
-      "Internasjonal lavprisplattform med svært billige varer sendt fra utlandet. Vurder kvalitet, levering og avgifter.",
+      "Internasjonal lavprismarkedsplass der tredjepartsselgere selger til norske kunder. VOEC-registrert – kontroller selger og produkt før kjøp.",
     longDescription:
-      "Temu er en internasjonal lavprisplattform med svært billige varer som sendes fra utlandet. Prisene er lave, men leveringstid, kvalitet og retur kan variere. Vær oppmerksom på toll, avgifter (VOEC) og forbrukerrettigheter ved kjøp.",
+      "Temu er en internasjonal lavprismarkedsplass drevet av irske Whaleco Technology Limited. Når du handler, inngår du kjøpsavtale med en tredjepartsselger – ikke med Temu selv, som bistår med kundeservice og retur. Plattformen er registrert i Skatteetatens VOEC-register, så norsk mva. håndteres i kassen. EU-kommisjonen og europeiske forbrukermyndigheter har dokumentert mangler ved produktsikkerhet og markedsføringspraksis, så kontroller selger og produkt nøye før kjøp.",
+    descriptionSections: [
+      {
+        heading: "Hva er Temu og hva selges der?",
+        paragraphs: [
+          "Temu er en markedsplass, ikke en vanlig nettbutikk: varene selges av tredjeparts handelspartnere som ifølge Temus egne vilkår må være profesjonelle næringsdrivende, og kjøpsavtalen inngås direkte mellom deg og selgeren. Temu er ikke part i avtalen, men bistår med kundeservice og returhåndtering. Motparten for norske brukere er Whaleco Technology Limited, registrert i Irland.",
+          "Utvalget spenner over lavprisvarer i de fleste kategorier – husholdning, hobby, tilbehør, klær og småelektronikk. De fleste varer sendes fra utlandet; enkelte sendes fra lokale varehus i Europa. Du må være 18 år for å bruke tjenesten.",
+        ],
+      },
+      {
+        heading: "Hvem passer markedsplassen for?",
+        paragraphs: [
+          "Temu passer for deg som vil kjøpe rimelige småvarer og tilbehør, tåler at leveringstiden først oppgis i kassen, og er komfortabel med at selgeren er en utenlandsk tredjepart – ikke en norsk forhandler.",
+          "Markedsplassen er mindre egnet for kjøp der dokumentert produktsikkerhet er avgjørende, som leketøy og elektronikk til barn: EU-kommisjonens kontrollkjøp har avdekket usikre produkter i slike kategorier (se advarslene på denne siden).",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Temu oppgir at norske kunder kan betale med kort (blant annet Visa, Mastercard og American Express), Vipps, Apple Pay, Google Pay, PayPal og Klarna, i tillegg til Temu-kreditt.",
+          "Standardfrakt er gratis for de fleste varer over minstebestillingen, som er 130 kroner for første bestilling og 345 kroner for senere bestillinger. Bestillinger behandles normalt i løpet av 1–3 dager, og leveringstiden for din pakke oppgis i kassen og i ordrebekreftelsen – det finnes ingen generell oppgitt leveringstid til Norge. Temu er registrert i Skatteetatens VOEC-register (som Whaleco Technology Limited), så norsk merverdiavgift kreves inn når du betaler, og varene går gjennom forenklet fortolling.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Temu gir 90 dagers valgfri returrett fra kjøpet (45 eller 60 dager for enkelte elektronikkvarer), i tillegg til den lovfestede angreretten på 14 dager for EØS-forbrukere. Første retur per bestilling er gratis; senere returer fra samme bestilling betaler du selv. Refusjon skjer innen 14 dager, og varen må være ubrukt og komplett.",
+          "Kundeservice tilbys via chat og e-post, og Temu har norsk telefonstøtte. Husk at selgeren – ikke Temu – er ansvarlig for varen og leveringen; Temu opptrer som mellomledd ved problemer.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Undersøk hvem selgeren av varen er, og vær ekstra kritisk til produkter der sikkerhet betyr noe. EU-kommisjonen opplyste 28. mai 2026 at Temu var ilagt en bot på 200 millioner euro etter DSA-reglene, fordi plattformen ikke hadde identifisert og vurdert risikoen for ulovlige produkter godt nok – kommisjonens kontrollkjøp fant blant annet ladere og babyleker som ikke besto sikkerhetstester. Det gjelder plattformens systemplikter og enkeltfunn, ikke at alle produkter er farlige. CPC-nettverket har i tillegg dokumentert villedende praksis som falske rabatter og kjøpepress, og pålagt endringer.",
+          "Avgifter er derimot ryddig håndtert gjennom VOEC – totalprisen du ser i kassen inkluderer norsk mva. Kontroller alltid gjeldende vilkår, leveringstid og selgerinformasjon hos Temu før du bestiller, og vurder produktomtaler kritisk.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Temu – Bruksvilkår (Norge)",
+        url: "https://www.temu.com/no/terms-of-use.html",
+        checkedAt: "2026-07-15",
+        supports: ["company", "marketplace"],
+      },
+      {
+        label: "Temu – Firmadetaljer/juridisk informasjon",
+        url: "https://www.temu.com/no/imprint.html",
+        checkedAt: "2026-07-15",
+        supports: ["company", "customerService"],
+      },
+      {
+        label: "Temu – Retur- og refusjonsvilkår",
+        url: "https://www.temu.com/no/return-and-refund-policy.html",
+        checkedAt: "2026-07-15",
+        supports: ["returns"],
+      },
+      {
+        label: "Temu – Betalingsmåter (supportsenter)",
+        url: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html",
+        checkedAt: "2026-07-15",
+        supports: ["payments"],
+      },
+      {
+        label: "Temu – Fraktinformasjon",
+        url: "https://www.temu.com/no/shipping-info.html",
+        checkedAt: "2026-07-15",
+        supports: ["shipping"],
+      },
+      {
+        label: "Skatteetaten – VOEC-registeret",
+        url: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/",
+        checkedAt: "2026-07-15",
+        supports: ["voec"],
+      },
+      {
+        label: "Forbrukertilsynet – «Temu må følge loven»",
+        url: "https://www.forbrukertilsynet.no/temu-ma-folge-loven",
+        checkedAt: "2026-07-15",
+        supports: ["advarsler"],
+      },
+      {
+        label: "EU-kommisjonen – bot til Temu for DSA-brudd (IP/26/1178)",
+        url: "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1178",
+        checkedAt: "2026-07-15",
+        supports: ["productSafety", "advarsler"],
+      },
+    ],
+    contentStatus: "verified",
     reviewSummary:
-      "Svært lave priser, men varierende kvalitet og lange leveringstider. Vurder nøye før kjøp av dyre eller sensitive varer.",
-    editorialPros: ["Svært lave priser", "Stort utvalg småvarer"],
-    editorialCons: ["Lang leveringstid", "Varierende kvalitet", "Usikker retur og forbrukervern"],
-    bestFor: ["Svært lave priser", "Smågjenstander og gadgets"],
-    notBestFor: ["Rask levering", "Garantert kvalitet", "Enkel retur", "Sensitive kjøp"],
+      "Lavprismarkedsplass med bredt utvalg, VOEC-registrert avgiftshåndtering, 90 dagers returrett og bredt betalingsutvalg. EU-kommisjonen bøtela Temu i mai 2026 for mangelfull risikovurdering av ulovlige produkter, og CPC-nettverket har dokumentert villedende praksis – kontroller selger og produkt nøye før kjøp.",
+    editorialPros: [
+      "Norsk mva. håndteres i kassen (VOEC-registrert hos Skatteetaten)",
+      "90 dagers returrett; første retur per bestilling er gratis",
+      "Gratis standardfrakt over minstebestilling (130/345 kr)",
+      "Bredt betalingsutvalg: Vipps, Klarna, PayPal, Apple Pay, Google Pay",
+      "Norsk telefonstøtte",
+    ],
+    editorialCons: [
+      "Bøtelagt av EU-kommisjonen (28. mai 2026) for mangelfull risikovurdering av ulovlige produkter",
+      "CPC-dokumentert villedende praksis: falske rabatter og kjøpepress",
+      "Kjøpsavtalen inngås med tredjepartsselger, ikke Temu",
+      "Leveringstid oppgis først i kassen – ingen generell garanti",
+    ],
+    bestFor: ["Rimelige småvarer og gadgets", "Bredt utvalg lavprisvarer"],
+    notBestFor: ["Leker og elektronikk der produktsikkerhet er avgjørende", "Kjøp der du vil ha norsk forhandler som motpart"],
     categories: [
       { main: "utenlandske-nettbutikker", relevance: "primary" },
       { main: "hjem-interior-hage", relevance: "limited" },
     ],
-    country: "CN",
+    country: "IE",
     isNorwegian: false,
     shipsToNorway: true,
     attributes: {
-      payments: { klarna: fc(true, "low"), paypal: fc(true, "low"), applePay: fc(true, "low") },
-      shipping: { deliveryDays: fc(12, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(null, "low"), homeDelivery: fc(true, "low") },
-      geography: { country: fc("CN", "high"), isNorwegian: fc(false, "high"), shipsToNorway: fc(true, "high"), voec: fc(true, "low") },
-      commercial: { introOffer: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html", note: "Betal nå eller om 30 dager" },
+        paypal: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
+        googlePay: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
+        amex: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
+      },
+      shipping: {
+        shippingType: { value: "free", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/shipping-info.html", note: "Gratis standardfrakt for de fleste varer; minstebestilling 130 kr (første) / 345 kr (senere)" },
+      },
+      geography: {
+        country: { value: "IE", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/imprint.html", note: "Plattformoperatør: Whaleco Technology Limited, Irland. Varene selges av tredjeparter og sendes i hovedsak fra utlandet" },
+        isNorwegian: fc(false, "high"),
+        shipsToNorway: fc(true, "high"),
+        voec: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/", note: "Oppført i registeret som Whaleco Technology Limited / temu.com" },
+      },
+      commercial: {},
+      returns: {
+        returnWindowDays: { value: 90, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/return-and-refund-policy.html", note: "Valgfri returrett; 45/60 dager for enkelte elektronikkvarer. Lovfestet angrerett 14 dager" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/return-and-refund-policy.html", note: "Første retur per bestilling er gratis; senere returer betales av kunden" },
+      },
     },
     trustLevel: "low",
-    dataQuality: "C",
+    dataQuality: "A",
     editorialScore: 45,
     warnings: [
-      "Varer sendes fra utlandet – lang leveringstid og varierende kvalitet.",
-      "Sjekk VOEC/avgift, returmuligheter og forbrukerrettigheter før kjøp.",
+      "EU-kommisjonen opplyste 28. mai 2026 at Temu var ilagt en bot på 200 millioner euro etter DSA-reglene, fordi plattformen ikke hadde vurdert risikoen for ulovlige produkter på markedsplassen godt nok. Kommisjonens kontrollkjøp fant blant annet ladere og babyleker som ikke besto sikkerhetstester. Kontroller produktsikkerhet selv, særlig for leker og elektronikk.",
+      "Det europeiske forbrukervernnettverket CPC, koordinert av EU-kommisjonen, dokumenterte i 2024–2025 villedende praksis hos Temu, blant annet falske rabatter, kjøpepress og mangelfull forbrukerinformasjon, og påla endringer.",
     ],
-    lastChecked: "2026-05-25",
+    lastChecked: "2026-07-15",
   },
   {
     id: "amazon",

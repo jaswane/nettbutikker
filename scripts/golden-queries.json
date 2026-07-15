@@ -18,9 +18,9 @@
     "understood": true,
     "resultCount": 18,
     "top": [
+      "elkjop",
       "komplett",
-      "fjellsport",
-      "apotek-1"
+      "fjellsport"
     ]
   },
   {
@@ -54,8 +54,8 @@
     "understood": true,
     "resultCount": 24,
     "top": [
-      "apotek-1",
       "elkjop",
+      "apotek-1",
       "lekekassen"
     ]
   },
@@ -190,8 +190,8 @@
     "understood": true,
     "resultCount": 3,
     "top": [
-      "komplett",
       "elkjop",
+      "komplett",
       "amazon"
     ]
   },
@@ -203,8 +203,8 @@
     "resultCount": 5,
     "top": [
       "power",
-      "komplett",
-      "elkjop"
+      "elkjop",
+      "komplett"
     ]
   },
   {
@@ -212,11 +212,11 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 26,
+    "resultCount": 27,
     "top": [
+      "elkjop",
       "komplett",
-      "fjellsport",
-      "apotek-1"
+      "fjellsport"
     ]
   },
   {
@@ -224,9 +224,10 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 1,
+    "resultCount": 2,
     "top": [
-      "zalando"
+      "zalando",
+      "temu"
     ]
   },
   {

@@ -821,16 +821,21 @@ try {
     ok("«Vurder også» viser kun verified-butikker i produksjon");
   else fail(`Draft i relaterte butikker: [${prod.relatedSlugs}]`);
 
-  if (prod.lookupVerified === "lekekassen" && !prod.lookupDraftElkjop && !prod.lookupDraftTemu)
-    ok("Prod-oppslag: verified finnes (lekekassen), drafts gir undefined → 404 (elkjop, temu)");
+  if (prod.lookupVerified === "lekekassen" && prod.lookupDrafts.every((s) => s === null))
+    ok(
+      `Prod-oppslag: verified finnes (lekekassen), drafts gir undefined → 404 (${prod.draftProbeSlugs.join(", ")})`,
+    );
   else
     fail(
-      `Prod-oppslag feil: verified=${prod.lookupVerified}, drafts=${prod.lookupDraftElkjop},${prod.lookupDraftTemu}`,
+      `Prod-oppslag feil: verified=${prod.lookupVerified}, drafts=${prod.lookupDrafts.join(",")}`,
     );
 
   // 15b. Development: alle butikker er fortsatt tilgjengelige
   const dev = runProbe({ NODE_ENV: "development" });
-  if (dev.publicSlugs.length === dev.total && dev.lookupDraftElkjop === "elkjop")
+  if (
+    dev.publicSlugs.length === dev.total &&
+    dev.lookupDrafts.every((s, i) => s === dev.draftProbeSlugs[i])
+  )
     ok(`Development viser alle ${dev.total} butikker (drafts kan testes lokalt)`);
   else fail(`Development skjuler butikker: ${dev.publicSlugs.length} av ${dev.total}`);
 
