@@ -67,6 +67,24 @@ export function dagerFc(fc?: FieldConfidence<number>, prefix = ""): string {
   return fc.confidence === "low" ? `${base} (ikke bekreftet)` : base;
 }
 
+/**
+ * Returfrist-rad. Et dokumentert returvindu uten fast tidsgrense
+ * (returns.unlimitedReturnWindow=true) slår dagtall; ellers gjelder
+ * returnWindowDays, og til slutt «Ukjent». Confidence-ærlig per
+ * claims-modell §8 – unknown-confidence asserterer aldri, low merkes.
+ * Vilkår og unntak (f.eks. «ubrukte varer med kvittering») hører hjemme i
+ * claimets note og profilens brødtekst, ikke i denne korte verdien.
+ */
+export function returfristFc(returns: Store["attributes"]["returns"]): string {
+  const u = returns.unlimitedReturnWindow;
+  if (u !== undefined && u.value === true && u.confidence !== "unknown") {
+    return u.confidence === "low"
+      ? "Ingen fast tidsgrense (ikke bekreftet)"
+      : "Ingen fast tidsgrense";
+  }
+  return dagerFc(returns.returnWindowDays);
+}
+
 export function shipText(fc?: FieldConfidence<ShippingType>): string {
   if (fc === undefined || fc.confidence === "unknown") return "Ukjent";
   let base: string;

@@ -2514,7 +2514,8 @@ export const stores: Store[] = [
         giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
       },
       returns: {
-        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Gratis i varehus; returfrakt per post betales av kunden. Retur uten tidsfrist for ubrukte varer med kvittering" },
+        unlimitedReturnWindow: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Gjelder ubrukte varer med gyldig kvittering; unntak finnes (bl.a. spesialtilpassede varer og utførte tjenester). Lovfestet angrerett 14 dager gjelder i tillegg ved nettkjøp" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Gratis i varehus; returfrakt per post betales av kunden" },
       },
     },
     trustLevel: "high",

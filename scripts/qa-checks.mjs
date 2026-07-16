@@ -615,6 +615,42 @@ try {
   else ok("Confidence-policyen håndheves for high/medium/low/unknown");
 }
 
+// --- 11g. Returmodell: uten fast tidsgrense vs. dagtall -----------------------
+// returns.unlimitedReturnWindow settes kun når vilkåret er dokumentert true og
+// er gjensidig utelukkende med returnWindowDays – begge samtidig er en
+// datafeil. Formatteringen prioriterer «Ingen fast tidsgrense» over dagtall og
+// faller ellers tilbake til eksisterende dager/«Ukjent»-atferd, testet
+// syntetisk så prioriteten ikke kan skli.
+{
+  const { returfristFc } = await importTs("lib/storeFormat.ts");
+  const problems = [];
+
+  for (const s of stores) {
+    const r = s.attributes.returns;
+    if (r.returnWindowDays && r.unlimitedReturnWindow?.value === true) {
+      problems.push(`${s.slug} har både returnWindowDays og unlimitedReturnWindow=true`);
+    }
+    if (r.unlimitedReturnWindow && r.unlimitedReturnWindow.value !== true) {
+      problems.push(`${s.slug} har unlimitedReturnWindow=${r.unlimitedReturnWindow.value} – feltet settes kun når vilkåret er dokumentert true`);
+    }
+  }
+
+  const fc = (confidence, value = true) => ({ value, confidence, lastChecked: "2026-07-16" });
+  const expect = (label, cond) => { if (!cond) problems.push(label); };
+  expect("unlimited high → «Ingen fast tidsgrense»",
+    returfristFc({ unlimitedReturnWindow: fc("high") }) === "Ingen fast tidsgrense");
+  expect("unlimited low merkes «(ikke bekreftet)»",
+    returfristFc({ unlimitedReturnWindow: fc("low") }) === "Ingen fast tidsgrense (ikke bekreftet)");
+  expect("unlimited unknown asserterer aldri → dagtall gjelder",
+    returfristFc({ unlimitedReturnWindow: fc("unknown"), returnWindowDays: fc("high", 30) }) === "30 dager");
+  expect("dagtall uten unlimited → «30 dager»",
+    returfristFc({ returnWindowDays: fc("high", 30) }) === "30 dager");
+  expect("ingen claims → «Ukjent»", returfristFc({}) === "Ukjent");
+
+  if (problems.length) fail(`Returmodell: ${problems.join("; ")}`);
+  else ok("Returmodellen er konsistent (uten fast tidsgrense ⊕ dagtall, prioritet testet)");
+}
+
 // --- 12. Golden search regression (frozen baseline) --------------------------
 // scripts/golden-queries.json freezes intent/understood/count/top-3 for a
 // query battery. Any drift fails the build; intentional engine changes must

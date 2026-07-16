@@ -1,5 +1,5 @@
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
-import { COUNTRY, dagerFc, ja, jaFc, shipText, TRUST } from "@/lib/storeFormat";
+import { COUNTRY, dagerFc, ja, jaFc, returfristFc, shipText, TRUST } from "@/lib/storeFormat";
 import type { Confidence, Store } from "@/lib/types";
 
 /** Plain-Norwegian labels for what a source supports. */
@@ -80,7 +80,7 @@ export function PracticalInfoSection({ store }: { store: Store }) {
 
   // Return terms are a top purchase-decision driver – own group.
   const retur: Row[] = [
-    { label: "Returfrist", value: dagerFc(a.returns.returnWindowDays) },
+    { label: "Returfrist", value: returfristFc(a.returns) },
     { label: "Fri retur", value: jaFc(a.returns.freeReturns) },
   ];
 

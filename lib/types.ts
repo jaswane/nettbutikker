@@ -106,6 +106,14 @@ export type StoreAttributes = {
   returns: {
     /** Return window in days. */
     returnWindowDays?: FieldConfidence<number>;
+    /**
+     * Dokumentert returvindu UTEN fast tidsgrense (f.eks. JYSK: retur av
+     * ubrukte varer med kvittering, uten frist). Settes kun når vilkåret er
+     * dokumentert true – aldri false på øvrige butikker (udefinert = ikke
+     * aktuelt). Gjensidig utelukkende med returnWindowDays (QA 11g); vilkår
+     * og unntak hører hjemme i note.
+     */
+    unlimitedReturnWindow?: FieldConfidence<boolean>;
     freeReturns?: FieldConfidence<boolean>;
   };
   // Migrasjon 2026-07-15: den tidligere `trust`-gruppen (tryggEhandel) er
