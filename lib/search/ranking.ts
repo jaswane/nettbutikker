@@ -93,6 +93,18 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
       }
     }
   }
+  // The queried product type may sit on a lower-relevance edge than the best
+  // category edge (e.g. primary «løpesko» + secondary «sykkel» for a «sykkel»
+  // search), so the bonus checks every matching edge – wording still grades by
+  // the product-type edge itself, never stronger than that edge.
+  let bestPt: { relevance: string; productType: string } | undefined;
+  for (const ref of store.categories) {
+    if (!q.categorySlugs.includes(ref.main)) continue;
+    if (!ref.productType || !q.productTypeSlugs.includes(ref.productType)) continue;
+    if (!bestPt || RELEVANCE_CATEGORY[ref.relevance] > RELEVANCE_CATEGORY[bestPt.relevance]) {
+      bestPt = { relevance: ref.relevance, productType: ref.productType };
+    }
+  }
   if (bestCat) {
     matchScore += RELEVANCE_CATEGORY[bestCat.relevance] ?? 0;
     // Only surface a category reason when the category actually is the point of
@@ -100,14 +112,12 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     // primary category hit (e.g. "Temu" matching the foreign-stores category).
     const categoryReasonRelevant =
       q.intent === "category_recommendation" || q.intent === "where_to_buy";
-    const ptMatch =
-      bestCat.productType && q.productTypeSlugs.includes(bestCat.productType);
-    if (ptMatch) matchScore += 12;
+    if (bestPt) matchScore += 12;
     if (categoryReasonRelevant) {
-      const ptName = ptMatch ? getProductType(bestCat.productType!)?.name : undefined;
+      const ptName = bestPt ? getProductType(bestPt.productType)?.name : undefined;
       if (ptName) {
         reasons.push(
-          bestCat.relevance === "primary"
+          bestPt!.relevance === "primary"
             ? `Spesialisert på ${lcFirst(ptName)}`
             : `Har også ${lcFirst(ptName)} i sortimentet`,
         );
