@@ -16,7 +16,7 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 20,
+    "resultCount": 18,
     "top": [
       "elkjop",
       "komplett",
@@ -52,7 +52,7 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 20,
+    "resultCount": 19,
     "top": [
       "elkjop",
       "apotek-1",
@@ -124,7 +124,7 @@
     "top": [
       "fjellsport",
       "xxl",
-      "sport-1"
+      "milrab"
     ]
   },
   {
@@ -212,7 +212,7 @@
     "filters": [],
     "intent": "store_with_attribute",
     "understood": true,
-    "resultCount": 27,
+    "resultCount": 25,
     "top": [
       "elkjop",
       "komplett",
@@ -244,11 +244,11 @@
     ],
     "intent": "category_recommendation",
     "understood": true,
-    "resultCount": 5,
+    "resultCount": 3,
     "top": [
       "fjellsport",
       "xxl",
-      "sport-1"
+      "zalando"
     ]
   },
   {

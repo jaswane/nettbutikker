@@ -169,29 +169,139 @@ export const stores: Store[] = [
     slug: "power",
     websiteUrl: "https://www.power.no",
     affiliateSlug: "power",
+    logo: { src: "/logos/power.svg", alt: "POWER", background: "dark" },
     shortDescription:
-      "Stor norsk elektronikkjede kjent for kampanjer og bredt utvalg innen TV, mobil, PC og hvitevarer.",
+      "Stor elektronikkjede kjent for kampanjer og bredt utvalg innen TV, mobil, PC og hvitevarer – nettbutikk og varehus.",
+    longDescription:
+      "Power er en elektronikkjede der den norske virksomheten drives av Power Norge AS i Lørenskog. Nettbutikken selger TV, mobil, PC, gaming, lyd, smarthjem og hvitevarer. Kundegarantien «Pengene tilbake» gir 60 dagers åpent kjøp på de fleste varer – også åpnede – og Click&Collect lar deg reservere på nett og hente i varehus etter 30–60 minutter. Frakt koster fra 89 kroner, mens levering til POWER-butikk er gratis.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Power?",
+        paragraphs: [
+          "Power selger elektronikk på nett: TV og lyd, mobiltelefoner, PC-er og gaming, hvitevarer, smarthjem-produkter og småelektronikk, med kjente merkevarer som Samsung og Sony. Kjeden selger også Outlet-varer – kundereturer og utstillingsmodeller til nedsatt pris.",
+          "Den norske virksomheten drives av Power Norge AS, org 977 047 838, i Lørenskog, som del av Power International-konsernet, med varehus og franchisetakere over hele landet. Sentrallageret ligger i Sverige, så bestillingsvarer kan ikke hentes der.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Power passer for deg som følger med på kampanjer og vil kombinere nettbutikk med varehus – enten via gratis Click&Collect-reservasjon eller gratis forsendelse til nærmeste POWER-butikk.",
+          "Det 60 dager lange åpne kjøpet gjør det trygt å prøve produkter hjemme: du kan åpne og teste varen og likevel bytte eller få pengene tilbake, med unntak for blant annet forseglede varer.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Visa og Mastercard utstedt av norsk bank – kort fra utenlandske banker avvises – samt Vipps og faktura eller delbetaling via handlekontoen MyCredit fra Resurs Bank. Klarna tilbys ikke. Du må være 18 år eller ha tillatelse fra foresatt, og fysiske gavekort kan ikke brukes på nett – kun verdikoder.",
+          "Levering til utleveringssted koster fra 89 kroner, hjemlevering av småvarer 149 kroner, og store varer leveres av Bring fra 399 kroner (699 kroner med innbæring). Send til POWER-butikk er gratis. Normal leveringstid er 2–7 virkedager, og Power leverer ikke til Svalbard eller Jan Mayen. Click&Collect er gratis: varen er klar i varehuset innen 30–60 minutter, og reservasjonen gjelder i 24 timer.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Kundegarantien «Pengene tilbake» gir 60 dagers åpent kjøp i butikk og på nett, også på åpnede og prøvde varer i samme stand. Unntakene omfatter blant annet mobiltelefoner og datakomponenter med brutt forsegling, spill og programvare, hygieneprodukter som smartklokker og in-ear-hodetelefoner, gavekort, kjøkken og TV-er uten originalemballasje; sesongvarer har 14 dager.",
+          "Ved nettkjøp gjelder i tillegg 14 dagers angrerett, med returfrakt betalt av kunden – enklest er retur i et POWER-varehus. Merk at Click&Collect regnes som butikkjøp, slik at angreretten ikke gjelder for reservasjoner som betales i butikk.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om varen din er unntatt åpent kjøp før du bryter forseglingen, og husk at Click&Collect-reservasjoner som betales i butikk ikke har angrerett. Bruker du kort fra utenlandsk bank, må du velge en annen betalingsmåte.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Power før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Power – Kjøpsvilkår",
+        url: "https://www.power.no/kundeservice/kjoepsvilkaar/",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping", "clickAndCollect"],
+      },
+      {
+        label: "Power – Retur og åpent kjøp",
+        url: "https://www.power.no/kundeservice/retur-og-aapent-kjoep/",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Power – Betalingsalternativer",
+        url: "https://www.power.no/kundeservice/betalingsalternativer/",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+      {
+        label: "Power – Levering og montering",
+        url: "https://www.power.no/kundeservice/levering-og-montering/",
+        checkedAt: "2026-07-16",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "Brønnøysundregistrene – Power Norge AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/977047838",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende elektronikkjede med 60 dagers åpent kjøp – også på åpnede varer – og gratis Click&Collect klar på 30–60 minutter. Vær oppmerksom på at frakt hjem alltid koster, at Klarna og utenlandske kort ikke støttes, og at Click&Collect regnes som butikkjøp uten angrerett.",
+    editorialPros: [
+      "60 dagers åpent kjøp («Pengene tilbake»), også på åpnede varer",
+      "Gratis Click&Collect – klar i varehus på 30–60 minutter",
+      "Gratis forsendelse til POWER-butikk",
+      "Vipps og MyCredit faktura/delbetaling",
+      "Varehus over hele landet",
+    ],
+    editorialCons: [
+      "Ingen fri frakt hjem – fra 89 kr",
+      "Klarna tilbys ikke (MyCredit via Resurs Bank)",
+      "Kort fra utenlandske banker avvises",
+      "Click&Collect er butikkjøp – angreretten gjelder ikke",
+    ],
     bestFor: ["Kampanjepriser", "Bredt utvalg elektronikk", "Klikk og hent"],
     notBestFor: ["Spesialisert gaming-rådgivning"],
     categories: [{ main: "elektronikk-data-gaming", relevance: "primary" }],
     brands: [
-      { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Sony", slug: "sony", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/samsung/" },
+      { name: "Sony", slug: "sony", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/sony/" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(2, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(500), homeDelivery: fc(true), clickAndCollect: fc(true, "high") },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { priceMatch: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/" },
+        klarna: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/", note: "Faktura og delbetaling via MyCredit (Resurs Bank)" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/", note: "Kort oppgitt som Visa og Mastercard utstedt av norsk bank" },
+      },
+      shipping: {
+        deliveryDays: { value: 5, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/kjoepsvilkaar/", note: "Normalt 2–7 virkedager fra gjennomført betaling" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/levering-og-montering/", note: "Utleveringssted fra 89 kr, hjemlevering fra 149 kr (store varer fra 399 kr); send til POWER-butikk gratis" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/levering-og-montering/" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/levering-og-montering/", note: "Gratis; klar på 30–60 min; reservasjonen gjelder i 24 timer; regnes som butikkjøp" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/977047838", note: "Power Norge AS, org 977 047 838, Lørenskog (del av Power International-konsernet)" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/977047838" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/kjoepsvilkaar/", note: "Ikke Svalbard eller Jan Mayen" },
+      },
+      commercial: {
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/betalingsalternativer/", note: "Fysiske gavekort kan ikke brukes i nettbutikken – kun verdikoder" },
+        outlet: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/spoersmaal-og-svar/", note: "Kundereturer og utstillingsmodeller" },
+      },
+      returns: {
+        returnWindowDays: { value: 60, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/retur-og-aapent-kjoep/", note: "60 dagers åpent kjøp (lovfestet angrerett 14 dager ved nettkjøp); sesongvarer 14 dager; unntak for brutt forsegling m.m." },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/kundeservice/retur-og-aapent-kjoep/", note: "Gratis i varehus; returfrakt per post betales av kunden" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
-    editorialScore: 84,
-    lastChecked: CHECKED,
+    dataQuality: "A",
+    editorialScore: 78,
+    lastChecked: "2026-07-16",
   },
   {
     id: "komplett",
@@ -324,8 +434,89 @@ export const stores: Store[] = [
     name: "Multicom",
     slug: "multicom",
     websiteUrl: "https://www.multicom.no",
+    logo: { src: "/logos/multicom.svg", alt: "Multicom", background: "transparent" },
     shortDescription:
-      "Norsk spesialist på gaming-PC, bærbare maskiner og datakomponenter med fokus på ytelse.",
+      "Norsk spesialist på gaming-PC, bærbare maskiner og datakomponenter – egenbygde PC-er fra eget verksted i Åmli.",
+    longDescription:
+      "Multicom er en norsk nettbutikk for PC og datautstyr, drevet av Multicom Norge AS i Åmli. Sortimentet dekker gaming-PC-er, bærbare maskiner, komponenter og tilbehør, inkludert PC-er bygget etter kundens spesifikasjoner. Du kan betale med kort, Vipps og Klarna, frakten koster fra 89 kroner, og angreretten er 14 dager med et fast returfradrag på 99 kroner. Egenbygde PC-er har egne avbestillingsgebyrer.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Multicom?",
+        paragraphs: [
+          "Multicom selger datautstyr på nett: gaming-PC-er og bærbare maskiner, datakomponenter til egenbygg, skjermer, tilbehør og annen elektronikk. Butikken bygger også PC-er etter kundens spesifikasjoner og gir to års garanti på egne Multicom-PC-er, mot normalt ett år på enkeltkomponenter.",
+          "Nettbutikken drives av Multicom Norge AS, org 977 203 082, fra Engenes i Åmli, der selskapet har lager og verksted.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Multicom passer for deg som skal ha gaming-PC eller komponenter og vil ha et spesialisert fagmiljø – særlig hvis du vil kjøpe en ferdig bygget maskin uten å skru selv.",
+          "Butikken har ikke egne varehus, så vil du se produktene fysisk før kjøp, må du velge en kjede med butikker. Hvitevarer og generell hjemmelektronikk er heller ikke butikkens fokus.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa og Mastercard), Vipps og Klarna, med faktura og delbetaling for privatkunder. Du må være over 18 år eller ha samtykke fra foresatt.",
+          "Frakten koster fra 89 kroner og beregnes i kassen ut fra postnummer; varene sendes i hovedsak med Posten. Leveringstidene oppgis som veiledende. Multicom leverer også til Svalbard mot et tillegg.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager fra du mottar varen. Kjøper dekker returkostnadene, og Multicom trekker en fast returfrakt på 99 kroner fra tilbakebetalingen når du bruker deres returetikett. Angreretten gjelder ikke åpnet programvare eller forbruksvarer som blekkpatroner, og bedriftskjøp er unntatt.",
+          "For PC-er som er bygget etter dine spesifikasjoner, kan kansellering koste 950–1600 kroner i produksjonskostnader. Reklamasjoner krever forhåndsgodkjent RMA-nummer, og en del produkter reklameres direkte til produsenten.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Bestiller du en egenbygd PC, bør du være sikker på konfigurasjonen før du betaler – avbestilling koster. Husk returfradraget på 99 kroner, og at åpnet programvare ikke kan returneres. Uavhentede pakker belastes med 99 kroner pluss frakt tur/retur.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Multicom før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Multicom – Kjøpsbetingelser",
+        url: "https://www.multicom.no/pages/terms",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Multicom – Betaling",
+        url: "https://www.multicom.no/pages/payment",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+      {
+        label: "Multicom – Retur og angrerett",
+        url: "https://www.multicom.no/pages/retur",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Brønnøysundregistrene – Multicom Norge AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/977203082",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Spesialisert norsk PC-butikk med egenbygde maskiner, to års garanti på Multicom-PC-er og betaling via Vipps og Klarna. Vær oppmerksom på returfradraget på 99 kroner, kanselleringsgebyr på egenbygde PC-er og at leveringstidene kun er veiledende.",
+    editorialPros: [
+      "Spesialist på gaming-PC og egenbygg",
+      "To års garanti på egne Multicom-PC-er",
+      "Vipps og Klarna faktura/delbetaling",
+      "Leverer i hele Norge, også Svalbard mot tillegg",
+    ],
+    editorialCons: [
+      "Returfradrag på 99 kr ved bruk av returetikett",
+      "Avbestilling av egenbygd PC koster 950–1600 kr",
+      "Ingen fri frakt – fra 89 kr",
+      "Ingen fysiske butikker",
+    ],
     bestFor: ["Gaming-PC", "Bærbare gaming-maskiner", "Komponenter til egenbygg"],
     notBestFor: ["Hvitevarer og generell elektronikk"],
     categories: [{ main: "elektronikk-data-gaming", productType: "pc-data", relevance: "primary" }],
@@ -333,17 +524,33 @@ export const stores: Store[] = [
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "low"), klarna: fc(true, "low") },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("paid"), homeDelivery: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment", note: "Faktura 30 dager, delbetaling og kort" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/payment", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/support", note: "Frakt fra 89 kr, beregnes i kassen etter postnummer; sendes i hovedsak med Posten" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/support" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/977203082", note: "Multicom Norge AS, org 977 203 082, Åmli" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/977203082" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/terms", note: "Også Svalbard mot tillegg" },
+      },
       commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/terms", note: "Lovfestet angrerett; unntak for åpnet programvare, forbruksvarer og bedriftskjøp" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.multicom.no/pages/retur", note: "Fast returfradrag på 99 kr ved bruk av returetikett" },
+      },
     },
     trustLevel: "medium",
-    dataQuality: "C",
-    editorialScore: 72,
-    lastChecked: "2026-05-12",
-    needsManualReview: true,
+    dataQuality: "A",
+    editorialScore: 70,
+    lastChecked: "2026-07-16",
   },
 
   // ───────────────────────── Klær, sko og mote ───────────────────────────────
@@ -804,33 +1011,142 @@ export const stores: Store[] = [
     slug: "sport-1",
     websiteUrl: "https://www.sport1.no",
     affiliateSlug: "sport-1",
+    logo: { src: "/logos/sport-1.svg", alt: "Sport 1", background: "light" },
     shortDescription:
-      "Norsk sportskjede med kjent utvalg innen sko, sport og friluft, og lokale butikker over hele landet.",
-    bestFor: ["Norsk sportsbutikk med kjent utvalg", "Løpesko og treningssko", "Lokal kundeservice"],
+      "Norsk sportskjede med sko, sport og friluft fra kjente merker – nettbutikk og lokale butikker over hele landet.",
+    longDescription:
+      "Sport 1 er en norsk sportskjede der nettbutikken drives av Sport Holding AS på Jessheim, med lokale butikker over hele landet. Utvalget dekker løpesko, klær, sykkel, friluft og vintersport fra merker som Nike, Asics og New Balance. Klikk & hent i butikk er gratis, frakt koster 99 kroner til utleveringssted, og angreretten er 14 dager. Nettbutikkordre leveres normalt på 3–7 virkedager med PostNord.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Sport 1?",
+        paragraphs: [
+          "Sport 1 selger sportsutstyr på nett: løpesko og joggesko, sports- og fritidsklær, sykkel, friluftsutstyr, vintersport og treningsutstyr. Utvalget spenner fra kjente internasjonale merker som Nike, Asics og New Balance til friluftsmerker som Salomon, Fjällräven og Devold, og kjeden har eget outlet på nett.",
+          "Nettbutikken drives av Sport Holding AS, org 924 505 745, på Jessheim, og kjeden har lokale butikker over hele landet med sykkelverksted og utleie flere steder.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Sport 1 passer for deg som vil handle sports- og friluftsutstyr fra en norsk kjede med lokale butikker – enten du bestiller på nett med gratis klikk & hent eller vil ha hjelp i butikk.",
+          "Er du primært ute etter lavest mulig pris, kan rene nettaktører og lavpriskjeder være mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kreditt- og debetkort, og gjennom betalingsleverandøren Dintero tilbys flere alternativer, blant annet Klarna.",
+          "Frakt til utleveringssted koster 99 kroner per ordre og hjemlevering 149 kroner; ordre sendes med PostNord og leveres normalt på 3–7 virkedager. Sport 1 leverer i hele Norge unntatt Svalbard. Klikk & hent er gratis: du får SMS når varen er klar, og lagervarer holdes av i 48 timer – varer som sendes fra sentrallageret til butikken tar 3–7 dager og holdes av i 24 timer etter ankomstvarsel.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager for nettbutikkordre. Du registrerer returen via lenken i ordrebekreftelsen og leverer pakken på et MyPack-utleveringssted; fraktkostnaden på 99 kroner refunderes ikke ved retur. Klikk & hent-kjøp kan returneres i butikken du hentet i.",
+          "Undertøy, badetøy og håndklær kan av hygienehensyn ikke returneres, og det samme gjelder personlig tilpassede produkter. Refusjonen kommer normalt innen 1–2 uker.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Husk at utfrakten ikke refunderes ved retur, og at hygienevarer er unntatt. Bruker du klikk & hent, må du hente innen 48 timer etter SMS – ellers frigis varen.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Sport 1 før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Sport 1 – Kjøpsvilkår",
+        url: "https://www.sport1.no/kjopshjelp/kjopsvilkar",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns"],
+      },
+      {
+        label: "Sport 1 – Frakt og levering",
+        url: "https://www.sport1.no/kjopshjelp/frakt-og-levering",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Sport 1 – Returer",
+        url: "https://www.sport1.no/kjopshjelp/returer",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Sport 1 – Klikk & hent",
+        url: "https://www.sport1.no/kjopshjelp/klikk-hent",
+        checkedAt: "2026-07-16",
+        supports: ["clickAndCollect"],
+      },
+      {
+        label: "Brønnøysundregistrene – Sport Holding AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/924505745",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk sportskjede med gratis klikk & hent, kjente sko- og friluftsmerker og outlet på nett. Vær oppmerksom på at frakt alltid koster 99 kroner og ikke refunderes ved retur, og at Vipps ikke er oppgitt som betalingsmåte.",
+    editorialPros: [
+      "Gratis klikk & hent i lokale butikker",
+      "Bredt utvalg fra Nike, Asics og New Balance",
+      "Outlet med nedsatte varer på nett",
+      "Lokale butikker med sykkelverksted og utleie",
+    ],
+    editorialCons: [
+      "Ingen fri frakt – 99 kr til utleveringssted",
+      "Utfrakten refunderes ikke ved retur",
+      "Vipps er ikke oppgitt som betalingsmåte",
+      "14 dagers angrerett er lovens minimum",
+    ],
+    bestFor: ["Norsk sportsbutikk med kjent utvalg", "Løpesko og treningssko", "Klikk og hent"],
     notBestFor: ["Lavest mulig pris"],
     categories: [
       { main: "sport-friluft-trening", productType: "lopesko", relevance: "primary" },
+      { main: "sport-friluft-trening", productType: "sykkel", relevance: "secondary" },
       { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
-      { name: "Nike", slug: "nike", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
-      { name: "Asics", slug: "asics", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
-      { name: "New Balance", slug: "new-balance", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Nike", slug: "nike", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/search?query=nike" },
+      { name: "Asics", slug: "asics", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/search?query=asics" },
+      { name: "New Balance", slug: "new-balance", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/search?query=new%20balance" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(999, "low"), clickAndCollect: fc(true), homeDelivery: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/kjopsvilkar", note: "Via betalingsleverandøren Dintero" },
+        vipps: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/kjopsvilkar", note: "Kun kort og Klarna via Dintero oppgitt i kjøpsvilkårene" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/kjopsvilkar" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/kjopsvilkar" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/kjopsvilkar" },
+      },
+      shipping: {
+        deliveryDays: { value: 5, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/frakt-og-levering", note: "Nettbutikkordre leveres normalt på 3–7 virkedager" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/frakt-og-levering", note: "99 kr til utleveringssted, 149 kr hjemlevering; klikk & hent gratis" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/frakt-og-levering" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/klikk-hent", note: "Gratis; SMS når klar; lagervarer holdes av i 48 timer" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/924505745", note: "Sport Holding AS, org 924 505 745, Jessheim" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/924505745" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/frakt-og-levering", note: "Ikke Svalbard" },
+      },
+      commercial: {
+        outlet: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kampanjer/outlet" },
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp" },
+      },
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/returer", note: "Lovfestet angrerett; hygieneunntak for undertøy, badetøy og håndklær" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.sport1.no/kjopshjelp/returer", note: "Utfrakten på 99 kr refunderes ikke ved retur" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
-    editorialScore: 80,
-    lastChecked: CHECKED,
+    dataQuality: "A",
+    editorialScore: 72,
+    lastChecked: "2026-07-16",
   },
   {
     id: "milrab",
@@ -838,28 +1154,122 @@ export const stores: Store[] = [
     slug: "milrab",
     websiteUrl: "https://www.milrab.no",
     affiliateSlug: "milrab",
+    logo: { src: "/logos/milrab.svg", alt: "Milrab", background: "light" },
     shortDescription:
-      "Norsk nettbutikk for friluft, jakt, militært og turutstyr med bredt utvalg til tur og uteliv.",
+      "Norsk nettbutikk for friluft, jakt og taktisk utstyr med 30 dagers returrett og prisløfte – sender fra lager i Sverige.",
+    longDescription:
+      "Milrab er en norsk nettbutikk for sport, friluft, jakt og taktisk utstyr, drevet av Milrab AS i Oslo. Utvalget dekker turutstyr, klær og sko fra merker som Patagonia, med priser som alltid inkluderer mva og toll. Butikken gir 30 dagers bytte- og returrett på ubrukte varer og har prisløfte mot norske nettbutikker. Alle ordre sendes fra lageret i Morgongåva i Sverige, med 1–5 virkedagers normal frakttid.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Milrab?",
+        paragraphs: [
+          "Milrab selger utstyr til tur og uteliv på nett: friluftsklær og -utstyr, jakt- og taktisk utstyr, sko, sekker og tilbehør. Butikken fører kjente merkevarer – blant annet Patagonia med flere hundre produkter – og kjører løpende kampanjer og «deals».",
+          "Nettbutikken drives av Milrab AS, org 997 595 262, med adresse i Oslo. Alle ordre sendes fra selskapets lager i Morgongåva i Sverige, men prisene inkluderer alltid mva og tollavgifter, så du betaler ikke noe ekstra ved grensen.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Milrab passer for deg som skal ha robust tur-, jakt- eller treningsutstyr og vil ha 30 dagers returrett og prisløfte: finner du samme vare billigere på lager i en annen norsk nettbutikk, justerer Milrab prisen – før og inntil 30 dager etter kjøp.",
+          "Butikken har ikke fysiske utsalg, og siden ordrene sendes fra Sverige, bør du ikke velge Milrab hvis du trenger varen på dagen.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Betalingen går gjennom Klarna, med kortbetaling, faktura med 30 dagers frist og delbetaling.",
+          "Ordrene sendes med Bring (2–5 virkedager) eller Helthjem (1–4 virkedager) til hentested, pakkeboks eller døren; normal frakttid er 1–5 virkedager, og fraktprisen vises i kassen. Siden pakkene sendes fra Sverige, skal de gjennom tollbehandling før sporingen oppdateres i Norge – dette tar normalt 1–2 virkedager ekstra i sporingen. Milrab leverer ikke til Svalbard eller Jan Mayen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Milrab gir 30 dagers bytte-, retur- og angrerett på ubrukte varer, i tillegg til den lovfestede angreretten på 14 dager. Returen registrerer du på nett og betaler selv – returetiketten koster fast 69 kroner. Varen må være i originalemballasje med merkelapper intakt; sko kan prøves inne, men ikke brukes ute.",
+          "Undertøy, strømpebukser og ørepropper kan av hygienehensyn ikke returneres. Uavhentede pakker belastes med 99 kroner pluss frakt tur/retur. Merk at ordre ikke kan endres eller kanselleres etter fullføring, fordi lageret er automatisert.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk størrelsen nøye før du bestiller – ordren kan ikke endres etterpå, og retur koster 69 kroner. Ta vare på originalemballasjen hvis du kan komme til å returnere, og husk at brukte varer bare refunderes med redusert verdi.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Milrab før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Milrab – Kjøpsvilkår",
+        url: "https://www.milrab.no/kjopsvilkar",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "priceMatch"],
+      },
+      {
+        label: "Milrab – Frakt og levering",
+        url: "https://www.milrab.no/frakt-og-levering",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Brønnøysundregistrene – Milrab AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/997595262",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Norsk frilufts- og jaktspesialist med 30 dagers returrett, prisløfte mot norske nettbutikker og Klarna-betaling. Vær oppmerksom på at alt sendes fra lager i Sverige, at retur koster 69 kroner, og at ordre ikke kan endres etter bestilling.",
+    editorialPros: [
+      "30 dagers bytte- og returrett på ubrukte varer",
+      "Prisløfte mot norske nettbutikker i 30 dager",
+      "Priser inkluderer alltid mva og toll",
+      "Bredt utvalg fra merker som Patagonia",
+    ],
+    editorialCons: [
+      "Sender fra Sverige – tollbehandling gir tregere sporing",
+      "Returetikett koster 69 kr",
+      "Ordre kan ikke endres eller kanselleres etter fullføring",
+      "Vipps er ikke oppgitt som betalingsmåte",
+    ],
     bestFor: ["Turutstyr og friluft", "Robuste produkter", "Jakt og uteliv"],
-    notBestFor: ["Mote og bylivsklær"],
+    notBestFor: ["Mote og bylivsklær", "Levering på dagen"],
     categories: [{ main: "sport-friluft-trening", productType: "friluft", relevance: "primary" }],
     brands: [
-      { name: "Patagonia", slug: "patagonia", relevance: "limited", confidence: "low", lastChecked: CHECKED },
+      { name: "Patagonia", slug: "patagonia", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/search?query=patagonia" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(2, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(999, "low"), homeDelivery: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { outlet: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "Kort, faktura 30 dager og delbetaling via Klarna" },
+        vipps: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "Kun Klarna-betalingsmåter oppgitt i kjøpsvilkårene" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar" },
+      },
+      shipping: {
+        deliveryDays: { value: 3, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "Normal frakttid 1–5 virkedager; sendes fra lager i Sverige" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/frakt-og-levering", note: "Fraktpris etter postnummer og pakkestørrelse, vises i kassen" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/frakt-og-levering", note: "Helthjem til døren der det er tilgjengelig" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/997595262", note: "Milrab AS, org 997 595 262, Oslo; lager i Morgongåva i Sverige" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/997595262" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/frakt-og-levering", note: "Ikke Svalbard eller Jan Mayen" },
+      },
+      commercial: {
+        priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "Identisk SKU på lager i norsk nettbutikk; gjelder i 30 dager; ikke elektronikk/profilering eller med rabattkode" },
+      },
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "30 dagers bytte-/returrett på ubrukte varer (lovfestet angrerett 14 dager); hygieneunntak" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/kjopsvilkar", note: "Fast returfrakt 69 kr betales av kunden" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
-    editorialScore: 78,
-    lastChecked: CHECKED,
+    dataQuality: "A",
+    editorialScore: 75,
+    lastChecked: "2026-07-16",
   },
   {
     id: "fjellsport",
@@ -1555,8 +1965,90 @@ export const stores: Store[] = [
     slug: "barnas-hus",
     websiteUrl: "https://www.barnashus.no",
     affiliateSlug: "barnas-hus",
+    logo: { src: "/logos/barnas-hus.svg", alt: "Barnas Hus", background: "transparent" },
     shortDescription:
-      "Norsk kjede for baby- og barneutstyr med butikker og nettbutikk, og personlig rådgivning.",
+      "Norsk kjede for baby- og barneutstyr med butikker over hele landet, fri frakt over 1000 kr og klikk & hent på 2 timer.",
+    longDescription:
+      "Barnas Hus er en norsk kjede for baby- og barneutstyr der nettbutikken drives av Barnas Hus Norge AS. Sortimentet dekker barnevogner, bilstoler, barneklær og utstyr til babyrommet. Nettbutikken har fri frakt over 1000 kroner, klikk & hent på 2 timer i alle butikker og 30 dagers åpent kjøp – 100 dager for medlemmer av kundeklubben. Bilstoler har 14 dagers returfrist, og postretur koster fra 69 kroner.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Barnas Hus?",
+        paragraphs: [
+          "Barnas Hus selger baby- og barneutstyr på nett: barnevogner, bilstoler, barneklær, møbler og utstyr til babyrommet, ammeprodukter og leker. Kjeden profilerer seg på rådgivning i butikk, blant annet om bilstoler og vogntilpasning.",
+          "Nettbutikken drives av Barnas Hus Norge AS, org 988 603 880, med nettbutikkavdeling i Vestby og butikker over hele landet. Kundeklubben er gratis og gir blant annet utvidet åpent kjøp.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Barnas Hus passer for småbarnsforeldre som vil kombinere nettbutikk med fysisk butikk – enten for rask klikk & hent, bytte i butikk eller rådgivning før større kjøp som bilstol og vogn.",
+          "Er du primært ute etter lavest mulig pris på enkeltvarer, kan rene nettaktører være billigere.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa og Mastercard), Vipps og faktura eller delbetaling via Klarna. Du må være 18 år for å handle i nettbutikken.",
+          "Frakten er gratis på ordre over 1000 kroner med Posten servicepakke – ellers koster den 79 kroner, og hjemlevering på døren 179 kroner. Pakker har 7 dagers hentefrist, som kan utvides til 14 dager. Klikk & hent er gratis og klar på 2 timer i alle butikker; du betaler ved henting, og reservasjonen gjelder ut neste virkedag. Barnas Hus leverer kun til Fastlands-Norge – ikke Svalbard eller Jan Mayen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Barnas Hus gir 30 dagers åpent kjøp på ubrukte varer i originalemballasje med merkelapper – 100 dager for kundeklubbmedlemmer, men bare 14 dager for bilstoler. Den lovfestede angreretten på 14 dager gjelder i tillegg for nettkjøp, med returfrakt betalt av kunden.",
+          "Du kan returnere og bytte i alle butikker, eller sende i posten via returportalen for 69 kroner (299 kroner over 20 kilo). Hygieneartikler som ammeputer, stellematter, badebaljer, ammepumper, badetøy og undertøy byttes ikke, og outlet-varer og spesialbestillinger kan ikke returneres. Refusjonen kommer normalt innen 5 virkedager.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Husk den korte returfristen på bilstoler, og at åpnet originalemballasje begrenser returretten etter 14 dager. Meld deg inn i kundeklubben før kjøp hvis du vil ha 100 dagers åpent kjøp, og sjekk om varen din er unntatt som hygieneartikkel.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Barnas Hus før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Barnas Hus – Salgsbetingelser",
+        url: "https://www.barnashus.no/salgsbetingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Barnas Hus – Frakt og levering",
+        url: "https://www.barnashus.no/frakt-og-levering",
+        checkedAt: "2026-07-16",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "Barnas Hus – Retur og reklamasjon",
+        url: "https://www.barnashus.no/retur-og-reklamasjon",
+        checkedAt: "2026-07-16",
+        supports: ["returns", "membership"],
+      },
+      {
+        label: "Brønnøysundregistrene – Barnas Hus Norge AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/988603880",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk barneutstyrskjede med fri frakt over 1000 kroner, klikk & hent på 2 timer og 30 dagers åpent kjøp – 100 dager for medlemmer. Vær oppmerksom på at bilstoler kun har 14 dagers returfrist, at hygieneartikler ikke byttes, og at postretur koster fra 69 kroner.",
+    editorialPros: [
+      "Fri frakt over 1000 kr",
+      "Klikk & hent på 2 timer i alle butikker",
+      "30 dagers åpent kjøp – 100 dager for medlemmer",
+      "Vipps og Klarna",
+      "Bytte og retur i butikker over hele landet",
+    ],
+    editorialCons: [
+      "Bilstoler har kun 14 dagers returfrist",
+      "Postretur koster 69 kr (299 kr over 20 kg)",
+      "Hygieneartikler og outlet-varer kan ikke returneres/byttes",
+      "Leverer kun til Fastlands-Norge",
+    ],
     bestFor: ["Trygg norsk barnehandel", "Bilstoler og vogner", "Rådgivning"],
     notBestFor: ["Lavest pris"],
     categories: [{ main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" }],
@@ -1564,16 +2056,35 @@ export const stores: Store[] = [
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(999, "low"), clickAndCollect: fc(true), homeDelivery: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/", note: "Betalingslogoer på nettsiden: Vipps, Klarna, Visa, Mastercard" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/salgsbetingelser", note: "Faktura og delbetaling via Klarna" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/salgsbetingelser" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/salgsbetingelser" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/salgsbetingelser" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/", note: "Kort vist som Visa og Mastercard" },
+      },
+      shipping: {
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/frakt-og-levering", note: "Gjelder Posten servicepakke; under grensen 79 kr, hjemlevering 179 kr" },
+        freeShippingFrom: { value: 1000, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/frakt-og-levering" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/frakt-og-levering", note: "På Døren-levering, 179 kr" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/frakt-og-levering", note: "Gratis; klar på 2 timer; betaling ved henting; reservasjonen gjelder ut neste virkedag" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/988603880", note: "Barnas Hus Norge AS, org 988 603 880; nettbutikkavdeling i Vestby" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/988603880" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/salgsbetingelser", note: "Kun Fastlands-Norge" },
+      },
       commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/retur-og-reklamasjon", note: "30 dagers åpent kjøp (100 dager for medlemmer, 14 dager for bilstoler); lovfestet angrerett 14 dager" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/retur-og-reklamasjon", note: "Gratis i butikk; postretur 69 kr (299 kr over 20 kg)" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 78,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "lekekassen",
