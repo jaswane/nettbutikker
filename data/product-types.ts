@@ -277,16 +277,7 @@ export const productTypes: ProductType[] = [
   },
 
   // --- Tjenester og abonnement -----------------------------------------------------------------------------
-  {
-    slug: "stromming",
-    name: "Strømmetjenester",
-    aliases: ["strømming", "streaming"],
-    categories: ["tjenester-abonnement"],
-  },
-  {
-    slug: "programvare",
-    name: "Programvare",
-    aliases: ["software", "programvare", "lisens"],
-    categories: ["tjenester-abonnement"],
-  },
+  // Merk: produkttypene «stromming» og «programvare» ble fjernet 2026-07-16 –
+  // døde rester uten butikkvei. Søkeordene dekkes av kategori-aliasene på
+  // tjenester-abonnement; nye typer legges til når en faktisk butikk fører dem.
 ];

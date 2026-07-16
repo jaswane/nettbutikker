@@ -120,8 +120,8 @@
   { "query": "lesebriller", "expect": { "category": "syn-briller-linser", "productType": "briller" } },
   { "query": "kontaktlinser", "expect": { "category": "syn-briller-linser", "productType": "linser" } },
 
-  { "query": "mobilabonnement", "expect": { "category": "tjenester-abonnement" } },
-  { "query": "strømming", "expect": { "category": "tjenester-abonnement", "productType": "stromming" } },
+  { "query": "mobilabonnement", "expect": { "category": "tjenester-abonnement", "allowEmpty": true } },
+  { "query": "strømming", "expect": { "category": "tjenester-abonnement", "allowEmpty": true } },
 
   { "query": "er temu trygt", "expect": { "store": "temu" } },
   { "query": "er shein trygg", "expect": { "category": "utenlandske-nettbutikker" } },

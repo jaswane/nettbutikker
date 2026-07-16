@@ -16,6 +16,12 @@ const SUPPORTS_TEXT: Record<string, string> = {
   voec: "VOEC/avgifter",
   productSafety: "produktsikkerhet",
   customerService: "kundeservice",
+  partnerSales: "partnersalg",
+  membership: "medlemsfordeler",
+  subscriptions: "abonnement",
+  deliveryArea: "leveringsområde",
+  cancellation: "endring og kansellering",
+  perishableGoods: "bedervelige varer",
 };
 
 type Row = { label: string; value: string };

@@ -345,36 +345,146 @@ export const stores: Store[] = [
     slug: "zalando",
     websiteUrl: "https://www.zalando.no",
     affiliateSlug: "zalando",
+    logo: { src: "/logos/zalando.svg", alt: "Zalando", background: "transparent" },
     shortDescription:
-      "En av Europas største motebutikker med enormt utvalg klær, sko og merkevarer. Utenlandsk aktør.",
-    bestFor: ["Stort merkevareutvalg", "Mote og sko", "Lange returfrister"],
-    notBestFor: ["De som vil støtte norsk butikk", "Rask levering fra norsk lager"],
+      "En av Europas største motebutikker med stort utvalg klær, sko og merkevarer. Tysk aktør med norsk mva. i prisen.",
+    longDescription:
+      "Zalando er en tysk moteplattform drevet av Zalando SE i Berlin, med norsk nettbutikk for klær, sko, sport og accessoirer. Deler av utvalget selges av partnerbutikker via plattformen. Zalando SE står i Skatteetatens VOEC-register, så norsk mva. er inkludert i prisen. Frakten er gratis til hentested ved kjøp over 599 kroner, og både egne varer og partnervarer kan returneres kostnadsfritt innen 30 dager.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Zalando?",
+        paragraphs: [
+          "Zalando selger mote på nett: klær, sko, sportsklær, vesker og accessoirer til dame, herre og barn. Utvalget dekker kjente merkevarer som Nike, Adidas, New Balance og Levi's, med egne merkesider for hver.",
+          "Deler av sortimentet selges gjennom Zalando Partner-programmet, der utvalgte partnermerker er selger. Hvem som sender varen fremgår av produktsiden, og forsendelsen kan komme fra partneren i stedet for Zalando.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Zalando passer for deg som vil ha et stort merkevareutvalg innen mote og sko på ett sted, med gratis retur som gjør det trygt å bestille flere størrelser.",
+          "Vil du handle fra en norsk aktør eller trenger varen raskt fra norsk lager, er norske kjeder mer aktuelle – leveringstiden oppgis først i kassen.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Zalando oppgir at norske kunder kan betale med kredittkort, PayPal, Vipps, Apple Pay, faktura, forhåndsbetaling og gavekort. Klarna er ikke oppgitt som betalingsmåte. Merk at ikke alle betalingsmåter er tilgjengelige ved hvert kjøp.",
+          "Frakten er gratis til hentested ved kjøp over 599 kroner. Leveringsalternativene er standard, prioritert og hjemlevering med PostNord eller Bring, og leveringstiden oppgis i kassen. Zalando SE er registrert i Skatteetatens VOEC-register, så norsk merverdiavgift er inkludert i prisen og varene går gjennom forenklet fortolling.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Du kan returnere ubrukte varer kostnadsfritt innen 30 dager, forutsatt at de er i opprinnelig stand med etikettene på – å prøve varen regnes ikke som bruk. Det samme gjelder varer fra Zalando-partnere: 30 dager, gratis.",
+          "Refusjonen skjer etter at returen er mottatt og kontrollert, og en retur kan ta én til tre uker å behandle. Kjøpsavtalen for partnervarer inngås med partneren, men returen håndteres gjennom Zalandos løsning.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om varen selges av Zalando eller en partner – det står på produktsiden og påvirker hvem som sender varen. Kontroller leveringstiden i kassen før du bestiller, og husk at fri frakt-grensen på 599 kroner gjelder levering til hentested.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Zalando før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Zalando – Returpolicy (FAQ)",
+        url: "https://www.zalando.no/faq/what-is-your-return-policy.html",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Zalando – Betalingsalternativer (FAQ)",
+        url: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+      {
+        label: "Zalando – Leveringsalternativer (FAQ)",
+        url: "https://www.zalando.no/faq/what-delivery-options-are-available.html",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Zalando – Zalando Partner (FAQ)",
+        url: "https://www.zalando.no/faq/Zalando-Partner",
+        checkedAt: "2026-07-16",
+        supports: ["partnerSales", "returns"],
+      },
+      {
+        label: "Zalando – Firmainformasjon",
+        url: "https://www.zalando.no/firmainformasjon/",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+      {
+        label: "Skatteetaten – VOEC-registeret",
+        url: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/",
+        checkedAt: "2026-07-16",
+        supports: ["voec"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Stor europeisk moteplattform med bredt merkevareutvalg, gratis 30-dagers retur (også partnervarer) og VOEC-registrert avgiftshåndtering. Vær oppmerksom på at deler av utvalget selges av partnere, og at leveringstiden først oppgis i kassen.",
+    editorialPros: [
+      "Kostnadsfri retur innen 30 dager – også partnervarer",
+      "Fri frakt til hentested over 599 kr",
+      "Stort merkevareutvalg innen mote og sko",
+      "Norsk mva. i prisen (VOEC-registrert hos Skatteetaten)",
+      "Vipps, PayPal og Apple Pay",
+    ],
+    editorialCons: [
+      "Klarna er ikke oppgitt som betalingsmåte",
+      "Leveringstid oppgis først i kassen",
+      "Deler av utvalget selges av partnere med egen forsendelse",
+    ],
+    bestFor: ["Stort merkevareutvalg", "Mote og sko", "Gratis retur"],
+    notBestFor: ["De som vil handle fra norsk aktør"],
     categories: [
       { main: "klaer-sko-mote", relevance: "primary" },
       { main: "sport-friluft-trening", relevance: "secondary" },
       { main: "utenlandske-nettbutikker", relevance: "secondary" },
     ],
     brands: [
-      { name: "Nike", slug: "nike", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Adidas", slug: "adidas", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "New Balance", slug: "new-balance", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
-      { name: "Levi's", slug: "levis", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Nike", slug: "nike", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/nike/" },
+      { name: "Adidas", slug: "adidas", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/adidas/" },
+      { name: "New Balance", slug: "new-balance", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/new-balance/" },
+      { name: "Levi's", slug: "levis", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/levis/" },
     ],
     country: "DE",
     isNorwegian: false,
     shipsToNorway: true,
     attributes: {
-      payments: { klarna: fc(true, "high"), paypal: fc(true), vipps: fc(false, "medium") },
-      shipping: { deliveryDays: fc(4, "low"), shippingType: fc("free"), homeDelivery: fc(true, "high") },
-      geography: { country: fc("DE", "high"), isNorwegian: fc(false, "high"), shipsToNorway: fc(true, "high"), voec: fc(true, "medium") },
-      commercial: { outlet: fc(true, "low") },
-      returns: { returnWindowDays: fc(100, "low"), freeReturns: fc(true, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html" },
+        paypal: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html" },
+        klarna: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html", note: "Faktura tilbys, men Klarna er ikke oppgitt i betalingslisten" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Betaling/what-are-my-payment-options.html" },
+      },
+      shipping: {
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Frakt-and-leveranse" },
+        freeShippingFrom: { value: 599, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/Frakt-and-leveranse", note: "Fri frakt til hentested" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/what-delivery-options-are-available.html", note: "PostNord eller Bring; leveringstid oppgis i kassen" },
+      },
+      geography: {
+        country: fc("DE", "high"),
+        isNorwegian: fc(false, "high"),
+        shipsToNorway: fc(true, "high"),
+        voec: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/", note: "Zalando SE oppført i registeret med zalando.no" },
+      },
+      commercial: {},
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/what-is-your-return-policy.html", note: "Gjelder også partnervarer" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/what-is-your-return-policy.html" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 83,
-    notes: ["Utenlandsk aktør – sjekk levering, retur og eventuell VOEC/avgift."],
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "xxl",
@@ -382,34 +492,134 @@ export const stores: Store[] = [
     slug: "xxl",
     websiteUrl: "https://www.xxl.no",
     affiliateSlug: "xxl",
+    logo: { src: "/logos/xxl.svg", alt: "XXL", background: "dark" },
     shortDescription:
-      "Stor norsk sportskjede med bredt utvalg innen trening, sport, friluft og sko – ofte kampanjer.",
-    bestFor: ["Pris og kampanjer", "Bredt sportsutvalg", "Klikk og hent i butikk"],
+      "Stor norsk sportskjede med bredt utvalg innen trening, sport, friluft og sko – varehus og nettbutikk.",
+    longDescription:
+      "XXL er en norsk sportskjede drevet av XXL Sport & Villmark AS, med varehus over hele landet og nettbutikk med bredt utvalg innen sport, trening, friluft, sykkel og sko. Klikk og hent i varehus er gratis og normalt klart innen to timer, og åpent kjøp gjelder i 28 dager. Merk at XXL ikke tilbyr fri frakt, og at retur per post koster 59 kroner for ikke-medlemmer.",
+    descriptionSections: [
+      {
+        heading: "Hva selger XXL?",
+        paragraphs: [
+          "XXL selger sports- og friluftsutstyr: løpesko og joggesko, treningsklær og -apparater, sykler, ski, jakt- og villmarksutstyr, sportselektronikk og fritidsklær. Kjeden omtaler seg som Nordens største sportskjede og driver både varehus og nettbutikk i Norge.",
+          "Sortimentet dekker kjente merkevarer som Nike, Adidas, Asics og Garmin. Selger er XXL Sport & Villmark AS, med hovedkontor i Oslo.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "XXL passer for deg som vil ha et bredt sportsutvalg på ett sted, og som gjerne kombinerer netthandel med varehus – enten for gratis klikk og hent eller for å bytte varer fysisk.",
+          "Er du ute etter smal, teknisk friluftsnisje eller spesialtilpasning, kan spesialistbutikker være mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "I nettbutikken kan du betale med kort (Visa og Mastercard), Vipps og XXL-gavekort. Faktura og delbetaling tilbys gjennom Walley og betalingsløsningen XXL Pay – Klarna tilbys ikke.",
+          "XXL tilbyr ikke fri frakt. Levering til hentested, pakkeboks (blant annet Instabox og Posten) eller postkasse tar normalt 1–4 virkedager, og hjemlevering på kveldstid tilbys i byene. Store varer leveres på 5–8 virkedager. Klikk og hent i varehus er gratis: varer på lager er normalt klare innen to timer, sykler innen 48 timer. Butikken leverer kun i Norge, ikke til Svalbard.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "XXL gir åpent kjøp i 28 dager fra du mottar varen, i tillegg til den lovfestede angreretten på 14 dager. Varer kan byttes og returneres i alle varehus. Retur per post til nettbutikken koster 59 kroner – medlemmer av kundeklubben XXL Reward har tre gratis returer per tolv måneder.",
+          "Angrerett gjelder ikke ammunisjon, registreringspliktige våpen eller tilpassede varer. Prismatch tilbys i kjøpsøyeblikket mot dokumentert lavere pris hos konkurrent. Kundeservice er tilgjengelig på chat og telefon.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Husk at frakt alltid koster – sammenlign fraktprisen med gratis klikk og hent hvis du har et varehus i nærheten. Sjekk returkostnaden på 59 kroner hvis du handler klær eller sko i usikker størrelse uten Reward-medlemskap.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos XXL før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "XXL – Kjøpsbetingelser",
+        url: "https://www.xxl.no/faq/betingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "returns", "shipping"],
+      },
+      {
+        label: "XXL – Frakt og levering",
+        url: "https://www.xxl.no/kundeservice/frakt-og-levering",
+        checkedAt: "2026-07-16",
+        supports: ["shipping", "clickAndCollect"],
+      },
+      {
+        label: "XXL – Betaling og gavekort",
+        url: "https://xxl.no/faq/betaling",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+      {
+        label: "XXL – Retur og bytte",
+        url: "https://www.xxl.no/kundeservice/retur-og-bytte",
+        checkedAt: "2026-07-16",
+        supports: ["returns", "membership"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk sportskjede med bredt utvalg, gratis klikk og hent innen to timer og 28 dagers åpent kjøp med bytte i varehus. Vær oppmerksom på at fri frakt ikke tilbys, og at postretur koster 59 kroner uten Reward-medlemskap.",
+    editorialPros: [
+      "Gratis klikk og hent, normalt klar innen 2 timer",
+      "28 dagers åpent kjøp med bytte og retur i varehus",
+      "Bredt utvalg sport, friluft og sko",
+      "Prismatch i kjøpsøyeblikket",
+      "Vipps og Walley faktura/delbetaling",
+    ],
+    editorialCons: [
+      "Tilbyr ikke fri frakt",
+      "Postretur koster 59 kr uten XXL Reward",
+      "Tilbyr ikke Klarna",
+    ],
+    bestFor: ["Bredt sportsutvalg", "Klikk og hent i varehus", "Løpesko og treningsutstyr"],
     notBestFor: ["Smal teknisk friluftsnisje"],
     categories: [
       { main: "sport-friluft-trening", relevance: "primary" },
       { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
-      { name: "Nike", slug: "nike", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Adidas", slug: "adidas", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Asics", slug: "asics", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
-      { name: "Garmin", slug: "garmin", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Nike", slug: "nike", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/sport/loping/lopesko/Nike/c/142010" },
+      { name: "Adidas", slug: "adidas", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/sport/loping/lopesko/Adidas/c/142010" },
+      { name: "Asics", slug: "asics", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/sport/loping/lopesko/Asics/c/142010" },
+      { name: "Garmin", slug: "garmin", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/search?query=garmin" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(999, "low"), clickAndCollect: fc(true, "high"), homeDelivery: fc(true) },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
+        klarna: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling", note: "Faktura og delbetaling via Walley og XXL Pay – ikke Klarna" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        deliveryDays: { value: 2, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Oppgitt 1–4 virkedager for de fleste alternativer; store varer 5–8" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "XXL tilbyr ikke fri frakt" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Kveldslevering 17–21 i byer; store varer med eller uten innbæring" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Gratis; normalt klar innen 2 timer ved lagervare (sykkel 48 t)" },
+        instabox: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Instabox-skap 1–2 virkedager" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { outlet: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      commercial: {
+        priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/faq/betingelser", note: "Gjelder kun i kjøpsøyeblikket" },
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
+      },
+      returns: {
+        returnWindowDays: { value: 28, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/faq/betingelser", note: "Åpent kjøp 28 dager (lovfestet angrerett 14 dager)" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/retur-og-bytte", note: "59 kr per postretur; gratis i varehus og for XXL Reward (3 per 12 mnd)" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 82,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "boozt",
@@ -894,31 +1104,131 @@ export const stores: Store[] = [
     slug: "jollyroom",
     websiteUrl: "https://www.jollyroom.no",
     affiliateSlug: "jollyroom",
+    logo: { src: "/logos/jollyroom.svg", alt: "Jollyroom", background: "transparent" },
     shortDescription:
-      "Stor nordisk nettbutikk for baby- og barneutstyr med alt fra vogner til klær og leker.",
+      "Norskregistrert nettbutikk for baby- og barneutstyr med alt fra vogner og bilstoler til klær og leker.",
+    longDescription:
+      "Jollyroom er en nettbutikk for baby- og barneutstyr, drevet av norskregistrerte Jollyroom AS og del av et nordisk konsern med hovedsete i Sverige. Sortimentet dekker barnevogner, bilstoler, barneklær, leker og interiør, med fri frakt over 1200 kroner og 365 dagers åpent kjøp på uåpnede varer. Merk at returfrakt koster fra 49 til 699 kroner avhengig av varens størrelse.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Jollyroom?",
+        paragraphs: [
+          "Jollyroom selger utstyr til barnefamilien: barnevogner, bilstoler, barneklær og -sko, leker, barneromsinteriør, babyutstyr og produkter til mor. Butikken fører kjente merkevarer som blant annet LEGO, Britax, Maxi-Cosi og Cybex, og omtaler seg som Nordens største nettbutikk for barn og baby.",
+          "Nettbutikken drives av Jollyroom AS, registrert i Norge, og inngår i et nordisk konsern med hovedsete i Sverige. Selskapet ble etablert i 2010 og har også fysiske butikker, blant annet i Oslo.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Jollyroom passer for deg som vil handle bredt til baby og barn på ett sted – fra vogn og bilstol til klær og leker – og som verdsetter den lange åpent kjøp-perioden på uåpnede varer.",
+          "Skal du prøve og sammenligne vogner eller bilstoler fysisk før kjøp, er utvalget av egne butikker begrenset; sjekk om en av butikkene er i nærheten.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Vipps, kort (Visa og Mastercard med 3D Secure) samt faktura og delbetaling gjennom Jollyroompay – Klarna tilbys ikke. Du må være 18 år og ha gyldig norsk legitimasjon for å handle.",
+          "Frakten er gratis på ordre over 1200 kroner for standard leveringsmåter. Under grensen koster pakkeboks med PostNord 79 kroner og hjemlevering 149 kroner for pakker under 20 kilo; store varer som vogner og møbler har egne fraktpriser. Leveringstiden beregnes i kassen. Jollyroom leverer ikke til Svalbard.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Jollyroom gir 365 dagers åpent kjøp på uåpnede varer, i tillegg til den lovfestede angreretten på 14 dager. Returfrakten betaler du selv: 49 kroner for klær og sko, 99 kroner for småvarer, 299 kroner for tunge varer og 699 kroner for pallegods. Hygieneprodukter er unntatt angrerett.",
+          "Varene har ett års garanti mot fabrikasjonsfeil, og reklamasjonsretten følger forbrukerkjøpsloven med to eller fem år. Transportskader bør meldes innen én til tre dager etter levering.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk returkostnaden for varetypen du bestiller – særlig for store varer, der returfrakten kan bli 299 til 699 kroner. Husk at åpent kjøp forutsetter uåpnet vare, og kontroller leveringstiden i kassen. For bilstoler og annet sikkerhetsutstyr bør du kontrollere produktinformasjon og godkjenninger hos produsenten før kjøp.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Jollyroom før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Jollyroom – Kjøpsvilkår",
+        url: "https://www.jollyroom.no/kundeservice/kjopsvilkar",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Jollyroom – Levering",
+        url: "https://www.jollyroom.no/kundeservice/levering",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Jollyroom – Angrerett, retur og garanti",
+        url: "https://www.jollyroom.no/kundeservice/angrerett-retur-og-garanti",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Jollyroom – Handle og betale",
+        url: "https://www.jollyroom.no/kundeservice/handle-og-betale",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+      {
+        label: "Brønnøysundregistrene – Jollyroom AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/995738279",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Bred baby- og barnebutikk drevet av norskregistrert selskap, med fri frakt over 1200 kroner og 365 dagers åpent kjøp på uåpnede varer. Vær oppmerksom på at returfrakten koster 49–699 kroner avhengig av varens størrelse, og at Klarna ikke tilbys.",
+    editorialPros: [
+      "365 dagers åpent kjøp på uåpnede varer",
+      "Fri frakt over 1200 kr",
+      "Bredt sortiment til baby og barn på ett sted",
+      "Norskregistrert selskap med norske vilkår og Vipps",
+      "Fører LEGO, Britax, Maxi-Cosi og andre kjente merker",
+    ],
+    editorialCons: [
+      "Returfrakt betales av kunden: 49–699 kr etter størrelse",
+      "Tilbyr ikke Klarna – faktura via Jollyroompay",
+      "Leveringstid oppgis først i kassen",
+    ],
     bestFor: ["Babyutstyr og barnevogn", "Bredt sortiment", "Alt på ett sted"],
-    notBestFor: ["Rask levering fra norsk lager"],
+    notBestFor: ["Fysisk prøving utenfor butikkbyene"],
     categories: [
       { main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" },
-      { main: "utenlandske-nettbutikker", relevance: "limited" },
     ],
     brands: [
-      { name: "LEGO", slug: "lego", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "LEGO", slug: "lego", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/" },
     ],
-    country: "SE",
-    isNorwegian: false,
+    country: "NO",
+    isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { klarna: fc(true, "high"), vipps: fc(true, "low") },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(699, "low"), homeDelivery: fc(true) },
-      geography: { country: fc("SE", "high"), isNorwegian: fc(false, "high"), shipsToNorway: fc(true, "high"), voec: fc(true, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale" },
+        klarna: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale", note: "Faktura og delbetaling via Jollyroompay (Avarda) – ikke Klarna" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/handle-og-betale", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering" },
+        freeShippingFrom: { value: 1200, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering", note: "Gjelder standard leveringsmåter" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering", note: "149 kr under 20 kg; store varer har egne priser" },
+      },
+      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
       commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      returns: {
+        returnWindowDays: { value: 365, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/angrerett-retur-og-garanti", note: "365 dagers åpent kjøp for uåpnede varer (lovfestet angrerett 14 dager)" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/angrerett-retur-og-garanti", note: "Returfrakt 49–699 kr avhengig av varetype" },
+      },
     },
-    trustLevel: "medium",
-    dataQuality: "C",
+    trustLevel: "high",
+    dataQuality: "A",
     editorialScore: 73,
-    lastChecked: "2026-05-22",
+    lastChecked: "2026-07-16",
   },
   {
     id: "barnas-hus",
@@ -1067,28 +1377,129 @@ export const stores: Store[] = [
     slug: "musti",
     websiteUrl: "https://www.musti.no",
     affiliateSlug: "musti",
+    logo: { src: "/logos/musti.svg", alt: "Musti", background: "transparent" },
     shortDescription:
-      "Nordisk dyrebutikk med fôr, utstyr og tilbehør til hund, katt og smådyr. Butikker og nettbutikk.",
+      "Norsk dyrebutikkjede med fôr, utstyr og tilbehør til hund, katt og smådyr – butikker og nettbutikk.",
+    longDescription:
+      "Musti er en norsk dyrebutikkjede drevet av Musti Norge AS, del av det nordiske Musti Group. Nettbutikken selger fôr, utstyr og tilbehør til hund, katt og smådyr, med fri frakt over 599 kroner, 30 dagers åpent kjøp og gratis retur med Mustis returskjema. Bestillinger kan også hentes gratis i butikk, og faste fôrleveranser kan settes opp som abonnement.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Musti?",
+        paragraphs: [
+          "Musti selger dyreutstyr på nett: fôr, godbiter, senger, bur, leker og pleieprodukter til hund, katt og smådyr. Butikken fører kjente fôrmerker som Royal Canin, og tilbyr abonnement på fôr og godbiter med faste leveranser.",
+          "Nettbutikken drives av Musti Norge AS, som også driver fysiske dyrebutikker over hele landet og inngår i det nordiske Musti Group med hovedsete i Finland.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Musti passer for deg som har hund, katt eller smådyr og vil kombinere netthandel med butikker i nærheten – enten for gratis klikk og hent eller rådgivning i butikk. Abonnementsordningen passer ved fast fôrforbruk.",
+          "Har du eksotiske kjæledyr, er utvalget mer begrenset.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort, faktura eller delbetaling gjennom Klarna, samt Musti-gavekort. Vipps er ikke oppgitt som betalingsmåte i nettbutikken.",
+          "Frakten er gratis på ordre over 599 kroner; under grensen koster standardfrakt fra 39 kroner. Musti sender med Bring, og du kan velge hjemlevering på dag- eller kveldstid, hentested eller pakkeboks. Bestillinger behandles innen 48 timer på hverdager, med 2–6 virkedagers transporttid. Klikk og hent i butikk er gratis: send til butikk tar 3–6 dager, eller du kan reservere varer som er på lager og hente innen to timer.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Musti gir 30 dagers åpent kjøp på musti.no. Bruker du Mustis returskjema, dekker Musti returfrakten – returer utenom skjemaet betaler du selv. Returer behandles innen ti arbeidsdager, og refusjonen skjer til samme betalingsmåte.",
+          "Den lovfestede angreretten på 14 dager gjelder i tillegg. Kundeservice er tilgjengelig på e-post og telefon på hverdager.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Bruk Mustis returskjema hvis du skal returnere – ellers må du dekke returfrakten selv. Sjekk om ordren når fri frakt-grensen på 599 kroner, og om varen kan reserveres for henting i din lokale butikk i stedet.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Musti før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Musti – Kjøpsbetingelser",
+        url: "https://www.musti.no/kjopsvilkar",
+        checkedAt: "2026-07-16",
+        supports: ["company", "returns"],
+      },
+      {
+        label: "Musti – Betaling og leveranse",
+        url: "https://www.musti.no/betaling-og-leveranse",
+        checkedAt: "2026-07-16",
+        supports: ["payments", "shipping", "clickAndCollect"],
+      },
+      {
+        label: "Musti – Retur",
+        url: "https://www.musti.no/retur",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Musti – Abonnementsvilkår",
+        url: "https://www.musti.no/abonnement-vilkar",
+        checkedAt: "2026-07-16",
+        supports: ["subscriptions"],
+      },
+      {
+        label: "Brønnøysundregistrene – Musti Norge AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/915886949",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk dyrebutikkjede med fri frakt over 599 kroner, gratis retur via returskjema, gratis klikk og hent og abonnement på fôr. Vær oppmerksom på at Vipps ikke er oppgitt som betalingsmåte, og at retur utenom returskjemaet koster frakt.",
+    editorialPros: [
+      "Fri frakt over 599 kr",
+      "Gratis retur med Mustis returskjema",
+      "Gratis klikk og hent – reserver og hent innen 2 timer ved lagervare",
+      "Abonnement på fôr og godbiter",
+      "Butikker over hele landet",
+    ],
+    editorialCons: [
+      "Vipps er ikke oppgitt som betalingsmåte",
+      "Retur utenom returskjemaet betales av kunden",
+      "Standardfrakt fra 39 kr under 599 kr",
+    ],
     bestFor: ["Hunde- og kattefôr", "Bredt dyreutvalg", "Klikk og hent"],
     notBestFor: ["Eksotiske dyr"],
     categories: [{ main: "dyr-kjaeledyr", productType: "hund", relevance: "primary" }],
     brands: [
-      { name: "Royal Canin", slug: "royal-canin", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "Royal Canin", slug: "royal-canin", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/royal-canin" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(599, "low"), clickAndCollect: fc(true), homeDelivery: fc(true) },
+      payments: {
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Faktura, delbetaling og kortbetaling via Klarna" },
+      },
+      shipping: {
+        deliveryDays: { value: 4, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Behandling innen 48 t + 2–6 virkedager med Bring" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse" },
+        freeShippingFrom: { value: 599, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Under grensen koster standardfrakt fra 39 kr" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Dag- eller kveldslevering, med eller uten signatur" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Gratis; send til butikk 3–6 dager, eller reserver lagervare og hent innen 2 timer" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { subscription: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      commercial: {
+        subscription: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/abonnement-vilkar", note: "Faste leveranser av fôr og godbiter" },
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse" },
+      },
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/retur", note: "30 dagers åpent kjøp (lovfestet angrerett 14 dager)" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/retur", note: "Gratis med Mustis returskjema; ellers betaler kunden returfrakt" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 77,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "zooplus",
@@ -1329,29 +1740,120 @@ export const stores: Store[] = [
     slug: "oda",
     websiteUrl: "https://oda.com/no",
     affiliateSlug: "oda",
+    logo: { src: "/logos/oda.svg", alt: "Oda", background: "transparent" },
     shortDescription:
-      "Norsk nettdagligvare med hjemlevering av matvarer og ferdige middagskasser i abonnement.",
-    bestFor: ["Dagligvarer hjem", "Middagskasser", "Fast handlemønster"],
-    notBestFor: ["Rask henting i butikk", "Hele landet (begrenset område)"],
-    categories: [
-      { main: "mat-drikke-dagligvarer", productType: "matkasse", relevance: "primary" },
-      { main: "tjenester-abonnement", relevance: "secondary" },
+      "Norsk nettdagligvare med hjemlevering av matvarer på Østlandet og Sørlandet. Sjekk om de leverer til din adresse.",
+    longDescription:
+      "Oda er en norsk nettdagligvare drevet av Oda Norway AS, med hovedlager på Lierskogen og hjemlevering av dagligvarer til privatpersoner og bedrifter på Østlandet og Sørlandet. Leveringsgebyret varierer med område, dag og tidsvindu, og starter fra 0 kroner. Det er ingen krav til minstebestilling, men små ordre får et pakketillegg. Sjekk alltid i Odas app eller nettbutikk om de leverer til din adresse.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Oda?",
+        paragraphs: [
+          "Oda selger dagligvarer på nett: ferskvarer, frukt og grønt, tørrvarer, drikke, husholdningsprodukter og middagsingredienser med tilhørende oppskrifter. Selskapet omtaler seg som Norges største lavpris matbutikk på nett.",
+          "Oda Norway AS ble grunnlagt i 2013, har hovedkontor i Oslo og driver et sentrallager på Lierskogen som all levering går fra – det finnes ingen fysiske butikker.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Oda passer for deg som bor i leveringsområdet på Østlandet eller Sørlandet og vil få dagligvarene levert hjem – særlig ved faste, større handler der pakketillegget ikke slår inn.",
+          "Butikken er uaktuell utenfor leveringsområdet, og det finnes ingen butikk eller hentepunkt å oppsøke. Om Oda leverer til deg, ser du ved å legge inn adressen i appen eller nettbutikken.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa og Mastercard), Apple Pay, Vipps eller Klarna. Faktura tilbys kun bedriftskunder.",
+          "Leveringsgebyret er dynamisk og starter fra 0 kroner: større tidsvinduer og rolige dager er billigere enn korte vinduer og travle dager. Det er ingen minstebestilling, men ordre under 1300 kroner får pakketillegg – 29 kroner under 1300, 59 kroner under 1100 og 199 kroner under 900. Du velger leveringsvindu i kassen, og varsles underveis på leveringsdagen. Er leveringen mer enn 15 minutter forsinket, gir Oda automatisk en kupong for gratis levering.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "For matvarer gjelder egne regler: feil eller mangler må meldes innen 12 timer etter levering, og Oda gir ferskhetsgaranti på ferskvarer med dokumentert holdbarhet per produkt. Refusjon gis ved dokumenterte avvik.",
+          "Angreretten på 14 dager gjelder ikke varer som forringes raskt eller forseglede varer der forseglingen er brutt – det omfatter det meste av dagligvarer. Bestillingen er bindende når den er registrert, og endringsmulighetene avhenger av ordrestatus. Pant håndteres med pantepose, og refusjon skjer som tilgodehavende.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk først om Oda leverer til adressen din, og sammenlign leveringsvinduene – prisen varierer med dag og tidsluke. Hold ordren over 1300 kroner hvis du vil unngå pakketillegg, og meld fra om eventuelle feil innen 12 timer.",
+          "Kontroller alltid gjeldende priser, gebyrer og vilkår hos Oda før du bestiller.",
+        ],
+      },
     ],
+    sources: [
+      {
+        label: "Oda – Salgs- og bruksvilkår",
+        url: "https://oda.com/no/legal/betingelser/",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "cancellation", "perishableGoods"],
+      },
+      {
+        label: "Oda – Hva koster hjemlevering? (hjelpesenter)",
+        url: "https://hjelp.oda.com/no/article/7b7071",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Oda – Pakketillegg på mindre bestillinger (hjelpesenter)",
+        url: "https://hjelp.oda.com/no/article/19d19e",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+      {
+        label: "Oda – Om oss",
+        url: "https://oda.com/no/about/om-oss/",
+        checkedAt: "2026-07-16",
+        supports: ["company", "deliveryArea"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Norsk nettdagligvare med hjemlevering på Østlandet og Sørlandet, dynamisk leveringsgebyr fra 0 kroner og ferskhetsgaranti. Vær oppmerksom på pakketillegget på små ordre, 12-timersfristen for å melde feil, og at angreretten ikke gjelder de fleste matvarer.",
+    editorialPros: [
+      "Hjemlevering av dagligvarer med valgbare tidsvinduer",
+      "Leveringsgebyr fra 0 kr – billigere ved store vinduer og rolige dager",
+      "Ingen minstebestilling",
+      "Ferskhetsgaranti og automatisk kompensasjon ved forsinkelse",
+      "Vipps, Klarna og Apple Pay",
+    ],
+    editorialCons: [
+      "Leverer kun på Østlandet og Sørlandet",
+      "Pakketillegg på 29–199 kr for ordre under 1300 kr",
+      "Feil på matvarer må meldes innen 12 timer",
+      "Ingen butikk eller hentepunkt",
+    ],
+    bestFor: ["Dagligvarer hjem", "Store faste handler", "Middagsingredienser med oppskrifter"],
+    notBestFor: ["Adresser utenfor Østlandet og Sørlandet", "Henting i butikk"],
+    categories: [{ main: "mat-drikke-dagligvarer", relevance: "primary" }],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high") },
-      shipping: { deliveryDays: fc(1, "low"), shippingType: fc("paid"), homeDelivery: fc(true, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://hjelp.oda.com/no/article/7b7071", note: "Dynamisk gebyr fra 0 kr etter område, dag og tidsvindu; pakketillegg 29–199 kr under 1300 kr" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://hjelp.oda.com/no/article/7b7071", note: "Kun hjemlevering, i definerte områder på Østlandet og Sørlandet" },
+      },
       geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { subscription: fc(true, "medium"), introOffer: fc(true, "low") },
-      returns: { returnWindowDays: fc(14, "low"), freeReturns: fc(false, "low") },
+      commercial: {},
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/", note: "Angrerett gjelder ikke varer som forringes raskt; feil på matvarer meldes innen 12 timer" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 75,
-    notes: ["Hjemlevering er geografisk begrenset – sjekk om de leverer til deg."],
-    lastChecked: CHECKED,
+    notes: ["Hjemlevering er geografisk begrenset – sjekk i Odas app eller nettbutikk om de leverer til din adresse."],
+    lastChecked: "2026-07-16",
   },
 
   // ───────────────────────── Utenlandske nettbutikker ────────────────────────
