@@ -672,25 +672,128 @@ export const stores: Store[] = [
     slug: "hm",
     searchAliases: ["hm", "h og m", "hennes og mauritz"],
     websiteUrl: "https://www2.hm.com/no_no",
+    logo: { src: "/logos/hm.svg", alt: "H&M", background: "transparent" },
     shortDescription:
-      "Internasjonal motekjede med rimelige basisplagg og trendklær for hele familien.",
+      "Internasjonal motekjede med rimelige basisplagg og trendklær for hele familien – norsk nettbutikk og butikker.",
+    longDescription:
+      "H&M er en internasjonal motekjede der den norske nettbutikken drives av H & M Hennes & Mauritz AS, registrert i Oslo. Sortimentet dekker klær til dame, herre og barn, undertøy, sko og interiør fra H&M HOME. Hent i butikk er gratis; til utleveringssted koster frakten 49,99 kroner, og fri frakt over 499 kroner gjelder kun medlemmer. Returregistrering innen 30 dager, med gebyr for postretur og gratis retur i butikk.",
+    descriptionSections: [
+      {
+        heading: "Hva selger H&M?",
+        paragraphs: [
+          "H&M selger mote på nett: klær til dame, herre, baby og barn, undertøy, badetøy, sko, accessoirer og interiør fra H&M HOME. Sortimentet består av kjedens egne kolleksjoner, og hm.com selger i tillegg varer fra andre varemerker – blant annet konsernmerkene & Other Stories, ARKET, COS, Monki og Weekday – som kan sendes i separate pakker med egne returregler.",
+          "Den norske nettbutikken drives av H & M Hennes & Mauritz AS, org 912 618 900, med forretningskontor i Oslo, og kjeden har butikker over hele landet.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "H&M passer for deg som vil ha rimelige basisplagg og trendmote til hele familien, og som gjerne kombinerer nett og butikk – gratis hent i butikk og gratis butikkretur gjør det enkelt å prøve hjemme og levere tilbake.",
+          "Merk at flere fordeler er knyttet til det gratis H&M-medlemskapet: fri frakt over 499 kroner og Klarna-betaling gjelder kun medlemmer.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa, Mastercard og American Express), Vipps, Apple Pay og H&M-gavekort. Klarna-alternativene «Betal nå», «Betal senere» og «Del opp» er eksklusive for H&M-medlemmer. Du må være 18 år for å bestille.",
+          "Standardlevering tar 2–5 arbeidsdager. Hent i butikk er gratis med 7 dagers hentefrist; levering til utleveringssted eller pakkeboks koster 49,99 kroner – gratis for medlemmer ved kjøp over 499 kroner. Ekspresslevering koster 79,99 kroner. H&M leverer i Norge til personer over 15 år, men ikke til Svalbard eller Jan Mayen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Du har 30 dager etter levering til å registrere retur – 14 dager for salgsvarer og nedsatte varer. Retur av H&M-varer i butikk er gratis; postretur koster 49,99 kroner, og gebyret øker til 69,99 kroner for kunder med høy returandel over tid.",
+          "Varene må være ubrukte med etikettene på. Kosmetikk, undertøy, MAMA-kolleksjonen og enkelte andre varegrupper må returneres per post, badetøy krever intakt hygienestripe, og varer fra andre merker kan ha egne returløp. Varer kjøpt i butikk må returneres i butikk.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om varen selges av H&M eller et annet varemerke – det påvirker forsendelse og retur. Vurder det gratis medlemskapet hvis du handler ofte: uten medlemskap koster frakt til utleveringssted alltid 49,99 kroner. Husk den kortere returfristen på salgsvarer.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos H&M før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "H&M – Betingelser og vilkår",
+        url: "https://www2.hm.com/no_no/customer-service/vilkar-sikkerhet/generelle-vilkar.html",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns"],
+      },
+      {
+        label: "H&M – Levering og frakt",
+        url: "https://www2.hm.com/no_no/customer-service/levering.html",
+        checkedAt: "2026-07-16",
+        supports: ["shipping", "clickAndCollect", "membership"],
+      },
+      {
+        label: "H&M – Betalinger",
+        url: "https://www2.hm.com/no_no/customer-service/payments.html",
+        checkedAt: "2026-07-16",
+        supports: ["payments", "membership"],
+      },
+      {
+        label: "H&M – Returpolicy og -metoder",
+        url: "https://www2.hm.com/no_no/customer-service/retur.html",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Bred motekjede med gratis hent og retur i butikk og norsk juridisk aktør bak nettbutikken. Vær oppmerksom på at fri frakt over 499 kroner og Klarna kun gjelder medlemmer, at postretur koster 49,99 kroner, og at salgsvarer har 14 dagers returfrist.",
+    editorialPros: [
+      "Gratis hent i butikk og gratis butikkretur av H&M-varer",
+      "30 dagers returregistrering på ordinære varer",
+      "Vipps, Apple Pay og Amex",
+      "Fri frakt over 499 kr for medlemmer (gratis medlemskap)",
+      "Butikker over hele landet",
+    ],
+    editorialCons: [
+      "Frakt til utleveringssted koster 49,99 kr uten medlemskap",
+      "Klarna er forbeholdt medlemmer",
+      "Postretur koster 49,99 kr (69,99 kr ved høy returandel)",
+      "Salgsvarer har kun 14 dagers returfrist",
+    ],
     bestFor: ["Rimelige basisplagg", "Trendmote", "Klær til hele familien"],
     notBestFor: ["Premium kvalitet og holdbarhet"],
     categories: [{ main: "klaer-sko-mote", relevance: "primary" }],
-    country: "SE",
-    isNorwegian: false,
+    country: "NO",
+    isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { klarna: fc(true), vipps: fc(true, "low") },
-      shipping: { deliveryDays: fc(4, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(500, "low"), clickAndCollect: fc(true, "low") },
-      geography: { country: fc("SE", "high"), isNorwegian: fc(false, "high"), shipsToNorway: fc(true, "high"), voec: fc(true, "low") },
-      commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+        amex: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html", note: "Kun for H&M-medlemmer (gratis medlemskap)" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+      },
+      shipping: {
+        deliveryDays: { value: 4, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/levering.html", note: "Standardlevering oppgitt til 2–5 arbeidsdager" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/levering.html", note: "49,99 kr til utleveringssted/pakkeboks; fri frakt over 499 kr kun for medlemmer; hent i butikk gratis" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/levering.html" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/levering.html", note: "Gratis standardleveranse til valgt butikk, 7 dagers hentefrist" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/vilkar-sikkerhet/generelle-vilkar.html", note: "H & M Hennes & Mauritz AS, org 912 618 900, Oslo (del av svensk konsern)" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/vilkar-sikkerhet/generelle-vilkar.html" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/levering.html", note: "Ikke Svalbard eller Jan Mayen" },
+      },
+      commercial: {
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
+      },
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/retur.html", note: "Registrering innen 30 dager; 14 dager for salgsvarer" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/retur.html", note: "Postretur 49,99 kr (69,99 kr ved høy returandel); gratis i butikk for H&M-varer" },
+      },
     },
-    trustLevel: "medium",
-    dataQuality: "C",
+    trustLevel: "high",
+    dataQuality: "A",
     editorialScore: 71,
-    lastChecked: "2026-05-02",
+    lastChecked: "2026-07-16",
   },
 
   // ───────────────────────── Sport, friluft og trening ───────────────────────
@@ -903,29 +1006,129 @@ export const stores: Store[] = [
     slug: "vita",
     websiteUrl: "https://www.vita.no",
     affiliateSlug: "vita",
+    logo: { src: "/logos/vita.svg", alt: "VITA", background: "transparent" },
     shortDescription:
-      "Norsk skjønnhetskjede med sminke, hudpleie og parfyme fra kjente merker.",
+      "Norsk skjønnhetskjede med sminke, hudpleie, hårpleie og parfyme – butikker over hele landet og nettbutikk.",
+    longDescription:
+      "VITA er en norsk skjønnhetskjede drevet av VITA Group AS, med butikker over hele landet og nettbutikk for sminke, hudpleie, hårpleie, parfyme og velværeprodukter. Nettbutikken har fri frakt over 299 kroner, gratis retur med Helthjem-returlapp og klikk og hent i butikk som normalt er klart etter 30 minutter. Kundeklubben VITA Venn er gratis og gir bonus og medlemstilbud.",
+    descriptionSections: [
+      {
+        heading: "Hva selger VITA?",
+        paragraphs: [
+          "VITA selger skjønnhetsprodukter på nett: sminke, hudpleie, hårpleie, parfyme og velværeprodukter fra kjente merkevarer – blant annet The Ordinary, som har egen merkeside. Nettbutikken drives av VITA Group AS, som også driver de fysiske VITA-butikkene.",
+          "Kundeklubben VITA Venn er gratis og gir bonus på kjøp og egne medlemstilbud. Medlemskapet er en fordelsordning – kjøpsvilkårene er de samme for alle.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "VITA passer for deg som handler sminke, hudpleie og parfyme og vil kombinere nett og butikk – enten med rask klikk og hent eller gratis retur hjemmefra. Den lave fri frakt-grensen gjør butikken praktisk også for små bestillinger.",
+          "Er du ute etter apotekvarer eller reseptpliktige produkter, er apotekene mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa og Mastercard), Vipps, Klarna og Apple Pay. Du må være 18 år for å handle i nettbutikken.",
+          "Frakten er gratis på ordre over 299 kroner. VITA sender med Helthjem, Bring, PostNord og Widerøe, med oppgitt leveringstid på 1–5 virkedager avhengig av metode og adresse. Klikk og hent i butikk er normalt klart etter 30 minutter når varene er på lager.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager, og VITA tilbyr gratis retur: du får en portofri Helthjem-returlapp på e-post innen én virkedag. Varen må være ubrukt og i original, uskadd indre emballasje.",
+          "Kosmetikk og forseglede hygieneprodukter kan ikke returneres hvis forseglingen er brutt. Merk at klikk og hent-bestillinger håndteres av butikken du hentet i, ikke av nettbutikkens returløsning.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk om forseglingen må være intakt for varen du vurderer å returnere, og husk at klikk og hent-kjøp følges opp i butikken. Leveringstiden varierer med adresse – den vises i kassen.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos VITA før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "VITA – Salgs- og leveringsbetingelser",
+        url: "https://www.vita.no/salgs--og-leveringsbetingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "VITA – Frakt og retur",
+        url: "https://www.vita.no/fraktinfo",
+        checkedAt: "2026-07-16",
+        supports: ["shipping", "returns"],
+      },
+      {
+        label: "VITA – Klikk og hent",
+        url: "https://www.vita.no/klik--hent",
+        checkedAt: "2026-07-16",
+        supports: ["clickAndCollect"],
+      },
+      {
+        label: "VITA – Om VITA Venn",
+        url: "https://vita.no/om-club-vita",
+        checkedAt: "2026-07-16",
+        supports: ["membership"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk skjønnhetskjede med fri frakt over 299 kroner, gratis Helthjem-retur og klikk og hent på 30 minutter. Vær oppmerksom på at brutt forsegling fjerner returretten på kosmetikk, og at klikk og hent-kjøp håndteres av butikken.",
+    editorialPros: [
+      "Fri frakt over 299 kr",
+      "Gratis retur med portofri Helthjem-returlapp",
+      "Klikk og hent normalt klart etter 30 minutter",
+      "Vipps, Klarna og Apple Pay",
+      "Gratis kundeklubb med bonus (VITA Venn)",
+    ],
+    editorialCons: [
+      "Brutt forsegling fjerner returretten på kosmetikk",
+      "Klikk og hent-kjøp kan ikke returneres via nettbutikkens returløsning",
+      "14 dagers angrerett er lovens minimum",
+    ],
     bestFor: ["Sminke og hudpleie", "Kjente skjønnhetsmerker", "Klikk og hent"],
     notBestFor: ["Apotekvarer og resept"],
     categories: [{ main: "helse-skjonnhet-apotek", productType: "sminke", relevance: "primary" }],
     brands: [
-      { name: "The Ordinary", slug: "the-ordinary", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
-      { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "The Ordinary", slug: "the-ordinary", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/merker" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(3, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(499, "low"), clickAndCollect: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        applePay: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        deliveryDays: { value: 3, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/fraktinfo", note: "Oppgitt 1–5 virkedager avhengig av metode og adresse" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/fraktinfo" },
+        freeShippingFrom: { value: 299, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/fraktinfo" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/fraktinfo", note: "Helthjem-levering over natten" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/klik--hent", note: "Normalt klart etter 30 minutter ved lagervare" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser", note: "VITA Group AS, org 923 592 784, Oslo" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/salgs--og-leveringsbetingelser" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/fraktinfo" },
+      },
       commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/retur", note: "Lovfestet angrerett; brutt forsegling fjerner returretten på kosmetikk" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/retur", note: "Portofri Helthjem-returlapp tilsendt på e-post" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 79,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "apotek-1",
@@ -1060,29 +1263,121 @@ export const stores: Store[] = [
     slug: "blivakker",
     websiteUrl: "https://www.blivakker.no",
     affiliateSlug: "blivakker",
+    logo: { src: "/logos/blivakker.svg", alt: "Blivakker.no", background: "transparent" },
     shortDescription:
-      "Norsk nettbutikk med stort utvalg sminke, hudpleie og hårpleie til konkurransedyktige priser.",
-    bestFor: ["Bredt skjønnhetsutvalg", "Gode priser", "Norsk lager"],
-    notBestFor: ["Fysisk butikk"],
+      "Norsk nettbutikk for sminke, hudpleie og hårpleie, med lager og butikker i Kristiansand-området.",
+    longDescription:
+      "Blivakker er en norsk skjønnhetsnettbutikk drevet av Blivakker.no AS i Kristiansand. Sortimentet dekker sminke, hudpleie, hårpleie og parfyme, med The Ordinary blant merkevarene. Du kan betale med Vipps, kort eller BlivakkerPay faktura og delbetaling, og velge postkasse, hentested eller henting i Blivakker-butikk. Angreretten er 14 dager, og returfrakten betaler du selv.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Blivakker?",
+        paragraphs: [
+          "Blivakker selger skjønnhetsprodukter på nett: sminke, hudpleie, hårpleie, parfyme og tilbehør. Butikken fører kjente merkevarer som The Ordinary, som har egen merkeside, og omtaler seg som Norges største skjønnhetsbutikk på nett.",
+          "Nettbutikken drives av Blivakker.no AS, registrert i Kristiansand, der selskapet også har lager. Kundeklubben Blivakker FOR YOU gir poeng og medlemstilbud.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Blivakker passer for deg som handler skjønnhetsprodukter på nett og vil ha et bredt utvalg fra norsk lager, med rask levering i 1–3 virkedager etter registrert betaling.",
+          "Vil du prøve produkter fysisk før kjøp, er butikkutvalget begrenset utenfor Kristiansand-området.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med Vipps, kort (Visa og Mastercard med 3D Secure) samt faktura med 30 dagers frist og delbetaling gjennom BlivakkerPay. Bindende kjøp krever at du er 15 år; kredittkjøp krever 18 år.",
+          "Du kan velge brevpakke i postkassen, servicepakke til hentested eller henting i Blivakker-butikk med pakkeautomat. Fraktkostnaden avhenger av leveringsmåte og handlekurv, og vises i kassen. Leveringstiden er oppgitt til 1–3 virkedager etter registrert betaling.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Angreretten gjelder i 14 dager fra du mottar varen, og returkostnadene betaler du selv. Varen må være i vesentlig samme stand, og angreretten gjelder ikke varer der forsegling eller emballasje er brutt og som av hygienehensyn ikke kan selges på nytt.",
+          "Uavhentede pakker belastes med 200 kroner i gebyr pluss 59 kroner i returfrakt. Kundeservice nås via kontaktskjema og telefon.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Husk at brutt forsegling fjerner returretten på hygieneprodukter, at returfrakt betales av deg, og at uavhentede pakker koster gebyr. Sjekk fraktprisen for din leveringsmåte i kassen.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Blivakker før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Blivakker – Brukerbetingelser",
+        url: "https://www.blivakker.no/kundesenter/brukerbetingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "Blivakker – Kundeklubb (FOR YOU)",
+        url: "https://www.blivakker.no/kundesenter/kundeklubb",
+        checkedAt: "2026-07-16",
+        supports: ["membership"],
+      },
+      {
+        label: "Brønnøysundregistrene – Blivakker.no AS",
+        url: "https://data.brreg.no/enhetsregisteret/api/enheter/993563773",
+        checkedAt: "2026-07-16",
+        supports: ["company"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Bred norsk skjønnhetsnettbutikk med rask levering fra eget lager og fleksibel betaling via Vipps og BlivakkerPay. Vær oppmerksom på at returfrakten betales av kunden, og at brutt forsegling fjerner returretten på hygieneprodukter.",
+    editorialPros: [
+      "Bredt skjønnhetsutvalg fra norsk lager",
+      "Oppgitt leveringstid 1–3 virkedager",
+      "Vipps og BlivakkerPay faktura/delbetaling",
+      "Henting i Blivakker-butikk med pakkeautomat",
+      "Gratis kundeklubb med poeng (FOR YOU)",
+    ],
+    editorialCons: [
+      "Returfrakt betales av kunden",
+      "Uavhentede pakker koster 200 kr + returfrakt",
+      "Klarna er ikke oppgitt som betalingsmåte",
+    ],
+    bestFor: ["Bredt skjønnhetsutvalg", "Rask levering fra norsk lager", "Hudpleie og sminke"],
+    notBestFor: ["Fysisk prøving utenfor Kristiansand-området"],
     categories: [{ main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "primary" }],
     brands: [
-      { name: "The Ordinary", slug: "the-ordinary", relevance: "primary", confidence: "medium", lastChecked: CHECKED },
-      { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "low", lastChecked: CHECKED },
+      { name: "The Ordinary", slug: "the-ordinary", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/merker/the-ordinary" },
     ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "high"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(2, "low"), shippingType: fc("free_over_amount"), freeShippingFrom: fc(399, "low"), homeDelivery: fc(true) },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
-      commercial: { introOffer: fc(true, "low") },
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Kort oppgitt som Visa og Mastercard; faktura/delbetaling via BlivakkerPay" },
+      },
+      shipping: {
+        deliveryDays: { value: 2, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Oppgitt 1–3 virkedager etter registrert betaling" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Fraktpris avhenger av leveringsmåte og handlekurv, vises i kassen" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Brevpakke i postkassen" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Henting i Blivakker-butikk med pakkeautomat" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/993563773", note: "Blivakker.no AS, org 993 563 773, Kristiansand" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/993563773" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+      },
+      commercial: {},
+      returns: {
+        returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser", note: "Lovfestet angrerett; hygieneunntak ved brutt forsegling" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/kundesenter/brukerbetingelser" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 77,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "lyko",
@@ -1601,25 +1896,120 @@ export const stores: Store[] = [
     slug: "jysk",
     websiteUrl: "https://jysk.no",
     affiliateSlug: "jysk",
+    logo: { src: "/logos/jysk.svg", alt: "JYSK", background: "transparent" },
     shortDescription:
-      "Skandinavisk kjede for senger, møbler og interiør til lav pris. Butikker og nettbutikk i Norge.",
+      "Skandinavisk kjede for senger, madrasser, møbler og interiør. Norsk nettbutikk og varehus over hele landet.",
+    longDescription:
+      "JYSK er en skandinavisk kjede der den norske virksomheten drives av JYSK AS, registrert i Oslo. Nettbutikken selger senger, madrasser, møbler, tekstiler, oppbevaring og hagemøbler. Ubrukte varer med kvittering kan returneres uten tidsfrist, og Click & Collect lar deg reservere på nett og hente og betale i butikk innen 30 minutter. Småpakker og store varer har egne fraktpriser som varierer med postnummer.",
+    descriptionSections: [
+      {
+        heading: "Hva selger JYSK?",
+        paragraphs: [
+          "JYSK selger varer til hjemmet: senger, madrasser, dyner og puter, møbler, gardiner og tekstiler, oppbevaring, baderomstilbehør og hagemøbler. Kjeden ble etablert i Danmark i 1979, og den norske virksomheten drives av JYSK AS med varehus over hele landet.",
+          "Sortimentet består i hovedsak av kjedens egne produktserier – profilen fører derfor ingen egen merkevareliste.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "JYSK passer for deg som skal ha seng, madrass eller rimelige møbler og interiørvarer, og som gjerne kombinerer nettbutikk med varehus – enten via gratis Click & Collect-reservasjon eller retur i butikk.",
+          "Er du ute etter designmøbler i premiumsegmentet, er spesialiserte møbelbutikker mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa og Mastercard), Vipps, Klarna faktura, JYSK-konto og gavekort. Du må være over 18 år for å handle på jysk.no.",
+          "Småpakker sendes med PostNord til hentested fra 89,95 kroner, med hjemlevering mot tillegg og oppgitt leveringstid på 3–7 virkedager. Store varer leveres av Bring til inngangsdør eller nærmeste hinder fra 449 kroner, med 6–9 virkedagers leveringstid – prisen avhenger av postnummer og vises i kassen. Click & Collect er gratis: du reserverer på nett, får SMS innen 30 minutter, og betaler først når du henter i varehuset innen to virkedager.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "JYSK gir returrett uten tidsbegrensning på ubrukte varer med gyldig kvittering – raskest i et JYSK-varehus, der du får refusjonen med en gang. Returfrakt ved postretur betaler du selv, og spesialtilpassede varer og utførte tjenester kan ikke returneres. Den lovfestede angreretten på 14 dager gjelder i tillegg for nettkjøp.",
+          "GOLD-madrasser har 100 dagers bytterett – en bytteordning, ikke en returordning. Reklamasjonsretten følger forbrukerkjøpsloven.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk fraktprisen for ditt postnummer i kassen – store varer koster fra 449 kroner å få levert, og retur av dem ordner du selv. Husk at Click & Collect er en reservasjon som må hentes innen to virkedager, og at madrassbytteordningen kun gjelder GOLD-madrasser.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos JYSK før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "JYSK – Salgs- og leveringsbetingelser",
+        url: "https://jysk.no/vilkar-og-betingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping"],
+      },
+      {
+        label: "JYSK – Click & Collect",
+        url: "https://jysk.no/click-collect-reserver-online-og-hent-i-butikken",
+        checkedAt: "2026-07-16",
+        supports: ["clickAndCollect"],
+      },
+      {
+        label: "JYSK – Frakt og levering (kundeservice)",
+        url: "https://jysk.no/customer-service-category/12307",
+        checkedAt: "2026-07-16",
+        supports: ["shipping"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende kjede for seng, madrass og rimelig interiør med returrett uten tidsfrist på ubrukte varer og gratis Click & Collect-reservasjon. Vær oppmerksom på at frakt alltid koster – fra 449 kroner for store varer – og at returfrakt betales av kunden.",
+    editorialPros: [
+      "Returrett uten tidsbegrensning på ubrukte varer med kvittering",
+      "Gratis Click & Collect – reserver på nett, betal i butikk",
+      "Vipps, Klarna faktura og JYSK-konto",
+      "Varehus over hele landet med umiddelbar refusjon ved butikkretur",
+      "100 dagers bytterett på GOLD-madrasser",
+    ],
+    editorialCons: [
+      "Ingen fri frakt – småpakker fra 89,95 kr, store varer fra 449 kr",
+      "Returfrakt ved postretur betales av kunden",
+      "Store varer leveres kun til inngangsdør/første hinder",
+    ],
     bestFor: ["Senger og madrasser", "Rimelig interiør", "Klikk og hent"],
     notBestFor: ["Designmøbler i premiumsegmentet"],
     categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
-    country: "DK",
-    isNorwegian: false,
+    country: "NO",
+    isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "medium"), klarna: fc(true, "low") },
-      shipping: { deliveryDays: fc(4, "low"), shippingType: fc("paid"), clickAndCollect: fc(true), homeDelivery: fc(true) },
-      geography: { country: fc("DK", "high"), isNorwegian: fc(false, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "low") },
-      commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Klarna faktura" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+        amex: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Kort oppgitt som Visa og Mastercard" },
+      },
+      shipping: {
+        deliveryDays: { value: 5, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Småpakker 3–7 virkedager; store varer 6–9 virkedager" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Fra 89,95 kr (småpakker) / fra 449 kr (store varer); varierer med postnummer" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Store varer leveres til inngangsdør/første hinder" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/click-collect-reserver-online-og-hent-i-butikken", note: "Gratis reservasjon; SMS innen 30 min; betal og hent i butikk innen 2 virkedager" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "JYSK AS, org 947 477 129, Oslo (del av dansk konsern)" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+      },
+      commercial: {
+        giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser" },
+      },
+      returns: {
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://jysk.no/vilkar-og-betingelser", note: "Gratis i varehus; returfrakt per post betales av kunden. Retur uten tidsfrist for ubrukte varer med kvittering" },
+      },
     },
-    trustLevel: "medium",
-    dataQuality: "C",
+    trustLevel: "high",
+    dataQuality: "A",
     editorialScore: 73,
-    lastChecked: "2026-05-08",
+    lastChecked: "2026-07-16",
   },
   {
     id: "bohus",
@@ -1627,8 +2017,84 @@ export const stores: Store[] = [
     slug: "bohus",
     websiteUrl: "https://www.bohus.no",
     affiliateSlug: "bohus",
+    logo: { src: "/logos/bohus.svg", alt: "Bohus", background: "dark" },
     shortDescription:
-      "Norsk møbelkjede med stort utvalg sofaer, møbler og interiør, og butikker over hele landet.",
+      "Norsk møbelkjede med sofaer, senger, møbler og interiør – nettbutikk og lokale kjedebutikker over hele landet.",
+    longDescription:
+      "Bohus er en norsk møbel- og interiørkjede der nettbutikken drives av BNB AS i Oslo, mens de lokale Bohus-butikkene er selvstendige kjedemedlemmer som kan ha egne priser og eget sortiment. Nettbutikken selger sofaer, senger, møbler og interiør med 30 dagers åpent kjøp, gratis henting i butikk og hjemlevering av møbler – med eller uten montering. Returfrakt per post betales av kunden, og store møbler returneres til butikk.",
+    descriptionSections: [
+      {
+        heading: "Hva selger Bohus?",
+        paragraphs: [
+          "Bohus selger møbler og interiør: sofaer, senger og madrasser, spisegrupper, oppbevaring, tepper, belysning og hagemøbler. Kjeden omtaler seg som Norges største møbel- og interiørkjede.",
+          "Nettbutikken bohus.no drives av BNB AS, org 998 461 936, i Oslo. De lokale Bohus-butikkene er selvstendige kjedemedlemmer som fritt kan sette egne priser, og sortimentet kan variere fra butikk til butikk – nettpriser og butikkpriser kan derfor avvike.",
+        ],
+      },
+      {
+        heading: "Hvem passer butikken for?",
+        paragraphs: [
+          "Bohus passer for deg som skal kjøpe sofa, seng eller møbler og vil kombinere netthandel med en lokal butikk – enten for gratis henting, prøvesitting eller hjemlevering med montering.",
+          "Er du primært ute etter lavprisinteriør og småvarer, kan lavpriskjedene være mer aktuelle.",
+        ],
+      },
+      {
+        heading: "Betaling, frakt og levering",
+        paragraphs: [
+          "Du kan betale med kort (Visa, Mastercard og American Express), Vipps, Trustly og faktura eller delbetaling gjennom Walley – blant annet med 14 dagers faktura og rentefri delbetaling. Du må være 18 år for å handle på bohus.no.",
+          "Henting i butikk er gratis, normalt innen fem virkedager. Møbler kan hjemleveres til kantstein eller med innbæring og montering, og mindre varer sendes per post med hjemlevering på kveldstid eller 7 dagers hentefrist. Fraktprisen avhenger av varetype og adresse og vises i kassen.",
+        ],
+      },
+      {
+        heading: "Retur og kundeservice",
+        paragraphs: [
+          "Bohus gir 30 dagers åpent kjøp på ubrukte varer i originalemballasje, i tillegg til den lovfestede angreretten på 14 dager. Retur i Bohus-butikk er gratis; postretur betaler du selv, og store møbler må du selv frakte tilbake til en butikk.",
+          "Åpent kjøp gjelder ikke spesialtilpassede varer, hygieneprodukter som madrasser, puter og sengetøy, eller utstillingsmodeller. Reklamasjonsretten følger forbrukerkjøpsloven.",
+        ],
+      },
+      {
+        heading: "Hva bør du kontrollere før kjøp?",
+        paragraphs: [
+          "Sjekk fraktprisen for varen og adressen din i kassen, og husk at retur av store møbler krever egen transport til butikk. Merk at madrasser og annet hygieneunntak ikke har åpent kjøp, og at lokale butikkpriser kan avvike fra nettprisene.",
+          "Kontroller alltid gjeldende priser, frakt og vilkår hos Bohus før du bestiller.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Bohus – Kjøpsbetingelser",
+        url: "https://www.bohus.no/kjopsbetingelser",
+        checkedAt: "2026-07-16",
+        supports: ["company", "payments", "returns", "shipping", "clickAndCollect"],
+      },
+      {
+        label: "Bohus – Retur",
+        url: "https://www.bohus.no/retur",
+        checkedAt: "2026-07-16",
+        supports: ["returns"],
+      },
+      {
+        label: "Bohus – Betalingsmetoder",
+        url: "https://www.bohus.no/betalingsmetoder",
+        checkedAt: "2026-07-16",
+        supports: ["payments"],
+      },
+    ],
+    contentStatus: "verified",
+    reviewSummary:
+      "Landsdekkende norsk møbelkjede med 30 dagers åpent kjøp, gratis henting og retur i butikk og hjemlevering med montering. Vær oppmerksom på at store møbler må returneres til butikk for egen regning, at hygieneunntaket omfatter madrasser og sengetøy, og at lokale butikkpriser kan avvike fra nettbutikken.",
+    editorialPros: [
+      "30 dagers åpent kjøp",
+      "Gratis henting og retur i Bohus-butikker",
+      "Hjemlevering av møbler med innbæring og montering",
+      "Vipps, Trustly, Amex og Walley faktura/delbetaling",
+      "Butikker over hele landet",
+    ],
+    editorialCons: [
+      "Postretur betales av kunden, og store møbler må returneres til butikk",
+      "Madrasser, puter og sengetøy er unntatt åpent kjøp",
+      "Lokale butikkpriser og sortiment kan avvike fra nettbutikken",
+      "Klarna er ikke oppgitt som betalingsmåte",
+    ],
     bestFor: ["Sofaer og møbler", "Norsk møbelkjede", "Hjemlevering og montering"],
     notBestFor: ["Lavprisinteriør"],
     categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
@@ -1636,16 +2102,35 @@ export const stores: Store[] = [
     isNorwegian: true,
     shipsToNorway: true,
     attributes: {
-      payments: { vipps: fc(true, "medium"), klarna: fc(true) },
-      shipping: { deliveryDays: fc(7, "low"), shippingType: fc("paid"), clickAndCollect: fc(true), homeDelivery: fc(true, "high") },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      payments: {
+        vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder" },
+        amex: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder" },
+        klarna: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder", note: "Faktura og delbetaling via Walley; Trustly for kontooverføring" },
+        paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder" },
+        applePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder" },
+        googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/betalingsmetoder" },
+      },
+      shipping: {
+        deliveryDays: { value: 5, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser", note: "Henting i butikk normalt innen 5 virkedager; hjemlevering varierer med vare og adresse" },
+        shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser", note: "Pris avhenger av varetype og adresse; gratis henting i butikk" },
+        homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser", note: "Kantstein eller med innbæring/montering for møbler" },
+        clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser", note: "Gratis henting i butikk, normalt innen 5 virkedager" },
+      },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser", note: "Nettbutikken drives av BNB AS, org 998 461 936, Oslo; kjedebutikkene er selvstendige" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/kjopsbetingelser" },
+      },
       commercial: {},
-      returns: { returnWindowDays: fc(30, "low"), freeReturns: fc(false, "low") },
+      returns: {
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/retur", note: "30 dagers åpent kjøp (lovfestet angrerett 14 dager); unntak for spesialtilpasset, hygieneprodukter og utstillingsmodeller" },
+        freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.bohus.no/retur", note: "Gratis i butikk; postretur og møbeltransport betales av kunden" },
+      },
     },
     trustLevel: "high",
-    dataQuality: "B",
+    dataQuality: "A",
     editorialScore: 76,
-    lastChecked: CHECKED,
+    lastChecked: "2026-07-16",
   },
   {
     id: "rusta",
