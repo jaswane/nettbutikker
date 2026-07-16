@@ -144,7 +144,11 @@ export const stores: Store[] = [
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Fra 149 kr; storvarer med innbæring fra 849 kr; ekspress kveld i utvalgte områder" },
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Gratis; klar innen 1 time ved lagervare i valgt varehus" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/kjopsvilkar", note: "Elkjøp Norge AS, org 947 054 600, Oslo" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/kjopsvilkar" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/levering/levering-og-frakt", note: "Leverer ikke til utlandet" },
+      },
       commercial: {
         priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/kundeservice/prismatch", note: "Mot Komplett, NetOnNet, Skousen og Power; ikke outlet/demo/Marketplace" },
         giftCard: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
@@ -297,7 +301,11 @@ export const stores: Store[] = [
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/", note: "159 kr under 1500 kr; Porterbuddy-ekspress i storbyer fra 79 kr" },
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/frakt-og-levering/", note: "Gratis Pick-up-Point ved lageret i Sandefjord" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/", note: "Komplett Services AS, Sandefjord" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/salgsbetingelser-forbruker/", note: "Leverer til Fastlands-Norge og Svalbard" },
+      },
       commercial: {
         priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/kundeservice/om-komplett/om-oss/" },
       },
@@ -470,9 +478,9 @@ export const stores: Store[] = [
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/what-delivery-options-are-available.html", note: "PostNord eller Bring; leveringstid oppgis i kassen" },
       },
       geography: {
-        country: fc("DE", "high"),
-        isNorwegian: fc(false, "high"),
-        shipsToNorway: fc(true, "high"),
+        country: { value: "DE", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/firmainformasjon/", note: "Zalando SE, Berlin; norsk mva-nr 913 924 428" },
+        isNorwegian: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/firmainformasjon/" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.zalando.no/faq/what-delivery-options-are-available.html", note: "Norsk handleflyt med PostNord/Bring-levering" },
         voec: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/", note: "Zalando SE oppført i registeret med zalando.no" },
       },
       commercial: {},
@@ -606,7 +614,11 @@ export const stores: Store[] = [
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Gratis; normalt klar innen 2 timer ved lagervare (sykkel 48 t)" },
         instabox: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Instabox-skap 1–2 virkedager" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/faq/betingelser", note: "XXL Sport & Villmark AS, Oslo" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/faq/betingelser" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/kundeservice/frakt-og-levering", note: "Leverer kun i Norge, ikke Svalbard" },
+      },
       commercial: {
         priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.xxl.no/faq/betingelser", note: "Gjelder kun i kjøpsøyeblikket" },
         giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://xxl.no/faq/betaling" },
@@ -865,7 +877,11 @@ export const stores: Store[] = [
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "199 kr under 1200 kr; Porterbuddy-ekspress i storbyer" },
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "Gratis henting ved lageret i Sandefjord, normalt klar etter 1–3 timer" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/terms", note: "Fjellsport AS, org 989 710 338, Sandefjord" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/terms" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/faq/levering", note: "Hele Norge; Svalbard med tillegg, ikke Jan Mayen" },
+      },
       commercial: {
         outlet: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.fjellsport.no/kampanjer/outlet" },
       },
@@ -1020,7 +1036,11 @@ export const stores: Store[] = [
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Gratis, normalt klar etter 2 timer" },
         instabox: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Pakkeskap 59 kr" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser", note: "Apotek 1 Gruppen AS, org 983 044 778, Lørenskog" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Sender kun til adresser i Norge, ikke Svalbard" },
+      },
       commercial: {
         subscription: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/kjopsbetingelser", note: "Abonnement på faste varer, uten ekstra kostnad for abonnementet" },
       },
@@ -1218,7 +1238,11 @@ export const stores: Store[] = [
         freeShippingFrom: { value: 1200, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering", note: "Gjelder standard leveringsmåter" },
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering", note: "149 kr under 20 kg; store varer har egne priser" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/995738279", note: "Jollyroom AS, org 995 738 279; del av nordisk konsern med hovedsete i Sverige" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/995738279" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/levering", note: "Leverer ikke til Svalbard" },
+      },
       commercial: {},
       returns: {
         returnWindowDays: { value: 365, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/kundeservice/angrerett-retur-og-garanti", note: "365 dagers åpent kjøp for uåpnede varer (lovfestet angrerett 14 dager)" },
@@ -1355,7 +1379,11 @@ export const stores: Store[] = [
         freeShippingFrom: { value: 1000, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser" },
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser", note: "99 kr, uavhengig av kjøpesum" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/om-oss", note: "Lekekassen AS, Grimstad" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/om-oss" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/betingelser", note: "Leverer til fastlands-Norge, ikke Svalbard/Jan Mayen" },
+      },
       commercial: {
         priceMatch: { value: true, confidence: "high", lastChecked: "2026-07-13", sourceUrl: "https://www.lekekassen.no/prismatch" },
       },
@@ -1486,7 +1514,11 @@ export const stores: Store[] = [
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Dag- eller kveldslevering, med eller uten signatur" },
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse", note: "Gratis; send til butikk 3–6 dager, eller reserver lagervare og hent innen 2 timer" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/915886949", note: "Musti Norge AS, org 915 886 949, Oslo; del av Musti Group" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://data.brreg.no/enhetsregisteret/api/enheter/915886949" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse" },
+      },
       commercial: {
         subscription: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/abonnement-vilkar", note: "Faste leveranser av fôr og godbiter" },
         giftCard: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/betaling-og-leveranse" },
@@ -1843,7 +1875,11 @@ export const stores: Store[] = [
         shippingType: { value: "paid", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://hjelp.oda.com/no/article/7b7071", note: "Dynamisk gebyr fra 0 kr etter område, dag og tidsvindu; pakketillegg 29–199 kr under 1300 kr" },
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://hjelp.oda.com/no/article/7b7071", note: "Kun hjemlevering, i definerte områder på Østlandet og Sørlandet" },
       },
-      geography: { country: fc("NO", "high"), isNorwegian: fc(true, "high"), shipsToNorway: fc(true, "high"), voec: fc(false, "high") },
+      geography: {
+        country: { value: "NO", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/", note: "Oda Norway AS, org 912 262 510, Oslo" },
+        isNorwegian: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/about/om-oss/", note: "Leverer til definerte områder på Østlandet og Sørlandet" },
+      },
       commercial: {},
       returns: {
         returnWindowDays: { value: 14, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://oda.com/no/legal/betingelser/", note: "Angrerett gjelder ikke varer som forringes raskt; feil på matvarer meldes innen 12 timer" },
@@ -1992,8 +2028,8 @@ export const stores: Store[] = [
       },
       geography: {
         country: { value: "IE", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/imprint.html", note: "Plattformoperatør: Whaleco Technology Limited, Irland. Varene selges av tredjeparter og sendes i hovedsak fra utlandet" },
-        isNorwegian: fc(false, "high"),
-        shipsToNorway: fc(true, "high"),
+        isNorwegian: { value: false, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/imprint.html" },
+        shipsToNorway: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/shipping-info.html", note: "Norsk handleflyt med leveringsadresser i Norge" },
         voec: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.skatteetaten.no/person/avgifter/kjop-fra-utlandet/nettbutikker-og-e-markedsplasser-som-er-registrert-i-voec-registeret/", note: "Oppført i registeret som Whaleco Technology Limited / temu.com" },
       },
       commercial: {},

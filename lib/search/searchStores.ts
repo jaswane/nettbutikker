@@ -87,12 +87,17 @@ function attributePhrase(active: FilterKey[]): { noun: string; suffix: string } 
 /**
  * What the user is shopping for, for use in answer copy. The product type is
  * preferred over the category – «vårt beste valg for løpesko» shows we
- * understood; the category name only shows we matched coarsely.
+ * understood – men BARE når toppbutikken faktisk har en dokumentert
+ * produkttype-edge for den typen. Ellers ville svaret påstå et sortiment
+ * profilen ikke har (f.eks. «matkasse» → Oda, som kun matcher kategorien).
+ * Uten reell produkttype-match brukes kategorinavnet; uten begge deler
+ * faller svaret tilbake til nøytral formulering hos kalleren.
  */
-function searchTopic(parsed: ParsedQuery): string | undefined {
-  const productType = parsed.productTypeSlugs
-    .map((s) => getProductType(s)?.name)
-    .filter(Boolean)[0];
+function searchTopic(parsed: ParsedQuery, best?: ScoredStore): string | undefined {
+  const matchedPtSlug = parsed.productTypeSlugs.find((slug) =>
+    best?.store.categories.some((ref) => ref.productType === slug),
+  );
+  const productType = matchedPtSlug ? getProductType(matchedPtSlug)?.name : undefined;
   const category = parsed.categorySlugs.map((s) => getCategory(s)?.name).filter(Boolean)[0];
   const topic = productType ?? category;
   return topic ? lcFirst(topic) : undefined;
@@ -174,7 +179,7 @@ function buildAnswer(
     }
 
     case "where_to_buy": {
-      const topic = searchTopic(parsed);
+      const topic = searchTopic(parsed, best);
       return {
         headline: topic
           ? `${name} er et godt sted å kjøpe ${topic}.`
@@ -186,7 +191,7 @@ function buildAnswer(
     }
 
     case "category_recommendation": {
-      const topic = searchTopic(parsed);
+      const topic = searchTopic(parsed, best);
       return {
         headline: topic
           ? `${name} er vårt beste valg for ${topic}.`

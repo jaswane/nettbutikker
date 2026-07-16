@@ -409,6 +409,16 @@ try {
     ["overskrift bruker produkttypenavnet", (r) => /hundeutstyr og fôr/i.test(r.answer.headline)],
   ]);
 
+  // Svaret skal aldri påstå et sortiment toppbutikken ikke har: «matkasse»
+  // treffer Oda via mat-kategorien, men Oda har ingen matkasse-produkttype –
+  // overskriften må da bruke kategorinavnet, ikke produkttypen.
+  expectSearch("matkasse", {}, [
+    ["forstått", (r) => r.understood === true],
+    ["produkttype gjenkjent i parsing", (r) => r.parsed.productTypeSlugs.includes("matkasse")],
+    ["overskrift påstår IKKE matkasse", (r) => !/matkasse/i.test(r.answer.headline)],
+    ["overskrift bruker kategorinavnet", (r) => /mat, drikke og dagligvarer/i.test(r.answer.headline)],
+  ]);
+
   expectSearch("Hvor kjøper jeg gaming-PC?", {}, [
     ["intent gjenkjent", (r) => r.parsed.intent !== "unknown"],
     ["best er elektronikkbutikk", (r) =>
@@ -812,6 +822,28 @@ try {
   if (onlyVerified(prod.sitemapStoreSlugs) && prod.sitemapStoreSlugs.length === verified.size)
     ok("Produksjons-sitemap inneholder kun verified-profiler");
   else fail(`Draft i produksjons-sitemap: [${prod.sitemapStoreSlugs}]`);
+
+  // Kategorier: tomme (ingen publiserte butikker) skal ut av prod-sitemap og
+  // ha noindex; fylte skal være med. Beregnet, aldri hardkodede sluger.
+  {
+    const tomIProdSitemap = prod.sitemapCategorySlugs.filter((s) =>
+      prod.emptyCategorySlugs.includes(s),
+    );
+    const fylteUtenfor = prod.sitemapCategorySlugs.length + prod.emptyCategorySlugs.length;
+    if (tomIProdSitemap.length === 0 && fylteUtenfor === prod.categoryTotal)
+      ok(
+        `Prod-sitemap har kun fylte kategorier (${prod.sitemapCategorySlugs.length} av ${prod.categoryTotal}; tomme: ${prod.emptyCategorySlugs.join(", ") || "ingen"})`,
+      );
+    else
+      fail(
+        `Kategori-sitemap feil: tomme i sitemap=[${tomIProdSitemap}], sitemap=${prod.sitemapCategorySlugs.length}, tomme=${prod.emptyCategorySlugs.length}, totalt=${prod.categoryTotal}`,
+      );
+
+    const katSrc = await readText("app/kategori/[slug]/page.tsx");
+    if (katSrc.includes("index: false") && katSrc.includes("storesInCategorySorted(cat.slug).length > 0"))
+      ok("Tomme kategorisider settes til noindex (kildekontroll)");
+    else fail("Kategorisiden mangler noindex-logikk for tomme kategorier");
+  }
 
   if (onlyVerified(prod.searchResultSlugs))
     ok("Produksjonssøket returnerer kun verified-butikker");

@@ -6,7 +6,7 @@
 import { register } from "node:module";
 register("./ts-alias-loader.mjs", import.meta.url);
 
-const { allStores, getPublicStores, getPublishedStore, relatedStores } =
+const { allStores, allCategories, getPublicStores, getPublishedStore, relatedStores, storesInCategory } =
   await import("../lib/catalog.ts");
 const { searchStores } = await import("../lib/search/searchStores.ts");
 const sitemap = (await import("../app/sitemap.ts")).default;
@@ -35,10 +35,16 @@ const relatedSlugs = [
   ),
 ];
 
-const sitemapStoreSlugs = sitemap()
-  .map((e) => e.url)
+const sitemapUrls = sitemap().map((e) => e.url);
+const sitemapStoreSlugs = sitemapUrls
   .filter((u) => u.includes("/butikk/"))
   .map((u) => u.split("/butikk/")[1]);
+const sitemapCategorySlugs = sitemapUrls
+  .filter((u) => u.includes("/kategori/"))
+  .map((u) => u.split("/kategori/")[1]);
+const emptyCategorySlugs = allCategories
+  .filter((c) => storesInCategory(c.slug).length === 0)
+  .map((c) => c.slug);
 
 console.log(
   JSON.stringify({
@@ -55,5 +61,8 @@ console.log(
     searchResultSlugs,
     relatedSlugs,
     sitemapStoreSlugs,
+    sitemapCategorySlugs,
+    emptyCategorySlugs,
+    categoryTotal: allCategories.length,
   }),
 );

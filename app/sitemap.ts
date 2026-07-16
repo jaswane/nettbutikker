@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
-import { allCategories as categories, getPublicStores } from "@/lib/catalog";
+import { allCategories as categories, getPublicStores, storesInCategory } from "@/lib/catalog";
 import { nonEmptyLetters } from "@/lib/letters";
 import { site } from "@/lib/site";
 
 /**
  * Sitemap (PRD §19). Includes home, /sok, store profiles, categories,
  * /nettbutikker, alphabetical pages and legal pages. Deliberately EXCLUDES
- * /go/* (PRD §17) and – via getPublicStores – draft-profiler i produksjon.
+ * /go/* (PRD §17) og – via publiseringspolicyen i lib/catalog.ts – både
+ * draft-profiler og kategorier uten publiserte butikker i produksjon.
+ * (storesInCategory bygges av publicStores, så kategorier kommer automatisk
+ * inn igjen når en butikk i kategorien blir verified.)
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const stores = getPublicStores();
@@ -33,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   for (const c of categories) {
+    if (storesInCategory(c.slug).length === 0) continue; // tom i produksjon
     entries.push({
       url: `${base}/kategori/${c.slug}`,
       lastModified: now,

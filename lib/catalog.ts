@@ -166,11 +166,18 @@ export function storesInCategorySorted(main: MainCategorySlug): Store[] {
   });
 }
 
-/** Graph neighbours: public stores sharing a main category, by editorial score. */
+/**
+ * Graph neighbours: public stores sharing a main category, by editorial score.
+ * `limited`-edges regnes ikke som felles kategori her – en marginal kobling
+ * skal ikke alene gjøre to butikker til anbefalte alternativer («Vurder
+ * også»). Edgen beholdes i profil, søk og filtre som før.
+ */
 export function relatedStores(store: Store, limit = 3): Store[] {
-  const mains = new Set(store.categories.map((c) => c.main));
+  const strongMains = (s: Store) =>
+    s.categories.filter((c) => c.relevance !== "limited").map((c) => c.main);
+  const mains = new Set(strongMains(store));
   return publicStores
-    .filter((s) => s.slug !== store.slug && s.categories.some((c) => mains.has(c.main)))
+    .filter((s) => s.slug !== store.slug && strongMains(s).some((m) => mains.has(m)))
     .sort((a, b) => b.editorialScore - a.editorialScore)
     .slice(0, limit);
 }

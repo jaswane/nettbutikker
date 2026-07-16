@@ -14,7 +14,7 @@
 import { register } from "node:module";
 register("./ts-alias-loader.mjs", import.meta.url);
 
-const { allStores } = await import("../lib/catalog.ts");
+const { allStores, storeClaims } = await import("../lib/catalog.ts");
 
 const MIN_WORDS = 300;
 const MIN_SOURCES = 2;
@@ -45,6 +45,37 @@ function visibleFields(store) {
     ...(store.notes ?? []),
     ...(store.descriptionSections ?? []).flatMap((s) => [s.heading, ...s.paragraphs]),
   ].join(" ");
+}
+
+/**
+ * Kildekrav for verified-profiler (claims-modellen §8): konkrete claims som
+ * vises offentlig – payments/shipping/returns/commercial, geography samt
+ * merkevarer – må ha https-sourceUrl og gyldig lastChecked. Gjelder også
+ * false-verdier (false er en faktapåstand), inkludert voec=false,
+ * isNorwegian=true/false, country og shipsToNorway. At geography har SLA
+ * null i claims-modellen betyr bare at claimet ikke foreldes – ikke at det
+ * kan være ukildet. Eneste unntak:
+ *  - confidence "unknown": vises som «Ukjent» og trenger ingen kilde
+ *  - undefined felt: presenteres ikke og trenger ingen kilde
+ */
+function claimSourcingProblems(store) {
+  const problems = [];
+  for (const c of storeClaims(store)) {
+    if (c.confidence === "unknown") continue;
+    const path = c.group === "brands" ? c.key : `attributes.${c.key}`;
+    const desc = `(value=${JSON.stringify(c.value)}, confidence=${c.confidence})`;
+    if (!c.sourceUrl) {
+      problems.push(`${path} mangler sourceUrl ${desc}`);
+    } else if (!/^https:\/\//.test(c.sourceUrl)) {
+      problems.push(`${path} har ikke-https sourceUrl: ${c.sourceUrl}`);
+    } else if (PLACEHOLDER_RE.test(c.sourceUrl)) {
+      problems.push(`${path} har placeholder-sourceUrl: ${c.sourceUrl}`);
+    }
+    if (!c.lastChecked || !/^\d{4}-\d{2}-\d{2}$/.test(c.lastChecked)) {
+      problems.push(`${path} mangler gyldig lastChecked ${desc}`);
+    }
+  }
+  return problems;
 }
 
 function auditStore(store) {
@@ -78,6 +109,12 @@ function auditStore(store) {
   const placeholder = visibleFields(store).match(PLACEHOLDER_RE);
   if (placeholder) problems.push(`placeholder-ord i synlig tekst: "${placeholder[0]}"`);
 
+  // Kildekravet håndheves kun for verified – drafts re-researches uansett
+  // fullt i batch-metoden før de løftes.
+  if (store.contentStatus === "verified") {
+    problems.push(...claimSourcingProblems(store));
+  }
+
   return { words, sourceCount: sources.length, problems };
 }
 
@@ -85,6 +122,8 @@ console.log("\nNettbutikker.no – innholdsaudit (read-only)\n");
 
 let verifiedFailures = 0;
 let verifiedCount = 0;
+let geoExplicitDates = 0;
+let geoFallbackDates = 0;
 const drafts = [];
 
 for (const store of allStores) {
@@ -93,6 +132,11 @@ for (const store of allStores) {
 
   if (status === "verified") {
     verifiedCount++;
+    for (const f of Object.values(store.attributes.geography)) {
+      if (!f || f.confidence === "unknown") continue;
+      if (f.lastChecked) geoExplicitDates++;
+      else geoFallbackDates++;
+    }
     const okMark = problems.length === 0;
     console.log(
       `${okMark ? "\x1b[32m✓\x1b[0m" : "\x1b[31m✗\x1b[0m"} VERIFIED  ${store.slug.padEnd(16)} ${String(words).padStart(4)} ord, ${sourceCount} kilder, sist kontrollert ${store.lastChecked}`,
@@ -116,6 +160,9 @@ for (const d of drafts) {
 
 console.log(
   `\n${verifiedCount} verified (${verifiedFailures} med brudd), ${drafts.length} draft.`,
+);
+console.log(
+  `Geography-datoer i verified: ${geoExplicitDates} eksplisitte, ${geoFallbackDates} via fallback til butikkens lastChecked.`,
 );
 if (verifiedFailures > 0) {
   console.log("\x1b[31mAudit feilet: verified-profiler bryter den redaksjonelle standarden.\x1b[0m\n");

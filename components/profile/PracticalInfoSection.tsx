@@ -88,7 +88,10 @@ export function PracticalInfoSection({ store }: { store: Store }) {
     { label: "Land", value: COUNTRY[store.country] },
     { label: "Norsk butikk", value: ja(store.isNorwegian) },
     { label: "Sender til Norge", value: ja(store.shipsToNorway) },
-    { label: "VOEC", value: jaFc(a.geography.voec) },
+    // VOEC gjelder utenlandske tilbydere. For norske butikker settes claimet
+    // ikke (registerstatus er ikke en butikkegenskap) – da skjules raden i
+    // stedet for å vise et misvisende «Ukjent».
+    ...(a.geography.voec ? [{ label: "VOEC", value: jaFc(a.geography.voec) }] : []),
     { label: "Vår tillitsvurdering", value: TRUST[store.trustLevel] },
   ];
 

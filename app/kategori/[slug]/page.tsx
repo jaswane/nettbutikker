@@ -26,10 +26,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const cat = getCategory(slug);
   if (!cat) return { title: "Kategori ikke funnet" };
+  // Tomme kategorier (ingen publiserte butikker) skal ikke indekseres – de
+  // viser en ærlig tomtilstand og kommer inn igjen når en butikk verifiseres.
+  const hasStores = storesInCategorySorted(cat.slug).length > 0;
   return {
     title: `${cat.name} – beste nettbutikker`,
     description: cat.description,
     alternates: { canonical: `/kategori/${cat.slug}` },
+    robots: hasStores ? { index: true, follow: true } : { index: false, follow: true },
     openGraph: {
       title: `${cat.name} · ${site.name}`,
       description: cat.description,
