@@ -1,3 +1,4 @@
+import { conditionShort } from "@/lib/storeFormat";
 import type { Confidence, DataQuality, FieldConfidence, Store } from "@/lib/types";
 
 /** Plain-language meaning of the A–D data quality scale (PRD transparency). */
@@ -404,7 +405,14 @@ export function priorityBadges(
         : attr.badge.rank;
     const uncertain = confidence === "low";
     const base = attr.badge.text ? attr.badge.text(store) : attr.label;
-    const label = uncertain ? `${base}?` : base;
+    // «?» marks the VALUE as unverified, so it binds to the value before the
+    // condition is appended – «Klarna? · kun for medlemmer», never
+    // «Klarna · kun for medlemmer?», which would read as a doubtful condition.
+    const value = uncertain ? `${base}?` : base;
+    // A gated claim must carry its condition wherever it is asserted – a bare
+    // «Klarna» badge on a members-only store is a false promise.
+    const short = attr.claim ? conditionShort(attr.claim(store)) : undefined;
+    const label = short ? `${value} · ${short}` : value;
     items.push({ badge: { label, tone: attr.badge.tone, uncertain }, rank });
   }
 

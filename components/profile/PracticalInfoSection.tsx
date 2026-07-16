@@ -1,6 +1,15 @@
 import { DATA_QUALITY_TEXT } from "@/data/attribute-definitions";
-import { COUNTRY, dagerFc, ja, jaFc, returfristFc, shipText, TRUST } from "@/lib/storeFormat";
-import type { Confidence, Store } from "@/lib/types";
+import {
+  COUNTRY,
+  dagerFc,
+  ja,
+  jaFc,
+  publicCondition,
+  returfristFc,
+  shipText,
+  TRUST,
+} from "@/lib/storeFormat";
+import type { Confidence, FieldConfidence, Store } from "@/lib/types";
 
 /** Plain-Norwegian labels for what a source supports. */
 const SUPPORTS_TEXT: Record<string, string> = {
@@ -24,11 +33,24 @@ const SUPPORTS_TEXT: Record<string, string> = {
   perishableGoods: "bedervelige varer",
 };
 
-type Row = { label: string; value: string };
+/** `condition` = public gate on the claim, shown under the value. */
+type Row = { label: string; value: string; condition?: string };
 
 /** True claims only – and unknown-confidence never asserts (claims-modell §8). */
 function flag(fc?: { value: boolean; confidence: Confidence }): boolean {
   return fc?.value === true && fc.confidence !== "unknown";
+}
+
+/**
+ * Row helper for a claim-backed value: carries the claim's public condition
+ * across so a gated value never renders bare. Internal `note` is not read.
+ */
+function row(
+  label: string,
+  value: string,
+  fc?: FieldConfidence<unknown>,
+): Row {
+  return { label, value, condition: publicCondition(fc)?.label };
 }
 
 /** A flat label/value group – thin separators, no box around it. */
@@ -46,7 +68,14 @@ function Group({ title, rows }: { title: string; rows: Row[] }) {
             }`}
           >
             <dt className="text-ink-muted">{r.label}</dt>
-            <dd className="text-right font-medium text-ink">{r.value}</dd>
+            <dd className="text-right font-medium text-ink">
+              {r.value}
+              {r.condition && (
+                <span className="mt-0.5 block text-xs font-normal text-ink-muted">
+                  {r.condition}
+                </span>
+              )}
+            </dd>
           </div>
         ))}
       </dl>
@@ -59,29 +88,37 @@ export function PracticalInfoSection({ store }: { store: Store }) {
   const a = store.attributes;
 
   const betaling: Row[] = [
-    { label: "Vipps", value: jaFc(a.payments.vipps) },
-    { label: "Klarna", value: jaFc(a.payments.klarna) },
-    { label: "PayPal", value: jaFc(a.payments.paypal) },
-    { label: "Apple Pay", value: jaFc(a.payments.applePay) },
-    { label: "Google Pay", value: jaFc(a.payments.googlePay) },
-    { label: "Amex", value: jaFc(a.payments.amex) },
+    row("Vipps", jaFc(a.payments.vipps), a.payments.vipps),
+    row("Klarna", jaFc(a.payments.klarna), a.payments.klarna),
+    row("PayPal", jaFc(a.payments.paypal), a.payments.paypal),
+    row("Apple Pay", jaFc(a.payments.applePay), a.payments.applePay),
+    row("Google Pay", jaFc(a.payments.googlePay), a.payments.googlePay),
+    row("Amex", jaFc(a.payments.amex), a.payments.amex),
   ];
 
   const frakt: Row[] = [
-    { label: "Frakt", value: shipText(a.shipping.shippingType) },
+    row("Frakt", shipText(a.shipping.shippingType), a.shipping.shippingType),
     ...(a.shipping.freeShippingFrom?.value != null
-      ? [{ label: "Fri frakt over", value: `${a.shipping.freeShippingFrom.value} kr` }]
+      ? [
+          row(
+            "Fri frakt over",
+            `${a.shipping.freeShippingFrom.value} kr`,
+            a.shipping.freeShippingFrom,
+          ),
+        ]
       : []),
-    { label: "Leveringstid", value: dagerFc(a.shipping.deliveryDays, "ca. ") },
-    { label: "Hjemlevering", value: jaFc(a.shipping.homeDelivery) },
-    { label: "Klikk og hent", value: jaFc(a.shipping.clickAndCollect) },
-    { label: "Instabox", value: jaFc(a.shipping.instabox) },
+    row("Leveringstid", dagerFc(a.shipping.deliveryDays, "ca. "), a.shipping.deliveryDays),
+    row("Hjemlevering", jaFc(a.shipping.homeDelivery), a.shipping.homeDelivery),
+    row("Klikk og hent", jaFc(a.shipping.clickAndCollect), a.shipping.clickAndCollect),
+    row("Instabox", jaFc(a.shipping.instabox), a.shipping.instabox),
   ];
 
-  // Return terms are a top purchase-decision driver – own group.
+  // Return terms are a top purchase-decision driver – own group. The deadline
+  // row reads whichever return claim actually applies (days or no fixed limit).
+  const returfrist = a.returns.unlimitedReturnWindow ?? a.returns.returnWindowDays;
   const retur: Row[] = [
-    { label: "Returfrist", value: returfristFc(a.returns) },
-    { label: "Fri retur", value: jaFc(a.returns.freeReturns) },
+    row("Returfrist", returfristFc(a.returns), returfrist),
+    row("Fri retur", jaFc(a.returns.freeReturns), a.returns.freeReturns),
   ];
 
   const omButikken: Row[] = [

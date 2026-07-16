@@ -651,6 +651,132 @@ try {
   else ok("Returmodellen er konsistent (uten fast tidsgrense ⊕ dagtall, prioritet testet)");
 }
 
+// --- 11h. Betingede claims (publicCondition) ---------------------------------
+// Et gated claim må bære vilkåret overalt det påstås – ellers lover badge og
+// søketreff en fordel brukeren ikke får. `note` er intern og skal ALDRI
+// rendres. Testet på ekte data (H&M) og syntetisk, så begge veier er låst.
+{
+  const { priorityBadges, attributeByKey } = await importTs("data/attribute-definitions.ts");
+  const { scoreStore } = await importTs("lib/search/ranking.ts");
+  const { CONDITION_SHORT, publicCondition } = await importTs("lib/storeFormat.ts");
+  const problems = [];
+  const expect = (label, cond) => { if (!cond) problems.push(label); };
+
+  const TYPES = Object.keys(CONDITION_SHORT);
+  const klarnaQuery = {
+    raw: "klarna", normalized: "klarna", tokens: ["klarna"],
+    intent: "store_with_attribute", categorySlugs: [], productTypeSlugs: [],
+    brandSlugs: [], attributeFilters: ["klarna"],
+    wantsNorwegian: false, wantsBest: false,
+  };
+
+  // --- Dataintegritet på tvers av alle butikker ---
+  for (const s of stores) {
+    for (const group of ["payments", "shipping", "returns", "geography", "commercial"]) {
+      for (const [field, fc] of Object.entries(s.attributes[group] ?? {})) {
+        const pc = fc?.publicCondition;
+        if (!pc) continue;
+        const path = `${s.slug} ${group}.${field}`;
+        if (!TYPES.includes(pc.type)) {
+          problems.push(`${path}: ukjent condition-type "${pc.type}"`);
+        }
+        if (typeof pc.label !== "string" || !pc.label.trim()) {
+          problems.push(`${path}: publicCondition mangler label`);
+        }
+        if (pc.label && pc.label.length > 60) {
+          problems.push(`${path}: label er for lang (${pc.label.length} tegn) – ikke kopier interne noter`);
+        }
+        // Et vilkår på et claim som ikke påstår noe er meningsløst.
+        if (fc.confidence === "unknown") {
+          problems.push(`${path}: publicCondition på unknown-claim (påstår ingenting)`);
+        }
+        if (fc.value === false) {
+          problems.push(`${path}: publicCondition på false-verdi (ingen fordel å betinge)`);
+        }
+      }
+    }
+  }
+
+  // --- H&M: vilkåret må være synlig i søk OG på profilen ---
+  const hm = stores.find((s) => s.slug === "hm");
+  const hmKlarna = hm?.attributes.payments.klarna;
+  expect("H&M Klarna har publicCondition", publicCondition(hmKlarna)?.type === "membership");
+
+  const hmBadges = priorityBadges(hm, ["klarna"], 6).map((b) => b.label);
+  expect(
+    `H&M Klarna-badge viser medlemsvilkåret (fikk: ${JSON.stringify(hmBadges)})`,
+    hmBadges.some((l) => l.startsWith("Klarna") && l.includes("kun for medlemmer")),
+  );
+  expect("H&M har ingen ubetinget «Klarna»-badge", !hmBadges.includes("Klarna"));
+
+  const hmReasons = scoreStore(hm, klarnaQuery).reasons;
+  expect(
+    `H&M-begrunnelse viser medlemsvilkåret (fikk: ${JSON.stringify(hmReasons)})`,
+    hmReasons.some((r) => r.includes("Klarna") && r.includes("kun for medlemmer")),
+  );
+  expect("H&M-begrunnelse sier ikke bare «Har Klarna»", !hmReasons.includes("Har Klarna"));
+
+  // --- Ubetinget Klarna skal fortsatt lese helt vanlig ---
+  const plain = stores.find(
+    (s) => s.attributes.payments.klarna?.value === true && !s.attributes.payments.klarna.publicCondition,
+  );
+  expect("finnes en butikk med ubetinget Klarna å teste mot", Boolean(plain));
+  if (plain) {
+    expect(
+      `ubetinget Klarna gir bar badge (${plain.slug})`,
+      priorityBadges(plain, ["klarna"], 6).map((b) => b.label).includes("Klarna"),
+    );
+    expect(
+      `ubetinget Klarna gir «Har Klarna» (${plain.slug})`,
+      scoreStore(plain, klarnaQuery).reasons.includes("Har Klarna"),
+    );
+  }
+
+  // --- Interne noter skal aldri lekke ut ---
+  for (const s of stores) {
+    const surfaces = [
+      ...priorityBadges(s, [], 8).map((b) => b.label),
+      ...scoreStore(s, klarnaQuery).reasons,
+    ];
+    for (const group of ["payments", "shipping", "returns", "geography", "commercial"]) {
+      for (const fc of Object.values(s.attributes[group] ?? {})) {
+        if (!fc?.note) continue;
+        for (const surface of surfaces) {
+          if (surface.includes(fc.note)) {
+            problems.push(`${s.slug}: intern note lekker ut i «${surface}»`);
+          }
+        }
+      }
+    }
+  }
+
+  // --- Syntetisk: publicCondition endrer ikke ranking, kun ordlyd ---
+  const mk = (pc) => ({
+    id: "t", name: "T", slug: "t", websiteUrl: "https://t.no",
+    shortDescription: "", bestFor: [], categories: [],
+    country: "NO", isNorwegian: true, shipsToNorway: true,
+    attributes: {
+      payments: { klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", ...(pc ? { publicCondition: pc } : {}) } },
+      shipping: {}, returns: {}, geography: {}, commercial: {},
+    },
+    trustLevel: "medium", dataQuality: "B", editorialScore: 50,
+    lastChecked: "2026-07-16",
+  });
+  const bare = scoreStore(mk(undefined), klarnaQuery);
+  const gated = scoreStore(mk({ type: "membership", label: "Kun for medlemmer" }), klarnaQuery);
+  expect("publicCondition endrer ikke matchScore", bare.matchScore === gated.matchScore);
+  expect("publicCondition endrer ikke totalscore", bare.score === gated.score);
+  expect("publicCondition matcher fortsatt filteret", attributeByKey.get("klarna").predicate(mk({ type: "membership", label: "x" })) === true);
+
+  // Hver type må ha en kort form – ellers rendres vilkåret som tomt.
+  for (const t of TYPES) {
+    expect(`condition-type "${t}" har kort form`, Boolean(CONDITION_SHORT[t]?.trim()));
+  }
+
+  if (problems.length) fail(`Betingede claims: ${problems.join("; ")}`);
+  else ok(`Betingede claims bærer vilkåret i badge + søk; interne noter lekker ikke (${TYPES.length} typer)`);
+}
+
 // --- 12. Golden search regression (frozen baseline) --------------------------
 // scripts/golden-queries.json freezes intent/understood/count/top-3 for a
 // query battery. Any drift fails the build; intentional engine changes must

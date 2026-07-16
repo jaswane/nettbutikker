@@ -1,4 +1,12 @@
-import type { FieldConfidence, ShippingType, Store, StoreCountry } from "@/lib/types";
+import type {
+  Confidence,
+  FieldConfidence,
+  PublicCondition,
+  PublicConditionType,
+  ShippingType,
+  Store,
+  StoreCountry,
+} from "@/lib/types";
 
 /**
  * Plain-Norwegian formatting helpers for the store profile UI.
@@ -42,6 +50,40 @@ export const RELEVANCE: Record<string, string> = {
 export function lcFirst(s: string): string {
   if (s.length > 1 && s[1] === s[1].toUpperCase() && /[A-ZÆØÅ]/.test(s[1])) return s;
   return s.charAt(0).toLowerCase() + s.slice(1);
+}
+
+/**
+ * Compact wording per condition type, for space-tight contexts (badges,
+ * search explanations). Derived from the type – never from the store – so a
+ * new conditional claim needs data only, no code. The full, store-specific
+ * wording lives in `publicCondition.label` and is shown on the profile.
+ */
+export const CONDITION_SHORT: Record<PublicConditionType, string> = {
+  membership: "kun for medlemmer",
+  order_threshold: "krever minstekjøp",
+  selected_products: "gjelder utvalgte varer",
+  location: "gjelder utvalgte områder",
+  campaign: "kampanje",
+  other: "med forbehold",
+};
+
+/** The public gate on a claim, or undefined when it asserts unconditionally. */
+export function publicCondition(fc?: {
+  confidence: Confidence;
+  publicCondition?: PublicCondition;
+}): PublicCondition | undefined {
+  // An unknown-confidence claim asserts nothing, so it has nothing to qualify.
+  if (!fc || fc.confidence === "unknown") return undefined;
+  return fc.publicCondition;
+}
+
+/** Compact qualifier for a claim, e.g. «kun for medlemmer». */
+export function conditionShort(fc?: {
+  confidence: Confidence;
+  publicCondition?: PublicCondition;
+}): string | undefined {
+  const c = publicCondition(fc);
+  return c && CONDITION_SHORT[c.type];
 }
 
 /** Ja / Nei / Ukjent from a plain boolean. */

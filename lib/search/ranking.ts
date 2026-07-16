@@ -5,7 +5,7 @@ import {
   type FilterKey,
 } from "@/data/attribute-definitions";
 import { getCategory, getProductType } from "@/lib/catalog";
-import { lcFirst } from "@/lib/storeFormat";
+import { conditionShort, lcFirst } from "@/lib/storeFormat";
 import type { Store } from "@/lib/types";
 import type { ParsedQuery } from "@/lib/search/intent";
 
@@ -181,19 +181,28 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
   if (q.wantsNorwegian && store.isNorwegian) {
     reasons.push("Norsk butikk");
   }
+  // Gated claims get their own line with the condition attached: merging them
+  // into the joint «Har …» sentence would promise the benefit unconditionally
+  // to anyone who never opens the profile.
   const verifiedNouns: string[] = [];
+  const conditionalReasons: string[] = [];
   for (const key of matchedFilters) {
     if (unverifiedFilters.includes(key)) continue;
     if (key === "shipsToNorway") {
       reasons.push("Sender til Norge");
       continue;
     }
-    const noun = attributeByKey.get(key)?.reasonNoun;
-    if (noun) verifiedNouns.push(noun);
+    const def = attributeByKey.get(key);
+    const noun = def?.reasonNoun;
+    if (!noun) continue;
+    const short = def?.claim ? conditionShort(def.claim(store)) : undefined;
+    if (short) conditionalReasons.push(`Har ${noun} – ${short}`);
+    else verifiedNouns.push(noun);
   }
   if (verifiedNouns.length) {
     reasons.push(`Har ${joinNouns(verifiedNouns)}`);
   }
+  reasons.push(...conditionalReasons);
   if (unverifiedFilters.length) {
     const nouns = unverifiedFilters.map(
       (k) => attributeByKey.get(k)?.reasonNoun ?? attributeByKey.get(k)?.label ?? k,

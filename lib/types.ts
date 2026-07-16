@@ -37,13 +37,51 @@ export type Confidence = "high" | "medium" | "low" | "unknown";
 
 export type Relevance = "primary" | "secondary" | "limited";
 
+/**
+ * Kind of gate on a claim. Drives the compact wording used in badges and
+ * search explanations (lib/storeFormat.ts → CONDITION_SHORT), so the type is
+ * a closed set: an unknown type must not silently render as no condition.
+ */
+export type PublicConditionType =
+  | "membership"
+  | "order_threshold"
+  | "selected_products"
+  | "location"
+  | "campaign"
+  | "other";
+
+/**
+ * A gate the user must see wherever the claim is presented (docs/claims-modell.md §8).
+ *
+ * Set this ONLY when the claim's own value promises something the user does
+ * not actually get without passing the gate – e.g. H&M's Klarna, which exists
+ * but only for members. Do NOT set it for a note that merely documents an
+ * extra benefit (Komplett Club's always-free shipping does not restrict the
+ * 1500 kr threshold) or a conservative false value (XXL's freeReturns=false
+ * asserts nothing to qualify).
+ *
+ * `note` stays internal documentation and is never rendered; this field is the
+ * only public-facing qualifier.
+ */
+export type PublicCondition = {
+  type: PublicConditionType;
+  /**
+   * Short, user-facing condition shown next to the value, e.g.
+   * «Kun for H&M-medlemmer». Never a copy of the internal note.
+   */
+  label: string;
+};
+
 /** Generic confidence-wrapped field, per PRD §8. */
 export type FieldConfidence<T> = {
   value: T;
   confidence: Confidence;
   lastChecked?: string;
   sourceUrl?: string;
+  /** Internal documentation. Never rendered publicly – see publicCondition. */
   note?: string;
+  /** Public gate on this claim's value. Absent = the claim is unconditional. */
+  publicCondition?: PublicCondition;
 };
 
 export type StoreCategoryRef = {

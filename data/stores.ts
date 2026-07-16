@@ -131,7 +131,7 @@ export const stores: Store[] = [
     attributes: {
       payments: {
         vipps: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
-        klarna: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger", note: "Faktura via Klarna; finansiering via Avida. Ikke ved Marketplace-kjøp" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger", note: "Faktura via Klarna; finansiering via Avida. Ikke ved Marketplace-kjøp", publicCondition: { type: "selected_products", label: "Ikke ved Marketplace-kjøp" } },
         applePay: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
         amex: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
         paypal: { value: false, confidence: "medium", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/tjenester-og-tilbehor/tjenester/betaling/betalingslosninger" },
@@ -974,7 +974,7 @@ export const stores: Store[] = [
         vipps: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
         applePay: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
         amex: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
-        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html", note: "Kun for H&M-medlemmer (gratis medlemskap)" },
+        klarna: { value: true, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html", note: "Kun for H&M-medlemmer (gratis medlemskap)", publicCondition: { type: "membership", label: "Kun for H&M-medlemmer" } },
         paypal: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
         googlePay: { value: false, confidence: "medium", lastChecked: "2026-07-16", sourceUrl: "https://www2.hm.com/no_no/customer-service/payments.html" },
       },
@@ -1643,8 +1643,8 @@ export const stores: Store[] = [
       },
       shipping: {
         deliveryDays: { value: 2, confidence: "medium", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Oppgitt 1–4 virkedager; samme dag med Porterbuddy på Østlandet" },
-        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Fri frakt gjelder kundeklubb-medlemmer" },
-        freeShippingFrom: { value: 299, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "For medlemmer av kundeklubben" },
+        shippingType: { value: "free_over_amount", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Fri frakt gjelder kundeklubb-medlemmer", publicCondition: { type: "membership", label: "Kun for medlemmer av kundeklubben" } },
+        freeShippingFrom: { value: 299, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "For medlemmer av kundeklubben", publicCondition: { type: "membership", label: "Kun for medlemmer av kundeklubben" } },
         homeDelivery: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "PostNord 99 kr; Porterbuddy 29 kr på Østlandet" },
         clickAndCollect: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Gratis, normalt klar etter 2 timer" },
         instabox: { value: true, confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.apotek1.no/kundesenter/frakt-og-levering", note: "Pakkeskap 59 kr" },
@@ -2077,7 +2077,7 @@ export const stores: Store[] = [
       },
       commercial: {},
       returns: {
-        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/retur-og-reklamasjon", note: "30 dagers åpent kjøp (100 dager for medlemmer, 14 dager for bilstoler); lovfestet angrerett 14 dager" },
+        returnWindowDays: { value: 30, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/retur-og-reklamasjon", note: "30 dagers åpent kjøp (100 dager for medlemmer, 14 dager for bilstoler); lovfestet angrerett 14 dager", publicCondition: { type: "selected_products", label: "Bilstoler har 14 dager; medlemmer har 100" } },
         freeReturns: { value: false, confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.barnashus.no/retur-og-reklamasjon", note: "Gratis i butikk; postretur 69 kr (299 kr over 20 kg)" },
       },
     },
@@ -3021,7 +3021,7 @@ export const stores: Store[] = [
         amex: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/support/c3/hvilke-betalingsm-ter-godtar--f-56-s-140.html" },
       },
       shipping: {
-        shippingType: { value: "free", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/shipping-info.html", note: "Gratis standardfrakt for de fleste varer; minstebestilling 130 kr (første) / 345 kr (senere)" },
+        shippingType: { value: "free", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/shipping-info.html", note: "Gratis standardfrakt for de fleste varer; minstebestilling 130 kr (første) / 345 kr (senere)", publicCondition: { type: "order_threshold", label: "Krever minstebestilling (130/345 kr)" } },
       },
       geography: {
         country: { value: "IE", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/imprint.html", note: "Plattformoperatør: Whaleco Technology Limited, Irland. Varene selges av tredjeparter og sendes i hovedsak fra utlandet" },
@@ -3032,7 +3032,7 @@ export const stores: Store[] = [
       commercial: {},
       returns: {
         returnWindowDays: { value: 90, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/return-and-refund-policy.html", note: "Valgfri returrett; 45/60 dager for enkelte elektronikkvarer. Lovfestet angrerett 14 dager" },
-        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/return-and-refund-policy.html", note: "Første retur per bestilling er gratis; senere returer betales av kunden" },
+        freeReturns: { value: true, confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.temu.com/no/return-and-refund-policy.html", note: "Første retur per bestilling er gratis; senere returer betales av kunden", publicCondition: { type: "other", label: "Kun første retur per bestilling" } },
       },
     },
     trustLevel: "low",
