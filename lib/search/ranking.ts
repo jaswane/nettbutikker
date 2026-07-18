@@ -63,6 +63,29 @@ const RELEVANCE_BRAND: Record<string, number> = {
   unknown: 4,
 };
 
+/**
+ * Presisjonsbonus når butikken har en dokumentert edge til nettopp den
+ * produkttypen det søkes på. Gradert etter edgens relevans, slik kategori- og
+ * merkevarematch allerede er.
+ *
+ * Var tidligere en flat +12 uansett relevans. Det gjorde `primary` og
+ * `secondary` umulig å skille i score, så editorialScore avgjorde – og
+ * generalisten slo spesialisten. Målt 2026-07-18, alle med match=52:
+ *   «gaming-pc» Elkjøp (secondary, ed 88) 117 > Komplett (primary, ed 86) 116
+ *   «hudpleie»  Apotek 1 (secondary, ed 84) 116 > Blivakker (primary, ed 77) 113
+ *   «madrass»   Bohus (secondary, ed 76) 112 > JYSK (primary, ed 73) 111
+ * Begrunnelsesteksten avslørte selvmotsigelsen: treff 1 sa «Har også …»,
+ * treff 2 sa «Spesialisert på …».
+ *
+ * `secondary` beholder 12 – nivået fra den flate bonusen – så endringen løfter
+ * spesialisten framfor å straffe bredden. Limited kvalifiserer fortsatt.
+ */
+const RELEVANCE_PRODUCT_TYPE: Record<string, number> = {
+  primary: 24,
+  secondary: 12,
+  limited: 5,
+};
+
 /** «a», «a og b», «a, b og c»; more than three → «a, b, c m.m.» */
 function joinNouns(nouns: string[]): string {
   if (nouns.length === 1) return nouns[0];
@@ -112,7 +135,7 @@ export function scoreStore(store: Store, q: ParsedQuery): ScoredStore {
     // primary category hit (e.g. "Temu" matching the foreign-stores category).
     const categoryReasonRelevant =
       q.intent === "category_recommendation" || q.intent === "where_to_buy";
-    if (bestPt) matchScore += 12;
+    if (bestPt) matchScore += RELEVANCE_PRODUCT_TYPE[bestPt.relevance] ?? 0;
     if (categoryReasonRelevant) {
       const ptName = bestPt ? getProductType(bestPt.productType)?.name : undefined;
       if (ptName) {

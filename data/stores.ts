@@ -117,12 +117,23 @@ export const stores: Store[] = [
     notBestFor: ["Smale nisjeprodukter"],
     categories: [
       { main: "elektronikk-data-gaming", productType: "lyd-bilde", relevance: "primary" },
-      { main: "hjem-interior-hage", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "hvitevarer", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "mobil", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "pc-data", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "nettbrett", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "kjokkenapparater", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "stovsuger", relevance: "secondary" },
+      // Den tidligere bare «hjem-interior-hage: secondary»-edgen er fjernet
+      // 2026-07-18: den ga treff på møbler, madrass og hagemøbler, som Elkjøp
+      // ikke fører. Hjemme-relevansen bæres nå presist av produkttypene over –
+      // hvitevarer/kjøkkenapparater/støvsuger hører selv til begge kategorier,
+      // så «vaskemaskin» og «støvsuger» finner fortsatt butikken.
     ],
     brands: [
       { name: "Apple", slug: "apple", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/apple" },
       { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/samsung" },
       { name: "Dyson", slug: "dyson", relevance: "limited", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/dyson" },
+      { name: "Bosch", slug: "bosch", relevance: "secondary", confidence: "high", lastChecked: "2026-07-18", sourceUrl: "https://www.elkjop.no/brand/bosch" },
       { name: "Garmin", slug: "garmin", relevance: "limited", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.elkjop.no/brand/garmin" },
     ],
     country: "NO",
@@ -261,10 +272,18 @@ export const stores: Store[] = [
     ],
     bestFor: ["Kampanjepriser", "Bredt utvalg elektronikk", "Klikk og hent"],
     notBestFor: ["Spesialisert gaming-rådgivning"],
-    categories: [{ main: "elektronikk-data-gaming", relevance: "primary" }],
+    categories: [
+      { main: "elektronikk-data-gaming", productType: "hvitevarer", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "lyd-bilde", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "mobil", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "pc-data", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "nettbrett", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "kjokkenapparater", relevance: "secondary" },
+    ],
     brands: [
       { name: "Samsung", slug: "samsung", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/samsung/" },
       { name: "Sony", slug: "sony", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.power.no/sony/" },
+      { name: "Bosch", slug: "bosch", relevance: "secondary", confidence: "high", lastChecked: "2026-07-18", sourceUrl: "https://www.power.no/bosch/" },
     ],
     country: "NO",
     isNorwegian: true,
@@ -390,6 +409,10 @@ export const stores: Store[] = [
     notBestFor: ["Fysisk butikkopplevelse"],
     categories: [
       { main: "elektronikk-data-gaming", productType: "pc-data", relevance: "primary" },
+      { main: "elektronikk-data-gaming", productType: "mobil", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "nettbrett", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "lyd-bilde", relevance: "secondary" },
+      { main: "elektronikk-data-gaming", productType: "hvitevarer", relevance: "secondary" },
     ],
     brands: [
       { name: "Apple", slug: "apple", relevance: "secondary", confidence: "high", lastChecked: "2026-07-14", sourceUrl: "https://www.komplett.no/brand/Apple" },
@@ -658,7 +681,11 @@ export const stores: Store[] = [
     bestFor: ["Stort merkevareutvalg", "Mote og sko", "Gratis retur"],
     notBestFor: ["De som vil handle fra norsk aktør"],
     categories: [
-      { main: "klaer-sko-mote", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "sko", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "dameklaer", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "herreklaer", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "barneklaer", relevance: "secondary" },
+      { main: "klaer-sko-mote", productType: "jakker", relevance: "secondary" },
       { main: "sport-friluft-trening", relevance: "secondary" },
       { main: "utenlandske-nettbutikker", relevance: "secondary" },
     ],
@@ -793,7 +820,10 @@ export const stores: Store[] = [
     bestFor: ["Bredt sportsutvalg", "Klikk og hent i varehus", "Løpesko og treningsutstyr"],
     notBestFor: ["Smal teknisk friluftsnisje"],
     categories: [
-      { main: "sport-friluft-trening", relevance: "primary" },
+      { main: "sport-friluft-trening", productType: "lopesko", relevance: "primary" },
+      { main: "sport-friluft-trening", productType: "sykkel", relevance: "secondary" },
+      { main: "sport-friluft-trening", productType: "friluft", relevance: "secondary" },
+      { main: "sport-friluft-trening", productType: "jakt", relevance: "limited" },
       { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
@@ -965,7 +995,13 @@ export const stores: Store[] = [
     ],
     bestFor: ["Rimelige basisplagg", "Trendmote", "Klær til hele familien"],
     notBestFor: ["Premium kvalitet og holdbarhet"],
-    categories: [{ main: "klaer-sko-mote", relevance: "primary" }],
+    categories: [
+      { main: "klaer-sko-mote", productType: "dameklaer", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "herreklaer", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "barneklaer", relevance: "primary" },
+      { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
+      { main: "klaer-sko-mote", productType: "jakker", relevance: "secondary" },
+    ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -1105,6 +1141,7 @@ export const stores: Store[] = [
     categories: [
       { main: "sport-friluft-trening", productType: "lopesko", relevance: "primary" },
       { main: "sport-friluft-trening", productType: "sykkel", relevance: "secondary" },
+      { main: "sport-friluft-trening", productType: "friluft", relevance: "secondary" },
       { main: "klaer-sko-mote", productType: "sko", relevance: "secondary" },
     ],
     brands: [
@@ -1233,7 +1270,10 @@ export const stores: Store[] = [
     ],
     bestFor: ["Turutstyr og friluft", "Robuste produkter", "Jakt og uteliv"],
     notBestFor: ["Mote og bylivsklær", "Levering på dagen"],
-    categories: [{ main: "sport-friluft-trening", productType: "friluft", relevance: "primary" }],
+    categories: [
+      { main: "sport-friluft-trening", productType: "friluft", relevance: "primary" },
+      { main: "sport-friluft-trening", productType: "jakt", relevance: "secondary" },
+    ],
     brands: [
       { name: "Patagonia", slug: "patagonia", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.milrab.no/search?query=patagonia" },
     ],
@@ -1501,7 +1541,12 @@ export const stores: Store[] = [
     ],
     bestFor: ["Sminke og hudpleie", "Kjente skjønnhetsmerker", "Klikk og hent"],
     notBestFor: ["Apotekvarer og resept"],
-    categories: [{ main: "helse-skjonnhet-apotek", productType: "sminke", relevance: "primary" }],
+    categories: [
+      { main: "helse-skjonnhet-apotek", productType: "sminke", relevance: "primary" },
+      { main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "secondary" },
+      { main: "helse-skjonnhet-apotek", productType: "harpleie", relevance: "secondary" },
+      { main: "helse-skjonnhet-apotek", productType: "parfyme", relevance: "secondary" },
+    ],
     brands: [
       { name: "The Ordinary", slug: "the-ordinary", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.vita.no/merker" },
     ],
@@ -1625,7 +1670,13 @@ export const stores: Store[] = [
     ],
     bestFor: ["Apotekvarer på nett", "Reseptfrie legemidler", "Trygg helsehandel"],
     notBestFor: ["Bredt sminkeutvalg"],
-    categories: [{ main: "helse-skjonnhet-apotek", productType: "apotek", relevance: "primary" }],
+    categories: [
+      { main: "helse-skjonnhet-apotek", productType: "apotek", relevance: "primary" },
+      // Hudpleie er dokumentert i profilteksten. Sminke er bevisst IKKE lagt
+      // inn: profilen sier selv at «for et bredt sminkeutvalg finnes egne
+      // skjønnhetsbutikker».
+      { main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "secondary" },
+    ],
     brands: [
       { name: "Cerave", slug: "cerave", relevance: "secondary", confidence: "high", lastChecked: "2026-07-15", sourceUrl: "https://www.apotek1.no/varemerker/cerave-hudpleie" },
     ],
@@ -1752,7 +1803,12 @@ export const stores: Store[] = [
     ],
     bestFor: ["Bredt skjønnhetsutvalg", "Rask levering fra norsk lager", "Hudpleie og sminke"],
     notBestFor: ["Fysisk prøving utenfor Kristiansand-området"],
-    categories: [{ main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "primary" }],
+    categories: [
+      { main: "helse-skjonnhet-apotek", productType: "hudpleie", relevance: "primary" },
+      { main: "helse-skjonnhet-apotek", productType: "sminke", relevance: "primary" },
+      { main: "helse-skjonnhet-apotek", productType: "harpleie", relevance: "secondary" },
+      { main: "helse-skjonnhet-apotek", productType: "parfyme", relevance: "secondary" },
+    ],
     brands: [
       { name: "The Ordinary", slug: "the-ordinary", relevance: "primary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.blivakker.no/merker/the-ordinary" },
     ],
@@ -1922,6 +1978,9 @@ export const stores: Store[] = [
     notBestFor: ["Fysisk prøving utenfor butikkbyene"],
     categories: [
       { main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" },
+      { main: "baby-barn-leker", productType: "bilbarnesete", relevance: "secondary" },
+      { main: "baby-barn-leker", productType: "barneklaer", relevance: "secondary" },
+      { main: "baby-barn-leker", productType: "leker", relevance: "secondary" },
     ],
     brands: [
       { name: "LEGO", slug: "lego", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.jollyroom.no/" },
@@ -2051,7 +2110,13 @@ export const stores: Store[] = [
     ],
     bestFor: ["Trygg norsk barnehandel", "Bilstoler og vogner", "Rådgivning"],
     notBestFor: ["Lavest pris"],
-    categories: [{ main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" }],
+    categories: [
+      { main: "baby-barn-leker", productType: "babyutstyr", relevance: "primary" },
+      // Bilstoler er kjernesortiment – profilen har egen returregel for dem.
+      { main: "baby-barn-leker", productType: "bilbarnesete", relevance: "primary" },
+      { main: "baby-barn-leker", productType: "barneklaer", relevance: "secondary" },
+      { main: "baby-barn-leker", productType: "leker", relevance: "limited" },
+    ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -2302,9 +2367,15 @@ export const stores: Store[] = [
     ],
     bestFor: ["Hunde- og kattefôr", "Bredt dyreutvalg", "Klikk og hent"],
     notBestFor: ["Eksotiske dyr"],
-    categories: [{ main: "dyr-kjaeledyr", productType: "hund", relevance: "primary" }],
+    categories: [
+      { main: "dyr-kjaeledyr", productType: "hund", relevance: "primary" },
+      // Katt er dokumentert i profilteksten og utgjør om lag halve
+      // sortimentet – uten egen edge var «kattemat» kun et kategoritreff.
+      { main: "dyr-kjaeledyr", productType: "katt", relevance: "primary" },
+    ],
     brands: [
       { name: "Royal Canin", slug: "royal-canin", relevance: "secondary", confidence: "high", lastChecked: "2026-07-16", sourceUrl: "https://www.musti.no/royal-canin" },
+      { name: "Hill's", slug: "hills", relevance: "secondary", confidence: "high", lastChecked: "2026-07-18", sourceUrl: "https://www.musti.no/hills" },
     ],
     country: "NO",
     isNorwegian: true,
@@ -2486,7 +2557,11 @@ export const stores: Store[] = [
     ],
     bestFor: ["Senger og madrasser", "Rimelig interiør", "Klikk og hent"],
     notBestFor: ["Designmøbler i premiumsegmentet"],
-    categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
+    categories: [
+      { main: "hjem-interior-hage", productType: "senger", relevance: "primary" },
+      { main: "hjem-interior-hage", productType: "mobler", relevance: "primary" },
+      { main: "hjem-interior-hage", productType: "hage", relevance: "secondary" },
+    ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -2609,7 +2684,11 @@ export const stores: Store[] = [
     ],
     bestFor: ["Sofaer og møbler", "Norsk møbelkjede", "Hjemlevering og montering"],
     notBestFor: ["Lavprisinteriør"],
-    categories: [{ main: "hjem-interior-hage", productType: "mobler", relevance: "primary" }],
+    categories: [
+      { main: "hjem-interior-hage", productType: "mobler", relevance: "primary" },
+      { main: "hjem-interior-hage", productType: "senger", relevance: "secondary" },
+      { main: "hjem-interior-hage", productType: "hage", relevance: "secondary" },
+    ],
     country: "NO",
     isNorwegian: true,
     shipsToNorway: true,
@@ -3006,7 +3085,10 @@ export const stores: Store[] = [
     notBestFor: ["Leker og elektronikk der produktsikkerhet er avgjørende", "Kjøp der du vil ha norsk forhandler som motpart"],
     categories: [
       { main: "utenlandske-nettbutikker", relevance: "primary" },
-      { main: "hjem-interior-hage", relevance: "limited" },
+      // «hjem-interior-hage: limited» fjernet 2026-07-18: profilteksten
+      // dokumenterer ikke hjem-/interiørsortiment, og en markedsplass med
+      // skiftende tredjepartsutvalg skal ikke fremstilles som butikkført
+      // sortiment. Brede kategorisignaler beholdes bevisst få.
     ],
     country: "IE",
     isNorwegian: false,

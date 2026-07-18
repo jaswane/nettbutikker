@@ -20,6 +20,8 @@ export const brands: Brand[] = [
   { name: "The Ordinary", slug: "the-ordinary", aliases: ["the ordinary", "ordinary"], categories: ["helse-skjonnhet-apotek"] },
   { name: "Cerave", slug: "cerave", aliases: ["cerave"], categories: ["helse-skjonnhet-apotek"] },
   { name: "Royal Canin", slug: "royal-canin", aliases: ["royal canin"], categories: ["dyr-kjaeledyr"] },
+  { name: "Hill's", slug: "hills", aliases: ["hills", "hill's", "hills science plan"], categories: ["dyr-kjaeledyr"] },
+  { name: "Bosch", slug: "bosch", aliases: ["bosch"], categories: ["elektronikk-data-gaming", "hjem-interior-hage"] },
   { name: "Ray-Ban", slug: "ray-ban", aliases: ["ray-ban", "rayban"], categories: ["syn-briller-linser"] },
   { name: "IKEA", slug: "ikea", aliases: ["ikea"], categories: ["hjem-interior-hage"] },
   { name: "Levi's", slug: "levis", aliases: ["levis", "levi's"], categories: ["klaer-sko-mote"] },

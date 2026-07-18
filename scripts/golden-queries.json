@@ -42,9 +42,9 @@
     "understood": true,
     "resultCount": 5,
     "top": [
+      "xxl",
       "sport-1",
-      "fjellsport",
-      "xxl"
+      "fjellsport"
     ]
   },
   {
@@ -122,9 +122,9 @@
     "understood": true,
     "resultCount": 5,
     "top": [
+      "xxl",
       "sport-1",
-      "fjellsport",
-      "xxl"
+      "fjellsport"
     ]
   },
   {
@@ -164,11 +164,11 @@
     "filters": [],
     "intent": "category_recommendation",
     "understood": true,
-    "resultCount": 6,
+    "resultCount": 4,
     "top": [
       "bohus",
       "jysk",
-      "elkjop"
+      "rusta"
     ]
   },
   {

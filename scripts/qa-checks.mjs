@@ -220,6 +220,7 @@ try {
   // Reviewed, intentional cross-family ambiguities.
   const ALLOWED_COLLISIONS = new Set([
     "lego", // merkevare + leke-kategori/underkategori
+    "ipad", // Apple-merkealias + produkttypen nettbrett (samme mønster som lego)
     "temu", // butikk + alias for utenlandske-kategorien
     "amazon", // butikk + alias for utenlandske-kategorien
     "playstation", // Sony-merkealias + elektronikk-kategorialias
@@ -775,6 +776,79 @@ try {
 
   if (problems.length) fail(`Betingede claims: ${problems.join("; ")}`);
   else ok(`Betingede claims bærer vilkåret i badge + søk; interne noter lekker ikke (${TYPES.length} typer)`);
+}
+
+// --- 11i. Sortimentsdekning: recall + ærlige negative vakter -----------------
+// Sprint «Pre-domain assortment coverage» 2026-07-18. Positivkontrollene låser
+// at dokumenterte produktgrupper faktisk finner butikken; negativkontrollene
+// låser at vi IKKE later som vi fører noe. Begge retninger er nødvendige:
+// uten negativvaktene ville et bredere alias-vokabular se ut som framgang.
+{
+  const { searchStores } = await importTs("lib/search/searchStores.ts");
+  const problems = [];
+  const top = (q) => {
+    const r = searchStores(q, []);
+    return { slugs: r.results.map((x) => x.store.slug), r };
+  };
+
+  // Butikken SKAL kvalifisere for produktgrupper den dokumentert fører.
+  const MUST_INCLUDE = [
+    ["bilstol", "barnas-hus"], ["barnesete", "barnas-hus"], ["bilbarnesete", "jollyroom"],
+    ["overmadrass", "jysk"], ["madrasser", "jysk"], ["kontorstol", "jysk"],
+    ["nettbrett", "elkjop"], ["ipad", "elkjop"], ["tablet", "komplett"],
+    ["hårføner", "vita"], ["kattemat", "musti"], ["katt", "musti"],
+    ["parfyme", "vita"], ["parfyme", "blivakker"], ["barneklær", "hm"],
+    ["dameklær", "hm"], ["herreklær", "zalando"], ["hagemøbler", "jysk"],
+    ["hvitevarer", "power"], ["mobiltelefon", "power"], ["løpesko", "xxl"],
+    ["jaktutstyr", "milrab"], ["regntøy", "fjellsport"],
+  ];
+  for (const [q, slug] of MUST_INCLUDE) {
+    if (!top(q).slugs.includes(slug)) problems.push(`«${q}» finner ikke ${slug}`);
+  }
+
+  // Spesialisten skal vinne over generalisten på sin egen produkttype.
+  const MUST_RANK_FIRST = [
+    ["madrass", "jysk"], ["gaming-pc", "komplett"], ["hudpleie", "blivakker"],
+    ["sminke", "vita"], ["telt", "fjellsport"], ["lego", "lekekassen"],
+    ["bilstol", "barnas-hus"], ["kattemat", "musti"],
+  ];
+  for (const [q, slug] of MUST_RANK_FIRST) {
+    const got = top(q).slugs[0];
+    if (got !== slug) problems.push(`«${q}» topper med ${got}, forventet ${slug}`);
+  }
+
+  // Ærlig tomt: ingen verified-butikk dokumenterer verneutstyr eller skolesekk.
+  // Disse skal IKKE begynne å matche turstøvler eller barneutstyr.
+  for (const q of ["vernesko", "sikkerhetssko", "arbeidssko", "skolesekk"]) {
+    const { r } = top(q);
+    if (r.understood || r.results.length) {
+      problems.push(`«${q}» skal gi ærlig tomt resultat (fikk ${r.results.length} treff)`);
+    }
+  }
+
+  // Bred kategori skal ikke dra inn butikker uten sortimentet.
+  const MUST_NOT_INCLUDE = [
+    ["madrass", "elkjop"], ["seng", "elkjop"], ["hagemøbler", "elkjop"],
+    ["sofa", "elkjop"], ["madrass", "temu"],
+  ];
+  for (const [q, slug] of MUST_NOT_INCLUDE) {
+    if (top(q).slugs.includes(slug)) problems.push(`«${q}» inkluderer ${slug} uten dokumentert sortiment`);
+  }
+
+  // Oda selger middagsingredienser, ikke matkasser – svaret skal ikke påstå
+  // produkttypen når butikken mangler edgen.
+  {
+    const { r } = top("matkasse");
+    const claims = r.answer?.headline?.toLowerCase().includes("matkasse");
+    if (claims) problems.push("«matkasse»-overskriften påstår matkasse-sortiment");
+  }
+
+  if (problems.length) fail(`Sortimentsdekning: ${problems.join("; ")}`);
+  else
+    ok(
+      `Sortimentsdekning: ${MUST_INCLUDE.length} recall-, ${MUST_RANK_FIRST.length} spesialist- og ` +
+        `${MUST_NOT_INCLUDE.length + 5} negative vakter holder`,
+    );
 }
 
 // --- 12. Golden search regression (frozen baseline) --------------------------

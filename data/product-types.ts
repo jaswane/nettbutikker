@@ -42,6 +42,14 @@ export const productTypes: ProductType[] = [
     aliases: ["jakker", "vinterjakke", "regnjakke", "dunjakke", "allværsjakke", "skalljakke"],
     categories: ["klaer-sko-mote"],
   },
+  {
+    slug: "barneklaer",
+    name: "Barneklær",
+    // Egen type fordi barneklær kjøpes av en annen bruker enn dame-/herreklær
+    // og selges både av motekjeder og barnebutikker (kryss-kategori).
+    aliases: ["barneklær", "klær til barn", "babyklær", "barnetøy"],
+    categories: ["klaer-sko-mote", "baby-barn-leker"],
+  },
 
   // --- Sport, friluft og trening -------------------------------------------------
   {
@@ -61,16 +69,31 @@ export const productTypes: ProductType[] = [
   {
     slug: "friluft",
     name: "Friluftsutstyr",
-    aliases: ["friluft", "telt", "sovepose", "tursekk", "fjellsko"],
+    aliases: ["friluft", "telt", "sovepose", "tursekk", "fjellsko", "regntøy"],
     categories: ["sport-friluft-trening"],
     brandSlugs: ["norrona", "patagonia"],
+  },
+  {
+    slug: "jakt",
+    name: "Jaktutstyr",
+    // Stabil egen avdeling hos flere sport-/friluftsbutikker. Vokabularet
+    // holdes bevisst smalt: verneutstyr/arbeidssko er IKKE jakt, og ingen av
+    // dagens verified-butikker dokumenterer det sortimentet.
+    aliases: ["jakt", "jaktutstyr", "jaktklær"],
+    categories: ["sport-friluft-trening"],
   },
 
   // --- Hjem, interiør og hage ----------------------------------------------------
   {
     slug: "mobler",
     name: "Møbler",
-    aliases: ["møbler", "sofa", "stol", "bord", "spisebord"],
+    // «kontorstol»/«skrivebord» ligger her framfor i en egen kontortype: begge
+    // møbelkjedene har dokumentert kontoravdeling, og en egen type ville kun
+    // gjentatt de samme butikkene.
+    aliases: [
+      "møbler", "sofa", "stol", "bord", "spisebord",
+      "kontorstol", "kontorstoler", "skrivebord",
+    ],
     categories: ["hjem-interior-hage"],
   },
   {
@@ -88,7 +111,10 @@ export const productTypes: ProductType[] = [
   {
     slug: "senger",
     name: "Senger og madrasser",
-    aliases: ["seng", "senger", "madrass", "sengetøy", "dyne", "pute"],
+    aliases: [
+      "seng", "senger", "madrass", "madrasser", "overmadrass", "overmadrasser",
+      "sengetøy", "dyne", "pute",
+    ],
     categories: ["hjem-interior-hage"],
   },
   {
@@ -120,7 +146,17 @@ export const productTypes: ProductType[] = [
   {
     slug: "mobil",
     name: "Mobil",
-    aliases: ["mobil", "telefon", "smarttelefon"],
+    aliases: ["mobil", "mobiltelefon", "telefon", "smarttelefon"],
+    categories: ["elektronikk-data-gaming"],
+    brandSlugs: ["apple", "samsung"],
+  },
+  {
+    slug: "nettbrett",
+    name: "Nettbrett",
+    // Egen type, ikke alias under «mobil»: et nettbrett er ikke en telefon, og
+    // svaroverskriften ville ellers påstått «best på mobil» for et
+    // nettbrett-søk.
+    aliases: ["nettbrett", "tablet", "ipad", "lesebrett"],
     categories: ["elektronikk-data-gaming"],
     brandSlugs: ["apple", "samsung"],
   },
@@ -173,7 +209,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "bilbarnesete",
     name: "Bilbarnesete",
-    aliases: ["bilbarnesete", "bilstol til barn", "barnesete til bil", "bilseter til barn"],
+    // «bilstol» og «barnesete» er de vanligste norske søkeordene og manglet
+    // som frittstående aliaser – begge ga null treff før 2026-07-18.
+    aliases: [
+      "bilbarnesete", "bilbarneseter", "bilstol", "bilstoler",
+      "barnesete", "barneseter", "bilsete til barn",
+      "bilstol til barn", "barnesete til bil", "bilseter til barn",
+    ],
     categories: ["baby-barn-leker", "bil-bat-motor"],
   },
 
@@ -188,7 +230,13 @@ export const productTypes: ProductType[] = [
   {
     slug: "harpleie",
     name: "Hårpleie",
-    aliases: ["sjampo", "shampo", "balsam", "hårprodukter"],
+    aliases: ["sjampo", "shampo", "balsam", "hårprodukter", "hårføner", "hårfønere"],
+    categories: ["helse-skjonnhet-apotek"],
+  },
+  {
+    slug: "parfyme",
+    name: "Parfyme",
+    aliases: ["parfyme", "parfymer", "duft", "eau de parfum", "eau de toilette"],
     categories: ["helse-skjonnhet-apotek"],
   },
   {
